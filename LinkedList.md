@@ -1,10 +1,12 @@
 # Linked List
 - Tribe example for explaining linked list
-- linkedlist donot have index based access
+- Non-Linear Data Structure
+	- in order to get to the end of the list, we have to go through all of the items in the list in order, or sequentially
+- LinkedList donot have index based access
 - Arrays have index based access
 
 **Advantages**
-- Array give random access but LL dont
+- Array give random access but LL dont. 
 - Lesser storage required for arrays because ll also stores pointers
 - insertions in between nodes is easy in LL whereas insertion in between positions of array is difficult
 
@@ -16,13 +18,22 @@ class Node {
 	Node *next
 };
 ```
+**Time Complexity of Operations in LinkedList**
 
-Essential feature to know in the LL is head
+- Insertion 
+	- At front O(1)
+	- At end O(n) 
+	- At Middle O(k) ( Addition after kth Node)
+- Deletion
+	- At front O(1)
+	- At end O(n) ( If tail not present )
+	- At Middle O(k) ( Addition after kth Node)
 
-Can you insert a node in LL??
+- Traversal
+  	- O(n)
 
-Discussion for Insert at front, end, and in between in LL with algo in time complexity
-Discussion for Delete at front, end, and in between in LL with algo in time complexity
+*Essential feature to know in the LL is head**
+
 
 **Q - How to delete the complete list if we know the head??**
 In Java just delete the head, but in C or C++ there is no auto garbage collection, we will iteratively delete the nodes
@@ -129,20 +140,6 @@ class Solution {
 
 Analogy with Array that why LL will be better
 
-## Anshuman's Lecture Sequence
-- Implement queue using ll
-- Merge 2 sorted list (space efficient)
-- Mid Point 
-- Cycle in LinkedList
-	 - HashMap Approach 
-		 Time - O(n)
-		 Space - O(n)
-	 - Two pointer Approach 
-		 Time - O(n)
-- Find the starting point of Loop
-- Nth node from last
-- Intersection point of two linkedlist
-- Discuss Doubly Linked List
 
 **Q - You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.**
 ```cpp
