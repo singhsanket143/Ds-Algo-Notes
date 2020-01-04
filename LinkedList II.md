@@ -1,3 +1,6 @@
+#Swap Nodes in Pairs
+#Palindrome
+
 **Things to be careful of when solving questions of LinkedList**
 
 - Beware of Null Pointers (Take care of those cases )Check for corner cases
@@ -12,3 +15,7 @@
 
 **Q - Reverse the LinkedList**
  - Discuss all four approaches
+
+**Q - Reverse last K nodes**
+
+**Q - K Reverse**
