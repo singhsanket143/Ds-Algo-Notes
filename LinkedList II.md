@@ -1,21 +1,12 @@
-#Swap Nodes in Pairs
-#Palindrome
+**Q- Swap Nodes**
+**Q- Swap Nodes in Pairs**
+**Q- Flattening a Linked List**
+**Q- Reverse the LinkedList**
+    - Discuss all four approaches
+**Q- Reverse last K nodes**
+**Q- K Reverse**
+**Q- Palindrome**
+**Q- Longest Palindromic Sequence in a LinkedList**
+     10 -> 10 -> 2 -> 3 -> 7 -> 3 -> 2 -> 12 -> 20 -> x
+**Q- SubArray Median**
 
-**Things to be careful of when solving questions of LinkedList**
-
-- Beware of Null Pointers (Take care of those cases )Check for corner cases
-  
-- Head, tail of a LinkedList
-
-- pair of nodes: adjacent nodes
-
-- List with just one node
-
-**Q - Swap nodes in Doubly LinkedList**
-
-**Q - Reverse the LinkedList**
- - Discuss all four approaches
-
-**Q - Reverse last K nodes**
-
-**Q - K Reverse**
