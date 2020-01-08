@@ -150,7 +150,7 @@ Instead before adding 1 the value of min was equal to 2. So instead of pushing 1
 Stack becomes 2 -> 3 -> 4 -> -1 and the new min becomes , min = 1
 
 Now when we pop the stack we know if the element at top of stack is negative then removing this element will change the current min of stack. After popping we will update min as min = min - st.top() => min = 1 - (-1) = 2
-So min will be updated to 2 and stack becomes 2 -> 3 -> 4 -> -1
+So min will be updated to 2 and stack becomes 2 -> 3 -> 4
 
 But wait!!!
 This approach only work for stack having positive elements, what will we do if also have negative elements in the stack???? How to keep a check that when we are supposed to update the min????
@@ -173,7 +173,8 @@ Time Complexity: O(1)
 String: kabbal 
 Output: kl
 
-String: aaa
+**Special case**
+String: aaa 
 Output: a
 
 Time Complexity: O(string.length)
@@ -209,6 +210,7 @@ Time Complexity: O(n)
 Space Complexity: O(n)
 
 **Q-- Evaluate Infix Expression**
+1. Maintain two stacks, one for integers and one for operators
 
 ```java
          //Stack for numbers
@@ -295,12 +297,161 @@ The span Si of the stock’s price on a given day i is defined as the maximum nu
 
 For example, if an array of 7 days prices is given as {100, 80, 60, 70, 60, 75, 85}, then the span values for corresponding 7 days are {1, 1, 1, 2, 1, 4, 6}
 
+Approach 1 -> Brute Force 
+Time Complexity: O(n^2)
+Space Complexity: O(1)
+
+Approach 2 -> 
+
+If value at arr[i] > arr[i-1], then all the elements in the span of arr[j] will be included in my span, so it makes sense not to make those calculations again. We can simply jump back to that element which was not a part of span of arr[i-1]
+
+```java
+tatic void calculateSpan(int price[], int n, int S[]) 
+    { 
+        // Create a stack and push index of first element 
+        // to it 
+        Stack<Integer> st = new Stack<>(); 
+        st.push(0); 
+  
+        // Span value of first element is always 1 
+        S[0] = 1; 
+  
+        // Calculate span values for rest of th n; i++) { 
+  
+            // Pop elements from stack while stack is not 
+            // empty and top of stack is smaller than 
+            // price[i] 
+            while (!st.empty() && price[st.peek()] <= price[i]) 
+                st.pop(); 
+  
+            // If stack becomes empty, then price[i] is 
+            // greater than all elements on left of it, i.e., 
+            // price[0], price[1], ..price[i-1]. Else price[i] 
+            // is greater than elements after top of stack 
+            S[i] = (st.empty()) ? (i + 1) : (i - st.peek()); 
+  
+            // Push this element to stack 
+            st.push(i); 
+        } 
+    } 
+```
+Time Complexity: O(n)
+Space Complexity: O(n)
 
 
+Q- https://www.hackerearth.com/practice/data-structures/stacks/basics-of-stacks/practice-problems/algorithm/monk-and-order-of-phoenix/description/
+
+![Screenshot 2020-01-08 at 7 39 32 PM](https://user-images.githubusercontent.com/29747452/71984363-b7295a80-324e-11ea-8fc7-4452563fef71.png)
+![Screenshot 2020-01-08 at 7 27 14 PM](https://user-images.githubusercontent.com/29747452/71984364-b7c1f100-324e-11ea-8f09-239417073859.png)
+![Screenshot 2020-01-08 at 7 26 58 PM](https://user-images.githubusercontent.com/29747452/71984365-b7c1f100-324e-11ea-94c4-88c9e679f0f3.png)
 
 
-
-
+```cpp
+#include <bits/stdc++.h>
+#define ll long long
+using namespace std;
+const int ma = 1e5;
+vector < ll >  v[100];
+stack <ll> st;
+int n;
+int bs(int i, int val)
+{
+	int l = 0, r = v[i].size();
+	while(l<r)
+	{
+		int mid = (l+r)/2;
+		if(v[i][mid]>val)
+			r = mid;
+		else 
+			l = mid+1;
+	}
+	if(v[i][l]>val)
+		return l;
+	return -1;
+}
+bool check()
+{
+		ll cur = st.top();
+		for(int i=1;i<n;i++)
+		{
+			int ans = bs(i,cur);
+			if(ans==-1)
+				return false;
+			else
+				cur = v[i][ans];
+		}
+		return true;
+}
+int main()
+{
+	//freopen("in00.txt","r",stdin);
+	//freopen("out00.txt","w",stdout);
+	int x,y,q;
+	cin>>n;
+	for(int i=0;i<n;i++)
+	{
+		cin>>x;
+		for(int j=0;j<x;j++)
+		{
+			cin>>y;
+			v[i].push_back(y);
+		}
+	}
+	st.push(v[0][0]);
+	for(int i=1;i<v[0].size();i++)
+	{
+		if(v[0][i]<st.top())
+		{
+			st.push(v[0][i]);
+		}
+		else
+			st.push(st.top());
+	}
+	cin>>q;
+	ll ind,k,val;
+	int c=0;
+	for(int i=0;i<q;i++)
+	{
+		cin>>ind;
+		
+		if(ind==1)
+		{
+			cin>>k>>val;
+			k-=1;
+			v[k].push_back(val);
+			if(k==0)
+			{
+				
+				if(val<st.top())
+				{
+					st.push(val);
+				}
+				else
+				{
+					st.push(st.top());
+				}
+			}
+		}
+		else if(ind==0)
+		{
+			cin>>k;
+			k-=1;
+			v[k].pop_back();
+			if(k==0)
+				st.pop();
+		}
+		else
+		{
+			if(check())
+				cout<<"YES"<<endl;
+			else
+				cout<<"NO"<<endl;
+		}
+		
+	}
+	return 0;
+}
+```
 
 
 
