@@ -129,7 +129,15 @@ Space Complexity: O(1)
 Time Complexity: O(1)
 
 
-**Q- Remove duplicates in a string**
+**Q- Remove consecutive duplicates in a string**
+String: kabbal 
+Output: kl
+
+String: aaa
+Output: a
+
+Time Complexity: O(string.length)
+Space Complexity: O(string.length)
 
 **Q- Valid Paranthesis**
 
@@ -160,11 +168,99 @@ public boolean isValid(String s) {
 Time Complexity: O(n)
 Space Complexity: O(n)
 
+**Q-- Evaluate Infix Expression**
+
+```java
+         //Stack for numbers
+         Stack<Integer> numbers = new Stack<>();
+
+        //Stack for operators
+        Stack<Character> operations = new Stack<>();
+        
+        for(int i=0; i<expression.length();i++) {
+            char c = expression.charAt(i);
+            
+            //check if it is number
+            if(Character.isDigit(c)){
+                //Entry is Digit, it could be greater than one digit number
+                int num = 0;
+                while (Character.isDigit(c)) {
+                    num = num*10 + (c-'0');
+                    i++;
+                    if(i < expression.length())
+                        c = expression.charAt(i);
+                    else
+                        break;
+                }
+                i--;
+                //push it into stack
+                numbers.push(num);
+            }else if(c=='('){
+                //push it to operators stack
+                operations.push(c);
+            }
+            
+            
+            else if(c==')') {
+                while(operations.peek()!='('){
+                    int output = performOperation(numbers, operations);
+                    numbers.push(output);
+                }
+                operations.pop();
+            }
+            // current character is operator
+            else if(isOperator(c)){
+                operations.push(c);
+            }
+        }
+
+        while(!operations.isEmpty()){
+            int output = performOperation(numbers, operations);
+            numbers.push(output);
+        }
+        return numbers.pop();
+    }
+
+    public int performOperation(Stack<Integer> numbers, Stack<Character> operations) {
+        int a = numbers.pop();
+        int b = numbers.pop();
+        char operation = operations.pop();
+        switch (operation) {
+            case '+':
+                return a + b;
+            case '-':
+                return b - a;
+            case '*':
+                return a * b;
+            case '/':
+                if (a == 0)
+                    throw new
+                            UnsupportedOperationException("Cannot divide by zero");
+                return b / a;
+        }
+        return 0;
+    }
+
+    public boolean isOperator(char c){
+        return (c=='+'||c=='-'||c=='/'||c=='*'||c=='^');
+    }
+```
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+
 **Q- Stock Span Problem**
 
-**Q- Next Greater Element**
+The span Si of the stock’s price on a given day i is defined as the maximum number of consecutive days just before the given day, for which the price of the stock on the current day is less than or equal to its price on the given day.
 
-**Q- Remove Duplicate Letters**
+For example, if an array of 7 days prices is given as {100, 80, 60, 70, 60, 75, 85}, then the span values for corresponding 7 days are {1, 1, 1, 2, 1, 4, 6}
+
+
+
+
+
+
+
 
 
 
