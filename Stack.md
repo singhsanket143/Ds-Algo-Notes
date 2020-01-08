@@ -1,25 +1,30 @@
 
 ## Stack
+
 - Abstract Datatype
- Integers are also abstract datatype. 
 - Linear data structure 
+- Sequential Access
 - LIFO (Last In First Out)
 
 ### Stack Operations
+
 - Push
 - Pop
 ### Implementation of Stack
+
 - Array (Keep the two conditions in mind during interviews)
   - Stack Overflow
   - Stack Underflow
   - **Pros**: Easy to implement. Memory is saved as pointers are not involved.
   - **Cons**: It is not dynamic. It doesn’t grow and shrink depending on needs at runtime.
+  - Can use Vectors/ArrayList also
 - LinkedList
   - Push() - Add at head. O(1)
   - Pop() - Remove at Head. O(1)
-- Queue
+- Queue - Will discuss later
 
 ### Application of Stack
+
 - Recursion
 - Undo/Redo
 - Arithmetic Expression Evaluation
@@ -31,7 +36,9 @@
 - Iterative code better than recursion because you might run out of memory space. 
 
 **Q- Given only two operations i.e., push() and pop(), implement insertAtBottom() function**
+
 Approach 1: Using Extra Stack
+
 Approach 2: Using Recursion
 
 ```java
@@ -124,6 +131,39 @@ public void push(int x) {
 ```
 
 Approach 2: 
+
+Lets suppose than new element to be added is `x` and the old minimum is `min` 
+
+Now if x < min -> then we were pushing this into our auxillary stack, But here we are supposed to save the space. So in order to save the space what can think of? 
+May be we can take a varibale that can store current minimum, but the issue is if we will pop this element from the stack then we will loose access to the previous minimum
+
+Can we do something to store the value of previous minimum ??????
+
+If x < min, then x - min < 0 (i.e. value if x - min is negative)
+Now what we can do is instead of storing x in our space we can store x - min in our stack. Why because at any point of time we can extract the old minimum from the equation . How??
+
+2 -> 3 -> 4 -> 1
+
+After addition of 1 my current minimum will become 1, but if we pop() the stack and remove one how will you get 2??
+Instead before adding 1 the value of min was equal to 2. So instead of pushing 1, push 1 - 2 (i.e. x - min) equals to -1 in stack. 
+
+Stack becomes 2 -> 3 -> 4 -> -1 and the new min becomes , min = 1
+
+Now when we pop the stack we know if the element at top of stack is negative then removing this element will change the current min of stack. After popping we will update min as min = min - st.top() => min = 1 - (-1) = 2
+So min will be updated to 2 and stack becomes 2 -> 3 -> 4 -> -1
+
+But wait!!!
+This approach only work for stack having positive elements, what will we do if also have negative elements in the stack???? How to keep a check that when we are supposed to update the min????
+
+if x < min => x - min < 0 then adding x on both sides
+
+2x - min < x,
+
+i.e if x was the new min which is supposed to be lesser than all elements of stack, and 2x - min is lesser than x also then we can say that 2x - min can be stored in the stack!!!
+
+So whenever a new element comes which is less than our current min, store 2x - min in the stack and update min to be equal to x.
+How this handles negative elements, because now we no more need to trigger the update min action on encountering the negative element. When we see that ok, top of stack is less than current min, the before popping we update min to be 
+min = 2*min - st.top()
 
 Space Complexity: O(1)
 Time Complexity: O(1)
