@@ -341,10 +341,12 @@ Space Complexity: O(n)
 
 Q- https://www.hackerearth.com/practice/data-structures/stacks/basics-of-stacks/practice-problems/algorithm/monk-and-order-of-phoenix/description/
 
-![Screenshot 2020-01-08 at 7 39 32 PM](https://user-images.githubusercontent.com/29747452/71984363-b7295a80-324e-11ea-8fc7-4452563fef71.png)
-![Screenshot 2020-01-08 at 7 27 14 PM](https://user-images.githubusercontent.com/29747452/71984364-b7c1f100-324e-11ea-8f09-239417073859.png)
 ![Screenshot 2020-01-08 at 7 26 58 PM](https://user-images.githubusercontent.com/29747452/71984365-b7c1f100-324e-11ea-94c4-88c9e679f0f3.png)
 
+
+![Screenshot 2020-01-08 at 7 27 14 PM](https://user-images.githubusercontent.com/29747452/71984364-b7c1f100-324e-11ea-8f09-239417073859.png)
+
+![Screenshot 2020-01-08 at 7 39 32 PM](https://user-images.githubusercontent.com/29747452/71984363-b7295a80-324e-11ea-8fc7-4452563fef71.png)
 
 ```cpp
 #include <bits/stdc++.h>
