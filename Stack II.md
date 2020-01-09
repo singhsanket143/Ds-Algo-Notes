@@ -98,5 +98,18 @@ Input: [1,2,1]
 Output: [2,-1,2]
 
 
+**Q- Next Smaller Element 3**
 
-    
+**Q- Maximum area of a rectangle in a histogram**
+
+**Q- Remove Duplicates and answer should be lexicographically smallest**
+
+Input: bcabc
+Output: abc
+
+Input: cbacdcbc
+Output: acdb
+
+**Q- Decode an encrypted string**
+
+
