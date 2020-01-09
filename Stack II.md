@@ -65,11 +65,13 @@ static void printNGE(int arr[], int n)
             System.out.println(element + " -- " + next); 
         } 
 ```
-**Q-- Next Greater Element 2**
+Time Complexity: O(n) 
+Space Complexity: O(n)
 
-Input: nums1 = [4,1,2], nums2 = [1,3,4,2].
+**Q-- Next Greater Element II**
+
+Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
 Output: [-1,3,-1]
-
 ```java
 public int[] nextGreaterElement(int[] findNums, int[] nums) {
         Stack < Integer > stack = new Stack < > ();
@@ -91,7 +93,7 @@ public int[] nextGreaterElement(int[] findNums, int[] nums) {
 Time complexity : O(m+n)O(m+n)
 Space complexity : O(m+n)O(m+n).
 
-**Q- Next Greater Element 3**
+**Q- Next Greater Element III**
 
 Given a circular array (the next element of the last element is the first element of the array), print the Next Greater Number for every element. 
 f
@@ -99,7 +101,7 @@ Input: [1,2,1]
 Output: [2,-1,2]
 
 
-**Q- Next Smaller Element 3**
+**Q- Next Smaller Element**
 
 **Q- Maximum area of a rectangle in a histogram**
 
@@ -113,14 +115,13 @@ Output: acdb
 
 **Q- Decode an encrypted string**
 
+
 **Q- Number of Valid Subarrays**
 Given an array A of integers, return the number of non-empty continuous subarrays that satisfy the following condition:
 The leftmost element of the subarray is not larger than other elements in the subarray.
-
 Input: [1,4,2,5,3]
 Output: 11
 Explanation: There are 11 valid subarrays: [1],[4],[2],[5],[3],[1,4],[2,5],[1,4,2],[2,5,3],[1,4,2,5],[1,4,2,5,3].
- 
 ```java 
 public int validSubarrays(int[] nums) {
         int res = 0;
@@ -135,5 +136,5 @@ public int validSubarrays(int[] nums) {
         return res;
     }
 ```
-
-
+Time Complexity: O(n) 
+Space Complexity: O(n)
