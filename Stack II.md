@@ -1,5 +1,6 @@
 
-Difficuly problems on Stack....
+**Q- Stock Span Problem**
+In Stack notes.
 
 **Q- Next Greater Element I**
 
@@ -93,7 +94,7 @@ Space complexity : O(m+n)O(m+n).
 **Q- Next Greater Element 3**
 
 Given a circular array (the next element of the last element is the first element of the array), print the Next Greater Number for every element. 
-
+f
 Input: [1,2,1]
 Output: [2,-1,2]
 
@@ -111,5 +112,28 @@ Input: cbacdcbc
 Output: acdb
 
 **Q- Decode an encrypted string**
+
+**Q- Number of Valid Subarrays**
+Given an array A of integers, return the number of non-empty continuous subarrays that satisfy the following condition:
+The leftmost element of the subarray is not larger than other elements in the subarray.
+
+Input: [1,4,2,5,3]
+Output: 11
+Explanation: There are 11 valid subarrays: [1],[4],[2],[5],[3],[1,4],[2,5],[1,4,2],[2,5,3],[1,4,2,5],[1,4,2,5,3].
+ 
+```java 
+public int validSubarrays(int[] nums) {
+        int res = 0;
+        Stack<Integer> stack = new Stack<>();
+        for (int num : nums) {
+            while (!stack.isEmpty() && num < stack.peek()) {
+                stack.pop();
+            }
+            stack.push(num);
+            res += stack.size();
+        }
+        return res;
+    }
+```
 
 
