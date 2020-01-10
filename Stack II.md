@@ -40,7 +40,7 @@ tatic void calculateSpan(int price[], int n, int S[])
 Time Complexity: O(n)
 Space Complexity: O(n)
 
-**Q- Next Greater Element I**
+**Q2- Next Greater Element I**
 Find the just greater element on right side of each element.
 Ex - 4 5 2 25
 Ans- 5 25 25 -1
@@ -85,7 +85,7 @@ static void printNGE(int arr[], int n)
                 element = s.pop(); 
                 while (element < next)  
                 { 
-                    System.out.println(element + " --> " + next); 
+                    System.out.println(element + "-->" + next); 
                     if (s.isEmpty() == true) 
                         break; 
                     element = s.pop(); 
@@ -99,14 +99,14 @@ static void printNGE(int arr[], int n)
         { 
             element = s.pop(); 
             next = -1; 
-            System.out.println(element + " -- " + next); 
+            System.out.println(element + "-->" + next); 
         } 
 ```
 Time Complexity: O(n) 
 Space Complexity: O(n)
 
-**Q-- Next Greater Element II**
-
+**Q3- Next Greater Element II**
+Consider the case of circular array
 Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
 Output: [-1,3,-1]
 ```java
@@ -130,20 +130,38 @@ public int[] nextGreaterElement(int[] findNums, int[] nums) {
 Time complexity : O(m+n)O(m+n)
 Space complexity : O(m+n)O(m+n).
 
-**Q- Next Greater Element III**
+**Q4- Next Greater Element III**
 
 Given a circular array (the next element of the last element is the first element of the array), print the Next Greater Number for every element. 
 
 Input: [1,2,1]
 Output: [2,-1,2]
 
+```java
+public int[] nextGreaterElements(int[] nums) {
+        int[] res = new int[nums.length];
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 2 * nums.length - 1; i >= 0; --i) {
+            while (!stack.empty() && nums[stack.peek()] <= nums[i % nums.length]) {
+                stack.pop();
+            }
+            res[i % nums.length] = stack.empty() ? -1 : nums[stack.peek()];
+            stack.push(i % nums.length);
+        }
+        return res;
+    }
+```
+Time Complexity: O(n) 
+Space Complexity: O(n)
 
-**Q- Next Smaller Element**
+**Q5- Next Smaller Element**
 
-**Q- Maximum area of a rectangle in a histogram**
+**Q6- Maximum area of a rectangle in a histogram**
 Input: 7 bars of heights {6, 2, 5, 4, 5, 1, 6}
 Output: Max Area = 12
-**Q- Remove Duplicates and answer should be lexicographically smallest**
+
+**Q7- Maximal Rectangle**
+**Q8- Remove Duplicates and answer should be lexicographically smallest**
 
 Input: bcabc
 Output: abc
@@ -151,10 +169,10 @@ Output: abc
 Input: cbacdcbc
 Output: acdb
 
-**Q- Decode an encrypted string**
+**Q9- Decode an encrypted string**
 
 
-**Q- Number of Valid Subarrays**
+**Q10- Number of Valid Subarrays**
 Given an array A of integers, return the number of non-empty continuous subarrays that satisfy the following condition:
 The leftmost element of the subarray is not larger than other elements in the subarray.
 Input: [1,4,2,5,3]
@@ -176,3 +194,5 @@ public int validSubarrays(int[] nums) {
 ```
 Time Complexity: O(n) 
 Space Complexity: O(n)
+
+**Q11- Miscellaneous Question**
