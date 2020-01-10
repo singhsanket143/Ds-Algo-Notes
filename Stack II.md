@@ -147,7 +147,59 @@ Output: acdb
 
 **Q9- Decode an encrypted string**
 
+Given a String A and an integer B. String A is encoded consisting of lowercase English letters and numbers. A is encoded
+in a way where repetitions of substrings are represented as substring followed by the count of substrings.
 
+For example: if the encrypted string is “ab2cd2” and B=6, so the output will be ‘d’ because the decrypted string is
+“ababcdababcd” and
+4th character is ‘b’.
+
+You have to find and return the Bth character in the decrypted string.
+
+Note: Frequency of encrypted substring can be of more than one digit. For example,
+in “ab12c3”, ab is repeated 12 times. No leading 0 is present in the frequency of substring.
+
+```cpp
+string Solution::solve(string A, int B) {
+    stack < pair<string, int > > st;
+    int i, n = A.size();
+    int len = 0;
+    int num;
+    int k = B;
+    string curr;
+    string temp = "";
+    for(i=0; i<n; i++){
+        if(A[i] >= 'a' && A[i] <= 'z'){
+            len++;
+            curr = A[i];
+            st.push({curr, len});
+        }else{
+            num = 0;
+            while(i < n && A[i] >= '0' && A[i] <= '9'){
+                num = num*10;
+                num += A[i]-'0';
+                i++;
+            }
+            if(len*num >= k){
+                break;
+            }
+            len = len*num;
+            i--;
+        }
+    }
+    pair <string, int> p;
+    while(!st.empty()){
+        p = st.top();
+        st.pop();
+        
+        k = k%p.second;
+        if(k == 0){
+          return p.first;
+        }
+    }
+}
+
+```
 **Q10- Number of Valid Subarrays**
 
 Given an array A of integers, return the number of non-empty continuous subarrays that satisfy the following condition:
