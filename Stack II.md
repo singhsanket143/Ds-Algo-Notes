@@ -145,20 +145,70 @@ Output: abc
 Input: cbacdcbc
 Output: acdb
 
+For bab, you always want to remove the first b, because it is followed by a smaller character. 
+
+Now here we need to check 3 condiions:
+ - If we have already included a character and again the same occurs in our string then we won't consider it. How to achieve this??? Using a visited map
+ - If for an index i, if the character at i+1 is greater than character ar i, and the character at i+1 is not already visited, we will include in our ans by pushing over stack.
+ - Now for an index i, if the character at i+1 is smaller than that of at i, we will check that if the character at i, is going to be encounterted again to the right of i+1 or not. If not then do nothing, if yes then pop it our and wait for it's most significant spot to come.
+ 
+ How to check if a character is present later on or not????? Using a frequency map and after each iteration update it, this will show that after an iteration on a string how many characters are still left .
+ 
+```java
+class Solution {
+    public String removeDuplicateLetters(String s) {
+
+        Stack<Character> stack = new Stack<>();
+
+        // this lets us keep track of what's in our solution in O(1) time
+        HashSet<Character> seen = new HashSet<>();
+
+        // this will let us know if there are any more instances of s[i] left in s
+        HashMap<Character, Integer> last_occurrence = new HashMap<>();
+        for(int i = 0; i < s.length(); i++) last_occurrence.put(s.charAt(i), i);
+
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            // we can only try to add c if it's not already in our solution
+            // this is to maintain only one of each character
+            if (!seen.contains(c)){
+                // if the last letter in our solution:
+                //     1. exists
+                //     2. is greater than c so removing it will make the string smaller
+                //     3. it's not the last occurrence
+                // we remove it from the solution to keep the solution optimal
+                while(!stack.isEmpty() && c < stack.peek() && last_occurrence.get(stack.peek()) > i){
+                    seen.remove(stack.pop());
+                }
+                seen.add(c);
+                stack.push(c);
+            }
+        }
+    StringBuilder sb = new StringBuilder(stack.size());
+    for (Character c : stack) sb.append(c.charValue());
+    return sb.toString();
+    }
+}
+```
+Time Complexity: 0(length of string)
+Space Complexity: 0(1)
+
 **Q9- Decode an encrypted string**
 
 Given a String A and an integer B. String A is encoded consisting of lowercase English letters and numbers. A is encoded
 in a way where repetitions of substrings are represented as substring followed by the count of substrings.
 
-For example: if the encrypted string is “ab2cd2” and B=6, so the output will be ‘d’ because the decrypted string is
-“ababcdababcd” and
-4th character is ‘b’.
+Input: “ab2c3” k = 8
+Output: ababc ababc ababc  "a"
 
 You have to find and return the Bth character in the decrypted string.
 
 Note: Frequency of encrypted substring can be of more than one digit. For example,
 in “ab12c3”, ab is repeated 12 times. No leading 0 is present in the frequency of substring.
 
+Approach: We dont care about the characters that occur after k? Lets see how we can solve it without expanding the string. Do we see a pattern in this string? String repeated thrice. Lets say I have a string of substring length 5 which is repeated n times, then can we find the kth character by (k%5) i.e., (8%5) = 3. Now find 3rd character in ababc. We see again a pattern in this. A repeated subtring of length 2. So, now find 3%2. 
+
+((((1+1) * 2) + 1)*3)
 ```cpp
 string Solution::solve(string A, int B) {
     stack < pair<string, int > > st;
@@ -198,6 +248,9 @@ string Solution::solve(string A, int B) {
         }
     }
 }
+
+Time Complexity: 0(length of string)
+Space Complexity: 0(length of string)
 
 ```
 **Q10- Number of Valid Subarrays**
