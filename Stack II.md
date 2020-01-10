@@ -173,11 +173,14 @@ Output: acdb
 
 
 **Q10- Number of Valid Subarrays**
+
 Given an array A of integers, return the number of non-empty continuous subarrays that satisfy the following condition:
 The leftmost element of the subarray is not larger than other elements in the subarray.
 Input: [1,4,2,5,3]
 Output: 11
 Explanation: There are 11 valid subarrays: [1],[4],[2],[5],[3],[1,4],[2,5],[1,4,2],[2,5,3],[1,4,2,5],[1,4,2,5,3].
+
+
 ```java 
 public int validSubarrays(int[] nums) {
         int res = 0;
@@ -198,3 +201,40 @@ Space Complexity: O(n)
 **Q11- Miscellaneous Question**
 
 http://codeforces.com/contest/797/problem/c
+
+
+```java
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<stack>
+using namespace std;
+const int N=1e5+5;
+int main()
+{
+    char s[N];
+    gets(s);
+    int n=strlen(s);
+    char best[N];
+    best[n]='z';
+    for(int i=n-1;i>=0;i--)
+    {
+        best[i]=min(best[i+1],s[i]);
+    }
+    stack<char>v;
+    int cur=0;
+    while(!v.empty()||cur<n)
+    {
+        if(!v.empty()&&v.top()<=best[cur])
+        {
+            putchar(v.top());
+             v.pop();
+        }
+        else v.push(s[cur++]);
+    } 
+    cout<<endl;
+    return 0;
+}
+```
+Time Complexity: O(n)
+Space Complexity: O(n)
