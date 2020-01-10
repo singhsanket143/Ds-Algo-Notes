@@ -130,30 +130,6 @@ public int[] nextGreaterElement(int[] findNums, int[] nums) {
 Time complexity : O(m+n)O(m+n)
 Space complexity : O(m+n)O(m+n).
 
-**Q4- Next Greater Element III**
-
-Given a circular array (the next element of the last element is the first element of the array), print the Next Greater Number for every element. 
-
-Input: [1,2,1]
-Output: [2,-1,2]
-
-```java
-public int[] nextGreaterElements(int[] nums) {
-        int[] res = new int[nums.length];
-        Stack<Integer> stack = new Stack<>();
-        for (int i = 2 * nums.length - 1; i >= 0; --i) {
-            while (!stack.empty() && nums[stack.peek()] <= nums[i % nums.length]) {
-                stack.pop();
-            }
-            res[i % nums.length] = stack.empty() ? -1 : nums[stack.peek()];
-            stack.push(i % nums.length);
-        }
-        return res;
-    }
-```
-Time Complexity: O(n) 
-Space Complexity: O(n)
-
 **Q5- Next Smaller Element**
 
 **Q6- Maximum area of a rectangle in a histogram**
