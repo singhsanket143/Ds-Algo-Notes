@@ -3,6 +3,7 @@
 In Stack notes.
 
 **Q- Next Greater Element I**
+Find the just greater element on right side of each element
 
 Ex - 4 5 2 25
 Ans- 5 25 25 -1
