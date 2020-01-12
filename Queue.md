@@ -65,40 +65,26 @@ public:
 		return arr[front];
 	}
 };
-int main(int argc, char const *argv[])
-{
-	Queue q;
-	for(int i=1;i<=6;i++) {
-		q.enqueue(i);
-	}
-	q.dequeue();
-	q.enqueue(8);
-	while(!q.isEmpty()) {
-		cout<<q.getFront()<<endl;
-		q.dequeue();
-	}
-	return 0;
-}
-
-  
-
 
 ```
-  
 - LinkedList
-
+	Enqueue - Add at head. O(n) if no tail pointer otherwise O(1)
+	Dequeue - O(1)
 - Stack ( 2 ways of implementation )
 
-- Implementation of Circular Queue
 
 ### Double Ended Queue
 
-- A very powerful data structure
+- A very powerful data structure. 
+	insertFront(): Adds an item at the front of Deque.
+	insertLast(): Adds an item at the rear of Deque.
+	deleteFront(): Deletes an item from front of Deque.
+	deleteLast(): Deletes an item from rear of Deque.
+- Supports both stack and queue operations. 
 - Implementation of Circular Double Ended Queue
-  - Array
-    - Have spacial Locality
-  - LinkedList
-    - Easy to resize
+  - Circular Array
+  - Doubly LinkedList
+  
 **Q1 - Print all binary numbers upto d digits**
 Input: 3
 Output: 0 1 10 11 100 101 110 111
@@ -106,12 +92,11 @@ Output: 0 1 10 11 100 101 110 111
 **Q2- Given some N, and some digits 1, 2...k, find the first N numbers that can be formed from these digits. 
 
 Note: You can do level order traversal (BFS) using queue. 
-
-
     
 **Q3- Given arr[n] and window size k, find max for every window of size k. 
 
 **Q4- Given a stream of characters and we have to find first non repeating character each time a character is inserted to the stream**
+
 **Q5- Shortest Subarray with Sum at Least K**
 
 
