@@ -1,26 +1,44 @@
 ## Queue
 
-- First In first Out
 - Linear Data Structure
+- First In first Out
 
 ### Operations:
 
-- Enqueue
-- Dequeue
+(Mention overflow and underflow conditions)
+- Enqueue()
+- Dequeue()
 
-**Q1 - Print all binary numbers upto d digits**
-Input: 3
-Output: 0 1 10 11 100 101 110 111
+### Applications
 
-**Q2- Given some N, and some digits 1, 2...k, find the first N numbers that can be formed from these digits. 
-
-Note: You can do level order traversal (BFS) using queue. 
+- CPU Scheduling
+- Disk Scheduling
+- In real life scenario, Call Center phone systems uses Queues to hold people calling them in an order, until a service representative is free.
 
 ### Implementation
+
 - Array
   Maintain two pointers: Front and end. 
   Both will point to -1 in the end.
+  Enqueue -> rear, Deequeue -> rear
+  Problems  
+    - not being able to dynamically resize. 
+    - front becomes equal to rear even when array is empty. 
+- Circular Array
 
+```java
+//Initialisation
+  
+  front = -1;
+  rear = -1;
+  
+// Enqueue
+
+  
+
+
+```
+  
 - LinkedList
 
 - Stack ( 2 ways of implementation )
@@ -35,6 +53,15 @@ Note: You can do level order traversal (BFS) using queue.
     - Have spacial Locality
   - LinkedList
     - Easy to resize
+**Q1 - Print all binary numbers upto d digits**
+Input: 3
+Output: 0 1 10 11 100 101 110 111
+
+**Q2- Given some N, and some digits 1, 2...k, find the first N numbers that can be formed from these digits. 
+
+Note: You can do level order traversal (BFS) using queue. 
+
+
     
 **Q3- Given arr[n] and window size k, find max for every window of size k. 
 
