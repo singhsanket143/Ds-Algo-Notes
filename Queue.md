@@ -95,8 +95,66 @@ Note: You can do level order traversal (BFS) using queue.
     
 **Q3- Given arr[n] and window size k, find max for every window of size k. 
 
-**Q4- Given a stream of characters and we have to find first non repeating character each time a character is inserted to the stream**
+static void printMax(int arr[], int n, int k) 
+    { 
+        
+        Deque<Integer> Qi = new LinkedList<Integer>(); 
+  
+       
+        int i; 
+        for (i = 0; i < k; ++i) { 
+           
+            while (!Qi.isEmpty() && arr[i] >= arr[Qi.peekLast()]) 
+                Qi.removeLast(); // Remove from rear 
+  
+            
+            Qi.addLast(i); 
+        } 
+  
+        
+        for (; i < n; ++i) { 
+           
+            System.out.print(arr[Qi.peek()] + " "); 
+  
+           
+            while ((!Qi.isEmpty()) && Qi.peek() <= i - k) 
+                Qi.removeFirst(); 
 
+            while ((!Qi.isEmpty()) && arr[i] >= arr[Qi.peekLast()]) 
+                Qi.removeLast(); 
+  
+            // Add current element at the rear of Qi 
+            Qi.addLast(i); 
+        } 
+  
+        // Print the maximum element of last window 
+        System.out.print(arr[Qi.peek()]); 
+    } 
+
+**Q4- Given a stream of characters and we have to find first non repeating character each time a character is inserted to the stream**
+```java
+    static void firstNonRepeating(String str) 
+    { 
+        int[] charCount = new int[MAX_CHAR]; 
+        Queue<Character> q = new LinkedList<Character>(); 
+        for (int i = 0; i < str.length(); i++) { 
+            char ch = str.charAt(i);
+            q.add(ch); 
+            charCount[ch - 'a']++;  
+            while (!q.isEmpty()) { 
+                if (charCount[q.peek() - 'a'] > 1) 
+                    q.remove(); 
+                else { 
+                    System.out.print(q.peek() + " "); 
+                    break; 
+                } 
+            } 
+            if (q.isEmpty()) 
+                System.out.print(-1 + " "); 
+        } 
+        System.out.println(); 
+    } 
+```
 **Q5- Shortest Subarray with Sum at Least K**
 
 
