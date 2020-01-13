@@ -457,24 +457,6 @@ public Node connect(Node root) {
 
 _Approach 2:_
 
-Intuition
-
-```java
-leftmost = root
- while (leftmost.left != null)
- {
-     head = leftmost
-     while (head.next != null)
-     {
-         1) Establish Connection 1
-         2) Establish Connection 2 using next pointers
-         head = head.next
-     }
-     leftmost = leftmost.left
- }
-
-```
-Code: 
 ```java
 
  Node prev, leftmost;
@@ -533,3 +515,5 @@ Space Complexity: O(1)
 **Codechef - Joker vs Batman**
 
 https://www.codechef.com/problems/CDIT04
+
+- Trees
