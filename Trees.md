@@ -102,7 +102,7 @@ void inorder()
 Inorder sequence: D B E A F C
 Preorder sequence: A B D E C F
 
-**Q8- Given a BT, check if it is balancd or not?**
+**Q8- Given a BT, check if it is balanced or not?**
 
 **Q9- Merge two binary trees**
 
@@ -126,6 +126,22 @@ class Solution {
 }
 ```
 **Q10- Invert Binary Tree**
+
+```java
+	public TreeNode invertTree(TreeNode root) {
+        if(root == null){
+            return null;   
+        }
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+        
+        root.right = left;
+        root.left = right;
+        
+        return root;
+    }
+
+```
 
 **Q11- Star problem of the day**
 
