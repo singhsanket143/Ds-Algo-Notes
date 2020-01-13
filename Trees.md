@@ -32,6 +32,7 @@ A degenerate (or pathological) tree A Tree where every internal node has one chi
 Time Complexity : O(n)
 Space Complexity: O(n)
 
+
 ```java
 //Recursion
 
@@ -91,6 +92,7 @@ void inorder()
 ```
 Time Complexity: O(n)
 Space Complexity: O(n)
+
 **Q1- LevelOrder Linewise**
 ```java
 private void levelorderLineWise(Node node) {
@@ -122,6 +124,7 @@ private void levelorderLineWise(Node node) {
 ```
 Time Complexity: O(n)
 Space Complexity: O(n)
+
 **Q2- LeverOrder Linewise ZigZag**
 ```java
 public void levelorderZigZag() {
@@ -230,6 +233,7 @@ private int sumofnodes(Node node) {
 ```
 Time Complexity: O(n)
 Space Complexity: O(n)
+
 **Q6- Structurally Identical**
 ```java
 private boolean structurallyIdentical(Node tnode, Node onode) {
@@ -247,6 +251,9 @@ private boolean structurallyIdentical(Node tnode, Node onode) {
 		return l && r;
 	}
 ```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
 **Q7- Construct Binary Tree using Inorder and PreOrder**
 Inorder sequence: D B E A F C
 Preorder sequence: A B D E C F
@@ -281,6 +288,10 @@ private Node construct(int[] pre, int[] in, int plo, int phi, int ilo, int ihi) 
 
 	}
 ```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+
 **Q8- Given a BT, check if it is balanced or not?**
 ```java
 private class BalancePair {
@@ -326,6 +337,10 @@ private class BalancePair {
 		return mp;
 	}
 ```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+
 **Q9- Merge two binary trees**
 
 ```java
@@ -347,6 +362,10 @@ class Solution {
     }
 }
 ```
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+
 **Q10- Invert Binary Tree**
 
 ```java
@@ -364,6 +383,9 @@ class Solution {
     }
 
 ```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
 
 **Q11- Star problem of the day**
 Given a binary tree
@@ -430,6 +452,10 @@ Initially, all next pointers are set to NULL.
         return root ;
     }
 ```
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
 
 **Codechef - Joker vs Batman**
 
