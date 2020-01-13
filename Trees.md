@@ -3,6 +3,7 @@
 - Hierarchial data structure
 - Linear traversal not possible like in case of Linkedlist. 
 - We have two possible directions we can move in (no linear way of traversal possible)
+- Relationships - Parent-child, sibling, grandfather, root. 
 
 ### Application
  - File system components
@@ -124,7 +125,8 @@ class Solution {
     }
 }
 ```
+**Q10- Invert Binary Tree**
 
-**Q10- Star problem of the day**
+**Q11- Star problem of the day**
 
-**
+
