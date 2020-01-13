@@ -87,23 +87,229 @@ void inorder()
 ```
 
 **Q1- LevelOrder Linewise**
+```java
+private void levelorderLineWise(Node node) {
 
+		LinkedList<Node> primaryq = new LinkedList<>();
+		LinkedList<Node> helperq = new LinkedList<>();
+
+		primaryq.addLast(node);
+
+		while (!primaryq.isEmpty()) {
+
+			Node pp = primaryq.removeFirst();
+			System.out.print(pp.data + " ");
+
+			if (pp.left != null)
+				helperq.addLast(pp.left);
+
+			if (pp.right != null)
+				helperq.addLast(pp.right);
+
+			if (primaryq.size() == 0) {
+				System.out.println();
+				primaryq = helperq;
+				helperq = new LinkedList<>();
+			}
+
+		}
+	}
+```
 **Q2- LeverOrder Linewise ZigZag**
+```java
+public void levelorderZigZag() {
+
+		LinkedList<Node> queue = new LinkedList<>();
+		LinkedList<Node> stack = new LinkedList<>();
+
+		queue.add(this.root);
+		int count = 0;
+
+		while (!queue.isEmpty()) {
+
+			Node pp = queue.removeFirst();
+			System.out.print(pp.data + " ");
+
+			if (count % 2 == 0) {
+
+				if (pp.left != null)
+					stack.addFirst(pp.left);
+				if (pp.right != null)
+					stack.addFirst(pp.right);
+			}
+
+			else {
+
+				if (pp.right != null)
+					stack.addFirst(pp.right);
+				if (pp.left != null)
+					stack.addFirst(pp.left);
+
+			}
+
+			if (queue.size() == 0) {
+
+				count++;
+				queue = stack;
+				stack = new LinkedList<>();
+			}
+		}
+
+	}
+```
 
 **Q3- Height of Binary Tree**
+```java
+private int height(Node node) {
 
+		if (node == null) { // base case
+			return -1;
+		}
+
+		int lh = height(node.left);
+		int rh = height(node.right);
+
+		return Math.max(lh, rh) + 1;
+	}
+
+```
 **Q4- Find a element in Binary Tree**
+```java
+private boolean find(Node node, int item) {
+
+		if (node == null) {
+			return false;
+		}
+
+		if (node.data == item)
+			return true;
+
+		boolean lresult = find(node.left, item);
+
+		if (lresult) {
+			return true;
+		}
+
+		boolean rresult = find(node.right, item);
+
+		if (rresult) {
+			return true;
+		}
+
+		return false;
+	}
+```
 
 **Q5- Sum of nodes of Binary Tree**
+```java
+private int sumofnodes(Node node) {
 
+		if (node == null)
+			return 0;
+
+		int lsum = sumofnodes(node.left);
+		int rsum = sumofnodes(node.right);
+
+		return lsum + rsum + node.data;
+
+	}
+```
 **Q6- Structurally Identical**
+```java
+private boolean structurallyIdentical(Node tnode, Node onode) {
 
+		if (tnode == null && onode == null) {
+			return true;
+		}
+		if (tnode == null || onode == null) {
+			return false;
+		}
+
+		boolean l = structurallyIdentical(tnode.left, onode.left);
+		boolean r = structurallyIdentical(tnode.right, onode.right);
+
+		return l && r;
+	}
+```
 **Q7- Construct Binary Tree using Inorder and PreOrder**
 Inorder sequence: D B E A F C
 Preorder sequence: A B D E C F
+```java
+private Node construct(int[] pre, int[] in, int plo, int phi, int ilo, int ihi) {
 
+		if (plo > phi) { // base case
+			return null;
+		}
+		// make a new node
+		Node nn = new Node();
+		nn.data = pre[plo]; // first node of preorder array will be root node
+		// increment size
+		this.size++;
+		int s = -1;
+		// search the node in inorder array
+		for (int i = ilo; i <= ihi; i++) {
+
+			if (pre[plo] == in[i]) {
+				s = i;
+				break;
+			}
+		}
+
+		int a = s - ilo;
+		// node left
+		nn.left = construct(pre, in, plo + 1, plo + a, ilo, s - 1);
+		// node right
+		nn.right = construct(pre, in, plo + a + 1, phi, s + 1, ihi);
+
+		return nn;
+
+	}
+```
 **Q8- Given a BT, check if it is balanced or not?**
+```java
+private class BalancePair {
 
+		int height;
+		boolean isBalanced;
+
+	}
+
+	public boolean isBalanced() {
+
+		return this.isBalanced(this.root).isBalanced;
+	}
+
+	private BalancePair isBalanced(Node node) {
+
+		if (node == null) {
+
+			BalancePair bp = new BalancePair();
+			bp.height = -1;
+			bp.isBalanced = true;
+			return bp;
+		}
+
+		BalancePair lbp = isBalanced(node.left);
+		BalancePair rbp = isBalanced(node.right);
+
+		int lh = lbp.height;
+		int rh = rbp.height;
+
+		BalancePair mp = new BalancePair();
+
+		mp.height = Math.max(lh, rh) + 1;
+
+		if (Math.abs(lh - rh) <= 1 && lbp.isBalanced && rbp.isBalanced) {
+
+			mp.isBalanced = true;
+
+		} else {
+
+			mp.isBalanced = false;
+		}
+		return mp;
+	}
+```
 **Q9- Merge two binary trees**
 
 ```java
@@ -144,5 +350,18 @@ class Solution {
 ```
 
 **Q11- Star problem of the day**
+Given a binary tree
 
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
+}
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
 
+Initially, all next pointers are set to NULL.
+
+```java
+
+```
