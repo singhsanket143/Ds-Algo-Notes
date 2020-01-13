@@ -430,3 +430,7 @@ Initially, all next pointers are set to NULL.
         return root ;
     }
 ```
+
+**Codechef - Joker vs Batman**
+
+https://www.codechef.com/problems/CDIT04
