@@ -351,17 +351,66 @@ class Solution {
 
 **Q11- Star problem of the day**
 Given a binary tree
-
+```java
 struct Node {
   int val;
   Node *left;
   Node *right;
   Node *next;
 }
+
+```
 Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
 
 Initially, all next pointers are set to NULL.
 
 ```java
 
+ Node prev, leftmost;
+    
+    public void processChild(Node childNode) {
+        
+        if (childNode != null) {
+            if (this.prev != null) {
+                this.prev.next = childNode;
+                    
+            } else {
+                
+                this.leftmost = childNode;
+            }    
+                
+            this.prev = childNode; 
+        }
+    }
+        
+    public Node connect(Node root) {
+        
+        if (root == null) {
+            return root;
+        }
+        
+        this.leftmost = root;
+        
+     
+        Node curr = leftmost;
+        
+      
+        while (this.leftmost != null) {
+        
+            this.prev = null;
+            curr = this.leftmost;
+            
+            this.leftmost = null;
+        
+            while (curr != null) {
+         
+                this.processChild(curr.left);
+                this.processChild(curr.right);
+                
+                curr = curr.next;
+            }
+        }
+                
+        return root ;
+    }
 ```
