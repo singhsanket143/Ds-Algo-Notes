@@ -1,5 +1,6 @@
 ## Binary Tree
 ### Introduction
+- Recursive Data Structure
 - Hierarchial data structure
 - Linear traversal not possible like in case of Linkedlist. 
 - We have two possible directions we can move in (no linear way of traversal possible)
@@ -12,7 +13,7 @@
  - URL lookups
  
 ### Properties
-1) The maximum number of nodes at level ‘l’ of a binary tree is 2l-1.
+1) The maximum number of nodes at level ‘l’ of a binary tree is 2^(l-1).
 
 2) Maximum number of nodes in a binary tree of height ‘h’ is 2h – 1.
 
@@ -27,6 +28,9 @@ A degenerate (or pathological) tree A Tree where every internal node has one chi
 - Postorder   LRN
 - Preorder    NLR
 - Level order 
+
+Time Complexity : O(n)
+Space Complexity: O(n)
 
 ```java
 //Recursion
@@ -85,7 +89,8 @@ void inorder()
 
 	}
 ```
-
+Time Complexity: O(n)
+Space Complexity: O(n)
 **Q1- LevelOrder Linewise**
 ```java
 private void levelorderLineWise(Node node) {
@@ -115,6 +120,8 @@ private void levelorderLineWise(Node node) {
 		}
 	}
 ```
+Time Complexity: O(n)
+Space Complexity: O(n)
 **Q2- LeverOrder Linewise ZigZag**
 ```java
 public void levelorderZigZag() {
@@ -157,6 +164,8 @@ public void levelorderZigZag() {
 
 	}
 ```
+Time Complexity: O(n)
+Space Complexity: O(n)
 
 **Q3- Height of Binary Tree**
 ```java
@@ -173,6 +182,9 @@ private int height(Node node) {
 	}
 
 ```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
 **Q4- Find a element in Binary Tree**
 ```java
 private boolean find(Node node, int item) {
@@ -199,6 +211,8 @@ private boolean find(Node node, int item) {
 		return false;
 	}
 ```
+Time Complexity: O(n)
+Space Complexity: O(n)
 
 **Q5- Sum of nodes of Binary Tree**
 ```java
@@ -214,6 +228,8 @@ private int sumofnodes(Node node) {
 
 	}
 ```
+Time Complexity: O(n)
+Space Complexity: O(n)
 **Q6- Structurally Identical**
 ```java
 private boolean structurallyIdentical(Node tnode, Node onode) {
