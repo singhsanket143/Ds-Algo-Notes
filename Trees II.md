@@ -7,3 +7,16 @@ _Design an algorithm to serialize and deserialize a binary tree. There is no res
 **Q2- Left View of Binary Tree**
 
 **Q3- Least Common Ancestor**
+
+**Q4- Binary Tree Maximum Path Sum**
+ 
+**Q5- Sum Root to Leaf Numbers**
+
+**Q6- Root to Leaf Paths With Sum**
+ 
+**Q7- Valid Binary Search Tree**
+ 
+ 
+**Q8- Path Sum**
+ 
+**Q9- Vertical Order traversal of Binary Tree**
