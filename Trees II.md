@@ -1,51 +1,5 @@
-**Q1- Serialize and Deserialize Binary Tree**
 
-_Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment._
-
-_Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure._ 
-
-```java
-//Serialize
-public String rserialize(TreeNode root, String str) {
-    // Recursive serialization.
-    if (root == null) {
-      str += "null,";
-    } else {
-      str += str.valueOf(root.val) + ",";
-      str = rserialize(root.left, str);
-      str = rserialize(root.right, str);
-    }
-    return str;
-  }
-
-  // Encodes a tree to a single string.
-  public String serialize(TreeNode root) {
-    return rserialize(root, "");
-  }
-
-// Deserialize
-    if (l.get(0).equals("null")) {
-      l.remove(0);
-      return null;
-    }
-
-    TreeNode root = new TreeNode(Integer.valueOf(l.get(0)));
-    l.remove(0);
-    root.left = rdeserialize(l);
-    root.right = rdeserialize(l);
-
-    return root;
-  }
-
-  // Decodes your encoded data to tree.
-  public TreeNode deserialize(String data) {
-    String[] data_array = data.split(",");
-    List<String> data_list = new LinkedList<String>(Arrays.asList(data_array));
-    return rdeserialize(data_list);
-  }
-```
-
-**Q2- Diameter of Binary Tree**
+**Q1- Diameter of Binary Tree**
 
 Given a binary tree, you need to compute the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
 
@@ -105,7 +59,7 @@ public class Diapair{
     }
 ```
 
-**Q3- Left View of Binary Tree**
+**Q2- Left View of Binary Tree**
 ```java
 static void leftViewUtil( node root ) 
 { 
@@ -138,7 +92,7 @@ static void leftViewUtil( node root )
 } 
 
 ```
-**Q4- Right View of Binary Tree**
+**Q3- Right View of Binary Tree**
 
 Same as before. 
 ```java
@@ -172,9 +126,9 @@ public List<Integer> rightSideView(TreeNode root) {
     }
 ```
 
-**Q5- Lowest Common Ancestor**
+**Q4- Lowest Common Ancestor**
 
-**Q6- Path Sum**
+**Q5- Path Sum**
 
 ![Screenshot 2020-01-15 at 4 53 30 PM](https://user-images.githubusercontent.com/35702912/72430250-dd537b00-37b7-11ea-9a08-15b92b24279d.png)
 
@@ -197,12 +151,68 @@ public boolean hasPathSum(TreeNode root, int sum) {
     }
 ```
 
-**Q7- Path Sum**
-Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+**Q6- Binary Tree Maximum Path Sum**
+Given a non-empty binary tree, find the maximum path sum.
 
-**Q8- Binary Tree Maximum Path Sum**
+For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.
  
-**Q9- Vertical Order traversal of Binary Tree**
+**Q7 (Optional)- Vertical Order traversal of Binary Tree**
+
+**Q8 (Optional)- Maximum Width of Binary Tree**
 
 **Star Problem of the day**
 
+_Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment._
+
+_Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure._ 
+
+```java
+//Serialize
+public String rserialize(TreeNode root, String str) {
+    // Recursive serialization.
+    if (root == null) {
+      str += "null,";
+    } else {
+      str += str.valueOf(root.val) + ",";
+      str = rserialize(root.left, str);
+      str = rserialize(root.right, str);
+    }
+    return str;
+  }
+
+  // Encodes a tree to a single string.
+  public String serialize(TreeNode root) {
+    return rserialize(root, "");
+  }
+
+// Deserialize
+    if (l.get(0).equals("null")) {
+      l.remove(0);
+      return null;
+    }
+
+    TreeNode root = new TreeNode(Integer.valueOf(l.get(0)));
+    l.remove(0);
+    root.left = rdeserialize(l);
+    root.right = rdeserialize(l);
+
+    return root;
+  }
+
+  // Decodes your encoded data to tree.
+  public TreeNode deserialize(String data) {
+    String[] data_array = data.split(",");
+    List<String> data_list = new LinkedList<String>(Arrays.asList(data_array));
+    return rdeserialize(data_list);
+  }
+```
+
+**Homework Problem**
+
+https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/
+
+Given a binary tree, you need to find the length of Longest Consecutive Path in Binary Tree.
+
+Especially, this path can be either increasing or decreasing. For example, [1,2,3,4] and [4,3,2,1] are both considered valid, but the path [1,2,4,3] is not valid. On the other hand, the path can be in the child-Parent-child order, where not necessarily be parent-child order.
+
+![Screenshot 2020-01-15 at 5 30 02 PM](https://user-images.githubusercontent.com/35702912/72432301-bc415900-37bc-11ea-9f18-e913f103871a.png)
