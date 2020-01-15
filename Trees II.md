@@ -104,20 +104,108 @@ public class Diapair{
        return diameter(root).diameter;
     }
 ```
-**Q3 - Maximum Path Sum**
 
-**Q2- Left View of Binary Tree**
+**Q3- Left View of Binary Tree**
+```java
+static void leftViewUtil( node root ) 
+{ 
+    if (root == null) 
+        return;
+    q.add(root); 
 
-**Q3- Least Common Ancestor**
+    q.add(null); 
+  
+    while (q.size() > 0)  
+    { 
+        node temp = q.peek(); 
+        if (temp != null) 
+        { 
+            System.out.print(temp.data + " ");
+            while (q.peek() != null) 
+            { 
+                if (temp.left != null) 
+                    q.add(temp.left); 
+  
+                if (temp.right != null) 
+                    q.add(temp.right); 
+                q.remove(); 
+                temp = q.peek(); 
+            } 
+            q.add(null); 
+        }  
+        q.remove(); 
+    } 
+} 
 
+```
+**Q4- Right View of Binary Tree**
+
+Same as before. 
+```java
+public List<Integer> rightSideView(TreeNode root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        if(root == null){
+            return list;
+        }
+        Queue<TreeNode> primary = new LinkedList<>();
+        Queue<TreeNode> helper = new LinkedList<>();
+        primary.add(root);
+        list.add(root.val);
+        while(!primary.isEmpty()){
+            
+            TreeNode node = primary.remove();
+            if(node.right != null){
+                helper.add(node.right);
+            }
+            if(node.left != null){
+                helper.add(node.left);
+            }
+            if(primary.isEmpty()){
+                if(!helper.isEmpty()){
+                list.add(helper.element().val);
+                primary = helper;
+                helper = new LinkedList<>();
+                }
+            }
+        }
+        return list;
+    }
+```
+
+**Q5- Lowest Common Ancestor**
+
+**Q6- Path Sum**
+
+
+![Screenshot 2020-01-15 at 4 53 30 PM](https://user-images.githubusercontent.com/35702912/72430250-dd537b00-37b7-11ea-9a08-15b92b24279d.png)
+
+```java
+
+public boolean hasPathSum(TreeNode root, int sum) {
+        if(root == null){
+            return false;
+        }
+       sum = sum - root.val;
+       if(root.left == null && root.right == null){
+           if(sum == 0){
+               return true;
+           }else{
+               return false;
+           }
+       }
+            
+    return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
+    }
+```
 **Q4- Binary Tree Maximum Path Sum**
  
 **Q5- Sum Root to Leaf Numbers**
 
 **Q6- Root to Leaf Paths With Sum**
  
-**Q7- Valid Binary Search Tree**
- 
-**Q8- Path Sum**
+
  
 **Q9- Vertical Order traversal of Binary Tree**
+
+**Q10 - Maximum Width of Binary Tree**
+**Q3 - Maximum Path Sum**
