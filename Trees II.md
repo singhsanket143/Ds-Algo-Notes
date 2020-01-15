@@ -176,7 +176,6 @@ public List<Integer> rightSideView(TreeNode root) {
 
 **Q6- Path Sum**
 
-
 ![Screenshot 2020-01-15 at 4 53 30 PM](https://user-images.githubusercontent.com/35702912/72430250-dd537b00-37b7-11ea-9a08-15b92b24279d.png)
 
 ```java
@@ -201,16 +200,9 @@ public boolean hasPathSum(TreeNode root, int sum) {
 **Q7- Path Sum**
 Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
 
-**Q4- Binary Tree Maximum Path Sum**
-
- 
-**Q5- Sum Root to Leaf Numbers**
-
-**Q6- Root to Leaf Paths With Sum**
- 
-
+**Q8- Binary Tree Maximum Path Sum**
  
 **Q9- Vertical Order traversal of Binary Tree**
 
-**Q10 - Maximum Width of Binary Tree**
-**Q3 - Maximum Path Sum**
+**Star Problem of the day**
+
