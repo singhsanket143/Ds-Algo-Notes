@@ -197,7 +197,12 @@ public boolean hasPathSum(TreeNode root, int sum) {
     return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
     }
 ```
+
+**Q7- Path Sum**
+Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+
 **Q4- Binary Tree Maximum Path Sum**
+
  
 **Q5- Sum Root to Leaf Numbers**
 
