@@ -128,6 +128,60 @@ public List<Integer> rightSideView(TreeNode root) {
 
 **Q4- Lowest Common Ancestor**
 
+Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+
+_Approach 1:_
+
+Find the path of the node p1.
+Find the path of the node p2.
+Traversal both of the paths till the time path is same. The moment we come across different value in path, the node before it the lowest common ancestor. 
+
+_Approach 2:_
+
+Using backtracking
+```java
+private TreeNode ans;
+
+    public Solution() {
+        // Variable to store LCA node.
+        this.ans = null;
+    }
+
+    private boolean recurseTree(TreeNode currentNode, TreeNode p, TreeNode q) {
+
+        // If reached the end of a branch, return false.
+        if (currentNode == null) {
+            return false;
+        }
+
+        // Left Recursion. If left recursion returns true, set left = 1 else 0
+        int left = this.recurseTree(currentNode.left, p, q) ? 1 : 0;
+
+        // Right Recursion
+        int right = this.recurseTree(currentNode.right, p, q) ? 1 : 0;
+
+        // If the current node is one of p or q
+        int mid = (currentNode == p || currentNode == q) ? 1 : 0;
+
+
+        // If any two of the flags left, right or mid become True
+        if (mid + left + right >= 2) {
+            this.ans = currentNode;
+        }
+
+        // Return true if any one of the three bool values is True.
+        return (mid + left + right > 0);
+    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // Traverse the tree
+        this.recurseTree(root, p, q);
+        return this.ans;
+    }
+```
+
 **Q5- Path Sum**
 
 ![Screenshot 2020-01-15 at 4 53 30 PM](https://user-images.githubusercontent.com/35702912/72430250-dd537b00-37b7-11ea-9a08-15b92b24279d.png)
@@ -155,10 +209,67 @@ public boolean hasPathSum(TreeNode root, int sum) {
 Given a non-empty binary tree, find the maximum path sum.
 
 For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.
+
  
 **Q7 (Optional)- Vertical Order traversal of Binary Tree**
+Given a binary tree, return the vertical order traversal of its nodes values.
 
-**Q8 (Optional)- Maximum Width of Binary Tree**
+```java
+class Solution {
+    List<Location> locations;
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        // Each location is a node's x position, y position, and value
+        locations = new ArrayList();
+        dfs(root, 0, 0);
+        Collections.sort(locations);
+
+        List<List<Integer>> ans = new ArrayList();
+        ans.add(new ArrayList<Integer>());
+
+        int prev = locations.get(0).x;
+
+        for (Location loc: locations) {
+            // If the x value changed, it's part of a new report.
+            if (loc.x != prev) {
+                prev = loc.x;
+                ans.add(new ArrayList<Integer>());
+            }
+
+            // We always add the node's value to the latest report.
+            ans.get(ans.size() - 1).add(loc.val);
+        }
+
+        return ans;
+    }
+
+    public void dfs(TreeNode node, int x, int y) {
+        if (node != null) {
+            locations.add(new Location(x, y, node.val));
+            dfs(node.left, x-1, y+1);
+            dfs(node.right, x+1, y+1);
+        }
+    }
+}
+
+class Location implements Comparable<Location>{
+    int x, y, val;
+    Location(int x, int y, int val) {
+        this.x = x;
+        this.y = y;
+        this.val = val;
+    }
+
+    @Override
+    public int compareTo(Location that) {
+        if (this.x != that.x)
+            return Integer.compare(this.x, that.x);
+        else if (this.y != that.y)
+            return Integer.compare(this.y, that.y);
+        else
+            return Integer.compare(this.val, that.val);
+    }
+}
+```
 
 **Star Problem of the day**
 
