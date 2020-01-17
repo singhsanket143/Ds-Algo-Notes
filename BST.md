@@ -416,7 +416,7 @@ private Node construct(int[] in, int lo, int hi) {
 	}
 ```
 
-**Q- Increasing Order Search Tree: Given a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only 1 right child.**
+**Q8- Increasing Order Search Tree: Given a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only 1 right child.**
 
 ```cpp
 class Custom {
@@ -454,6 +454,7 @@ public:
 ```
 
 ```java
+
 ```
 
 **Q (Optional)- Convert a BST into min heap with a constraint that all values in left. Subtree are less than the values in right subtree**
