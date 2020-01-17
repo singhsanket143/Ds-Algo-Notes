@@ -125,9 +125,7 @@ Approach2: 3 conditions:
 - root is greater than the max value in left subtree
 - root is less than the lowest value in right subtree
 
-**Q3- Given a BST, find the kth smallest element in the BST**
-Approach 1: Write inorder traversal which will be in sorted form. Then find the kth smallest element.
-Approach 2: 
+
 **Q4- Largest Binary Search Tree in BT**
 ```java
 private class BSTpair {
