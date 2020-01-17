@@ -416,7 +416,7 @@ private Node construct(int[] in, int lo, int hi) {
 	}
 ```
 
-**Q8- Convert a BST into min heap with a constraint that all values in left. Subtree are less than the values in right subtree**
+**Q (Optional)- Convert a BST into min heap with a constraint that all values in left. Subtree are less than the values in right subtree**
 
 Given a binary search tree which is also a complete binary tree. The problem is to convert the given BST into a Min Heap with the condition that all the values in the left subtree of a node should be less than all the values in the right subtree of the node. This condition is applied on all the nodes in the so converted Min Heap.
 
@@ -426,9 +426,9 @@ _Min Heap_
 
 All the nodes in the Min Heap satisfies the given condition, that is, values in the left subtree of a node should be less than the values in the right subtree of the node. 
 
-**Star Problem**
+**Homwwork Problem*
 
-**Q10- Given a complete binary tree with N nodes and each node have an distinct integer ai attached with it, find the minimum number of swaps you can make to convert the binary tree into binary search tree. In one swap, you can select any two nodes and swap their values.
+**Q- Given a complete binary tree with N nodes and each node have an distinct integer ai attached with it, find the minimum number of swaps you can make to convert the binary tree into binary search tree. In one swap, you can select any two nodes and swap their values.
 You will be given the array representation of the binary tree. Root of the tree will be at a<sub>1</sub>. Left child of root will be at a<sub>2</sub> and right child of root will be at a<sub>3</sub>. Left child of node at array position k will be at a<sub>2k</sub> and right child of node at array position k will be at a<sub>2k+1</sub>.**
 
 https://www.hackerearth.com/practice/data-structures/trees/binary-search-tree/practice-problems/algorithm/little-monk-and-swaps/editorial/
