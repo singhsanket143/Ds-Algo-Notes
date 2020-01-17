@@ -200,55 +200,13 @@ _Approach2:_ 3 conditions:
 	}
 ```
 
-**Q4- Largest Binary Search Tree in BT**
-- 
+**Q3- Find the size of largest Binary Search Tree in BT**
+
+Three possibilities: 
 ```java
-private class BSTpair {
 
-		Node Largestnode;
-		int size;
-		int min;
-		int max;
-		boolean isbst;
-	}
-
-	public void LargestBST() {
-
-		BSTpair pair = LargestBST(this.root);
-
-		System.out.println(pair.Largestnode.data);
-		System.out.println(pair.size);
-	}
-
-	private BSTpair LargestBST(Node node) {
-
-		if (node == null) {
-
-			BSTpair br = new BSTpair();
-
-			br.isbst = true;
-			br.Largestnode = null;
-			br.max = Integer.MIN_VALUE;
-			br.min = Integer.MAX_VALUE;
-			br.size = 0;
-
-			return br;
-		}
-
-		BSTpair left = LargestBST(node.left);
-		BSTpair right = LargestBST(node.right);
-
-		BSTpair mr = new BSTpair();
-
-		mr.max = Math.max(node.data, Math.max(left.max, right.max));
-
-		mr.min = Math.max(node.data, Math.max(left.max, right.max));
-
-		return mr;
-
-	}
 ```
-**Q5- Given a BST, somebody swapped 2 elements, Find out which pair was swapped?**
+**Q4- Given a BST, somebody swapped 2 elements, Find out which pair was swapped?**
 
 _Trivial Approach_
 
@@ -353,7 +311,7 @@ void correctBST( Node root )
 Time Complexity - O(n)
 Space Complexity - O(n)
 
-**Q6- Build BST from unsorted array**
+**Q5- Build BST from unsorted array**
 Keep on adding elements by traversing the array.
 
 ```java
@@ -388,13 +346,13 @@ Node arrayToBinary(array, root){
 }
 
 ```
-**Q7- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
+**Q6- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
 
 - Case 1: What if there is a right subtree of the given node? -> Get the leftmost of the right subtree of the given node
 - Case 2: What if there is no right subtree?
 
 
-**Q8- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
+**Q7- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
 
 ```java
 private Node construct(int[] in, int lo, int hi) {
@@ -408,17 +366,24 @@ private Node construct(int[] in, int lo, int hi) {
 		// make a new node
 		Node nn = new Node();
 		nn.data = in[mid];
-		this.size++;
+		
 
 		nn.left = construct(in, lo, mid - 1);
 		nn.right = construct(in, mid + 1, hi);
 
 		return nn;
-
 	}
 ```
 
-**Q9- Convert a BST into min heap with a constraint that all values in left. Subtree are less than the values in right subtree**
+**Q8- Convert a BST into min heap with a constraint that all values in left. Subtree are less than the values in right subtree**
+
+Given a binary search tree which is also a complete binary tree. The problem is to convert the given BST into a Min Heap with the condition that all the values in the left subtree of a node should be less than all the values in the right subtree of the node. This condition is applied on all the nodes in the so converted Min Heap.
+
+![Screenshot 2020-01-17 at 5 48 04 PM](https://user-images.githubusercontent.com/35702912/72612030-9bf6d300-3951-11ea-8039-5e659a115a69.png)
+
+_Min Heap_
+
+All the nodes in the Min Heap satisfies the given condition, that is, values in the left subtree of a node should be less than the values in the right subtree of the node. 
 
 **Star Problem**
 
