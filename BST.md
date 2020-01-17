@@ -9,10 +9,25 @@
 - Either keep a count on every node
 - Same elements can either go in left or right subtree
 
-**Q1- Build BST from unsorted array**
-Keep on adding elements by traversing the tree
+**Delete a node in BST**
 
-**Q2- Given a BST, somebody swapped 2 elements, Find out which pair was swapped?**
+**Add a node in BST**
+
+**Q1- Print in Range**
+
+**Q2- Check if a given BT is BST**
+Approach1: Write inorder traversal
+Approach2: 3 conditions:
+- left subtree is a BST
+- right subtree is a BST
+- root is greater than the max value in left subtree
+- root is less than the lowest value in right subtree
+
+**Q3- Given a BST, find the kth smallest element in the BST**
+
+**Q4- Largest Binary Search Tree in BT**
+
+**Q5- Given a BST, somebody swapped 2 elements, Find out which pair was swapped?**
 
 _Trivial Approach_
 
@@ -35,15 +50,18 @@ Time Complexity - O(n)
 
 Space Complexity - O(n)
 
-**Q3- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
+**Q- Build BST from unsorted array**
+Keep on adding elements by traversing the tree
+
+
+
+**Q- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
 
 - Case 1: What if there is a right subtree of the given node? -> Get the leftmost of the right subtree of the given node
 - Case 2: What if there is no right subtree?
- - What if the node is the left child of it's parent? -> Parent is the answer
- - What if the node is the right child of it's parent? -> My grand parent with a value just greater than me. Traverse from root and store the prospective answer
 
 
-**Q4- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
+**Q- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
 
 ```java
 private Node construct(int[] in, int lo, int hi) {
@@ -66,27 +84,12 @@ private Node construct(int[] in, int lo, int hi) {
 
 	}
 ```
-**Q5- Check if a given BT is BST**
-Approach1: Write inorder traversal
-Approach2: 3 conditions:
-- left subtree is a BST
-- right subtree is a BST
-- root is greater than the max value in left subtree
-- root is less than the lowest value in right subtree
 
-**Q6- Print in Range**
 
-**Q7- Largest Binary Search Tree in BT**
 
-**Q8- Valid Binary Search Tree**
 
-**Q9- Given a BST, find the kth smallest element in the BST**
 
-**Q10- Delete a node in BST**
+**Q- Convert a BST into min heap - All values in left. Subtree are less than the values in right subtree**
 
-**Q11- Add a node in BST**
-
-**Q12- Convert a BST into min heap - All values in left. Subtree are less than the values in right subtree**
-
-**Q13 - Given a node, find its next node in inorder traversal**
+**Q- Given a node, find its next node in inorder traversal**
 
