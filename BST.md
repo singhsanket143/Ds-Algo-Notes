@@ -23,6 +23,7 @@ Keep on adding elements by traversing the tree
 Intuition - Had it been a perfect bst, both the array would be having same elements in same order, but elements are not in same order denotes there is distortion
 
 Time Complexity - O(nlogn)
+
 Space Complexity - O(n)
 
 **Optimised Approach**
@@ -30,7 +31,8 @@ Space Complexity - O(n)
 Counting the inversion pair in the inorder can help us, as we can find 2 inversion pairs, and in the first inversion pair choose the greater element and in the second inversion pair choose the smaller element. But if the elements sharing an edge are swapped then we would be only able to find 1 inversion pair. What to do in that case? 
 In that case both the elements of the single inversion pair will be our answer because those are the only one which are swapped.
 
-Time Complexity - O(nlogn)
+Time Complexity - O(n)
+
 Space Complexity - O(n)
 
 
