@@ -10,11 +10,113 @@
 - Same elements can either go in left or right subtree
 
 **Delete a node in BST**
+```java
+public void remove(int item) {
 
+		remove(this.root, null, false, item);
+	}
+
+	private void remove(Node node, Node parent, boolean ilc, int item) {
+
+		if (node == null) {
+			return;
+		}
+		if (item < node.data) {
+
+			remove(node.left, node, true, item);
+		} else if (item > node.data) {
+
+			remove(node.right, node, false, item);
+		} else {
+
+			if (node.left == null && node.right == null) {
+				if (ilc)
+					parent.left = null;
+				else
+					parent.right = null;
+
+			} else if (node.left != null && node.right == null) {
+				if (ilc)
+					parent.left = node.left;
+				else
+					parent.right = node.left;
+				this.size--;
+			} else if (node.right != null && node.left == null) {
+				if (ilc)
+					parent.left = node.right;
+				else
+					parent.right = node.right;
+				this.size--;
+			} else {
+
+				int max = max(node.left);
+				node.data = max;
+
+				remove(node.left, node, true, max);
+
+			}
+		}
+```
 **Add a node in BST**
 
-**Q1- Print in Range**
+```java
+public void add(int item) {
 
+		add(this.root, null, false, item);
+	}
+
+	private void add(Node node, Node parent, boolean ilc, int item) {
+
+		if (node == null) { // base case
+
+			Node nn = new Node();
+			nn.data = item;
+			this.size++;
+			if (ilc)
+				parent.left = nn;
+			else
+				parent.right = nn;
+
+			return;
+		}
+		if (item < node.data) {
+
+			add(node.left, node, true, item);
+		}
+		if (item > node.data) {
+			add(node.right, node, false, item);
+		}
+	}
+```
+**Q1- Print in Range**
+```java
+public void printInRange(int lower, int upper) {
+
+		printInRange(this.root, lower, upper);
+
+	}
+	private void printInRange(Node node, int lower, int upper) {
+		if (node == null) {
+			return;
+		}
+
+		if (node.data > upper) {
+			printInRange(node.left, lower, upper);
+		}
+
+		else if (node.data < lower) {
+			printInRange(node.right, lower, upper);
+		}
+
+		else {
+
+			printInRange(node.left, lower, upper);
+			System.out.println(node.data);
+			printInRange(node.right, lower, upper);
+		}
+
+	}
+```
 **Q2- Check if a given BT is BST**
 Approach1: Write inorder traversal
 Approach2: 3 conditions:
@@ -50,18 +152,16 @@ Time Complexity - O(n)
 
 Space Complexity - O(n)
 
-**Q- Build BST from unsorted array**
-Keep on adding elements by traversing the tree
+**Q6- Build BST from unsorted array**
+Keep on adding elements by traversing the tree. 
 
-
-
-**Q- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
+**Q7- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
 
 - Case 1: What if there is a right subtree of the given node? -> Get the leftmost of the right subtree of the given node
 - Case 2: What if there is no right subtree?
 
 
-**Q- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
+**Q8- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
 
 ```java
 private Node construct(int[] in, int lo, int hi) {
@@ -85,7 +185,7 @@ private Node construct(int[] in, int lo, int hi) {
 	}
 ```
 
-**Q- Convert a BST into min heap - All values in left. Subtree are less than the values in right subtree**
+**Q9- Convert a BST into min heap - All values in left. Subtree are less than the values in right subtree**
 
 
 
