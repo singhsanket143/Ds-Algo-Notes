@@ -426,7 +426,9 @@ Node arrayToBinary(array, root){
 **Q6- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
 
 - Case 1: What if there is a right subtree of the given node? -> Get the leftmost of the right subtree of the given node
-- Case 2: What if there is no right subtree?
+- Case 2: What if there is no right subtree? -> 
+	- then answer is one of the ancestors. Do following.
+Travel down the tree, if a node’s data is greater than root’s data then go right side, otherwise go to left side.
 
 
 **Q7- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
