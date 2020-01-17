@@ -3,6 +3,11 @@
 - All nodes in left subtree will be smaller than root.
 - All nodes in right subtree will be greater than root.
 
+**How to handle equal elements?**
+
+- Either keep a count on every node
+- Same elements can either go in left or right subtree
+
 **Q7- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
 
 ```java
