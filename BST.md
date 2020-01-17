@@ -59,8 +59,8 @@ Keep on adding elements by traversing the tree
 
 - Case 1: What if there is a right subtree of the given node? -> Get the leftmost of the right subtree of the given node
 - Case 2: What if there is no right subtree?
- - What if the node is the left child of it's parent? -> Parent is the answer
- - What if the node is the right child of it's parent? -> My grand parent with a value just greater than me. Traverse from root and store the prospective answer
+	- What if the node is the left child of it's parent? -> Parent is the answer
+	- What if the node is the right child of it's parent? -> My grand parent with a value just greater than me. Traverse from root and store the prospective answer
 
 
 **Q- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
