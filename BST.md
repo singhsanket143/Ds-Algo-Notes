@@ -8,6 +8,10 @@
 - Either keep a count on every node
 - Same elements can either go in left or right subtree
 
+**Q1 Build BST from unsorted array**
+Keep on adding elements by traversing the tree
+
+
 **Q7- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
 
 ```java
