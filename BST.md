@@ -35,7 +35,10 @@ Time Complexity - O(n)
 
 Space Complexity - O(n)
 
+**Q3- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
 
+- Case 1: What if there is a right subtree of the given node? -> Get the leftmost of the right subtree of the given node
+- Case 2: What if there is no right subtree?
 
 
 **Q7- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
