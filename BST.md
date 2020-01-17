@@ -82,7 +82,9 @@ Approach2: 3 conditions:
 
 **Q10- Delete a node in BST**
 
-**Q11- Convert a BST into min heap - All values in left. Subtree are less than the values in right subtree**
+**Q11- Add a node in BST**
+
+**Q12- Convert a BST into min heap - All values in left. Subtree are less than the values in right subtree**
 
 
 
