@@ -104,6 +104,42 @@ public void remove(int item) {
 		}
 ```
 
+```cpp
+Node* deleteFromBST(Node* root, int key) {
+	if(root == NULL) {
+		return NULL;
+	}
+	if(key < root->data) {
+		root->left = deleteFromBST(root->left, key);
+	} else if(key > root->data) {
+		root->right = deleteFromBST(root->right, key);
+	} else {
+		if(root->left == NULL and root->right == NULL) {
+			delete root;
+			return NULL;
+		} else if(root->right==NULL) {
+			Node *temp = root->left;
+			delete root;
+			return temp;
+		} else if(root->left == NULL) {
+			Node *temp = root->right;
+			delete root;
+			return temp;
+		} else {
+			Node *right_root = root->right;
+			Node *to_be_swap = right_root;
+			while(to_be_swap->left != NULL) {
+				to_be_swap = to_be_swap->left;
+			}
+			root->data = to_be_swap->data;
+			root->right = deleteFromBST(root->right, root->data);
+		}
+	}
+	return root;
+}
+
+```
+
 **Q1- Print in Range**
 
 Print all the keys of tree in range k1 to k2. i.e. print all x such that k1<=x<=k2 and x is a key of given BST. Print all the keys in increasing order.
