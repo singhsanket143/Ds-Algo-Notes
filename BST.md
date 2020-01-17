@@ -75,13 +75,13 @@ public void remove(int item) {
 
 			remove(node.right, node, false, item);
 		} else {
-
+			// Possibility 1
 			if (node.left == null && node.right == null) {
 				if (ilc)
 					parent.left = null;
 				else
 					parent.right = null;
-
+				
 			} else if (node.left != null && node.right == null) {
 				if (ilc)
 					parent.left = node.left;
@@ -100,12 +100,14 @@ public void remove(int item) {
 				node.data = max;
 
 				remove(node.left, node, true, max);
-
 			}
 		}
 ```
 
 **Q1- Print in Range**
+
+Print all the keys of tree in range k1 to k2. i.e. print all x such that k1<=x<=k2 and x is a key of given BST. Print all the keys in increasing order.
+
 ```java
 public void printInRange(int lower, int upper) {
 
@@ -116,34 +118,90 @@ public void printInRange(int lower, int upper) {
 		if (node == null) {
 			return;
 		}
-
 		if (node.data > upper) {
 			printInRange(node.left, lower, upper);
 		}
-
 		else if (node.data < lower) {
 			printInRange(node.right, lower, upper);
 		}
-
 		else {
-
 			printInRange(node.left, lower, upper);
 			System.out.println(node.data);
 			printInRange(node.right, lower, upper);
 		}
-
 	}
 ```
 **Q2- Check if a given BT is BST**
-Approach1: Write inorder traversal
-Approach2: 3 conditions:
+
+_Will this method work????_
+-  For each node, check if the left node of it is smaller than the node and right node of it is greater than the node.
+
+Failing in cases like 
+![Screenshot 2020-01-17 at 5 10 22 PM](https://user-images.githubusercontent.com/35702912/72610044-67cce380-394c-11ea-9313-e01abfb866b8.png)
+
+_Approach1:_ Write inorder traversal
+
+_Approach2:_ 3 conditions:
 - left subtree is a BST
 - right subtree is a BST
 - root is greater than the max value in left subtree
 - root is less than the lowest value in right subtree
 
+```java
+	public class Mover {
+		boolean isbst;
+	}
+
+	private Mover IsBST(Node node) {
+
+		if (node == null) {
+			Mover m = new Mover();
+			m.isbst = true;
+			return m;
+		}
+
+		Mover l = IsBST(node.left);
+		Mover r = IsBST(node.right);
+
+		Mover ans = new Mover();
+		if (node.left != null && node.right != null) {
+			if (node.left.data < node.data && node.right.data > node.data && l.isbst && r.isbst) {
+				ans.isbst = true;
+			} else {
+				ans.isbst = false;
+			}
+		}
+
+		if (node.left != null && node.right == null) {
+			if (node.left.data < node.data && l.isbst && r.isbst) {
+				ans.isbst = true;
+			} else {
+				ans.isbst = false;
+			}
+		}
+
+		if (node.left == null && node.right == null) {
+			if (l.isbst && r.isbst) {
+				ans.isbst = true;
+			} else {
+				ans.isbst = false;
+			}
+		}
+
+		if (node.left == null && node.right != null) {
+			if (node.right.data > node.data && l.isbst && r.isbst) {
+				ans.isbst = true;
+			} else {
+				ans.isbst = false;
+			}
+		}
+
+		return ans;
+	}
+```
 
 **Q4- Largest Binary Search Tree in BT**
+- 
 ```java
 private class BSTpair {
 
@@ -198,7 +256,7 @@ _Trivial Approach_
 - Copy the inorder in a different array and sort it 
 - The indexes with different values gives us sorted elements
 
-Intuition - Had it been a perfect bst, both the array would be having same elements in same order, but elements are not in same order denotes there is distortion
+Intuition - Had it been a perfect bst, both the array would be having same elements in same order, but elements are not in same order, denoting that there is a distortion. 
 
 Time Complexity - O(nlogn)
 
@@ -206,16 +264,130 @@ Space Complexity - O(n)
 
 _Optimised Approach_
 
-Counting the inversion pair in the inorder can help us, as we can find 2 inversion pairs, and in the first inversion pair choose the greater element and in the second inversion pair choose the smaller element. But if the elements sharing an edge are swapped then we would be only able to find 1 inversion pair. What to do in that case? 
-In that case both the elements of the single inversion pair will be our answer because those are the only one which are swapped.
+We can solve this in O(n) time and with a single traversal of the given BST. Since inorder traversal of BST is always a sorted array, the problem can be reduced to a problem where two elements of a sorted array are swapped. 
+There are two cases that we need to handle:
 
+1. The swapped nodes are not adjacent in the inorder traversal of the BST.
+
+ For example, Nodes 5 and 25 are swapped in {3 5 7 8 10 15 20 25}. 
+ The inorder traversal of the given tree is 3 25 7 8 10 15 20 5 
+If we observe carefully, during inorder traversal, we find node 7 is smaller than the previous visited node 25. Here save the context of node 25 (previous node). Again, we find that node 5 is smaller than the previous node 20. This time, we save the context of node 5 ( current node ). Finally swap the two node’s values.
+
+2. The swapped nodes are adjacent in the inorder traversal of BST.
+
+  For example, Nodes 7 and 8 are swapped in {3 5 7 8 10 15 20 25}. 
+  The inorder traversal of the given tree is 3 5 8 7 10 15 20 25 
+Unlike case #1, here only one point exists where a node value is smaller than previous node value. e.g. node 7 is smaller than node 8.
+
+How to Solve? We will maintain three pointers, first, middle and last. When we find the first point where current node value is smaller than previous node value, we update the first with the previous node & middle with the current node. When we find the second point where current node value is smaller than previous node value, we update the last with the current node. In case #2, we will never find the second point. So, last pointer will not be updated. After processing, if the last node value is null, then two swapped nodes of BST are adjacent.
+
+```java
+
+void correctBST( Node root ) 
+    { 
+        // Initialize pointers needed  
+        // for correctBSTUtil() 
+        first = middle = last = prev = null; 
+  
+        // Set the poiters to find out  
+        // two nodes 
+        correctBSTUtil( root ); 
+  
+        // Fix (or correct) the tree 
+        if( first != null && last != null ) 
+        { 
+            int temp = first.data; 
+            first.data = last.data; 
+            last.data = temp;  
+        } 
+        // Adjacent nodes swapped 
+        else if( first != null && middle != 
+                                    null )  
+        { 
+            int temp = first.data; 
+            first.data = middle.data; 
+            middle.data = temp; 
+        } 
+  
+        // else nodes have not been swapped, 
+        // passed tree is really BST. 
+    } 
+    
+    void correctBSTUtil( Node root) 
+    { 
+        if( root != null ) 
+        { 
+            // Recur for the left subtree 
+            correctBSTUtil( root.left); 
+  
+            // If this node is smaller than 
+            // the previous node, it's  
+            // violating the BST rule. 
+            if (prev != null && root.data < 
+                                prev.data) 
+            { 
+                // If this is first violation, 
+                // mark these two nodes as 
+                // 'first' and 'middle' 
+                if (first == null) 
+                { 
+                    first = prev; 
+                    middle = root; 
+                } 
+  
+                // If this is second violation, 
+                // mark this node as last 
+                else
+                    last = root; 
+            } 
+  
+            // Mark this node as previous 
+            prev = root; 
+  
+            // Recur for the right subtree 
+            correctBSTUtil( root.right); 
+        } 
+    } 
+
+```
 Time Complexity - O(n)
-
 Space Complexity - O(n)
 
 **Q6- Build BST from unsorted array**
-Keep on adding elements by traversing the tree. 
+Keep on adding elements by traversing the array.
 
+```java
+//insert
+Node insert(node, value) {
+    if node is null
+        // Create a leaf.
+        // It might be the root...
+        return new Node(value)
+
+    // It's occupied, see which way to
+    // go based on it's value
+
+    // right? ...
+    if value > node.value
+        node.right = insert(node.right, value)
+
+    // or left?
+    else if value < node.value
+        node.left = insert(node.left, value)
+
+    // Code is not handling dups.
+    return node
+}
+
+//construct
+
+Node arrayToBinary(array, root){
+    for e in array
+        root = insert(root, e)
+    return root
+}
+
+```
 **Q7- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
 
 - Case 1: What if there is a right subtree of the given node? -> Get the leftmost of the right subtree of the given node
