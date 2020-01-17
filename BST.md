@@ -425,12 +425,38 @@ Node arrayToBinary(array, root){
 ```
 **Q6- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
 
-- Case 1: What if there is a right subtree of the given node? -> Get the leftmost of the right subtree of the given node
-- Case 2: What if there is no right subtree? -> 
-	- then answer is one of the ancestors. Do following.
-Travel down the tree, if a node’s data is greater than root’s data then go right side, otherwise go to left side.
+1) If right subtree of node is not NULL, then succ lies in right subtree. Do following.
+Go to right subtree and return the node with minimum key value in right subtree.
+2) If right sbtree of node is NULL, then start from root and us search like technique. Do following.
 
 
+```cpp
+
+struct node * inOrderSuccessor(struct node *root, struct node *n) 
+{ 
+    // step 1 of the above algorithm 
+    if( n->right != NULL ) 
+        return minValue(n->right); 
+  
+    struct node *succ = NULL; 
+  
+    // Start from root and search for successor down the tree 
+    while (root != NULL) 
+    { 
+        if (n->data < root->data) 
+        { 
+            succ = root; 
+            root = root->left; 
+        } 
+        else if (n->data > root->data) 
+            root = root->right; 
+        else
+           break; 
+    } 
+  
+    return succ; 
+} 
+```
 **Q7- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
 
 ```java
