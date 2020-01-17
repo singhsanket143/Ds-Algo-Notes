@@ -6,10 +6,57 @@
 
 **How to handle equal elements?**
 
-- Either keep a count on every node
-- Same elements can either go in left or right subtree
+- Keep a count on every node by modifying the class of the node. 
+- Same elements can either go in left or right subtree.
+- Questions Similar to BT:
+	- Size
+	- Height
+	- Views - left, right, top
+	- Balanced
+	- Diameter
+	- Traversal
+- Questions Changed 
+	- Finding an element in BST
+	
+**Add a node in BST**
 
+_Algorithm_
+1. Start from root.
+2. Compare the inserting element with root, if less than root, then recurse for left, else recurse for right.
+3. After reaching end, just insert that node at left(if less than current) else right.
+
+```java
+public void add(int item) {
+
+		add(this.root, null, false, item);
+	}
+
+	private void add(Node node, Node parent, boolean ilc, int item) {
+		// base case
+		if (node == null) { 
+			Node nn = new Node();
+			nn.data = item;
+			if (ilc)
+				parent.left = nn;
+			else
+				parent.right = nn;
+			return;
+		}
+		if (item < node.data) {
+			add(node.left, node, true, item);
+		}
+		if (item > node.data) {
+			add(node.right, node, false, item);
+		}
+	}
+```
 **Delete a node in BST**
+
+Three possibilities:
+- _Node to be deleted is leaf:_ Simply remove from the tree.
+- _Node to be deleted has only one child:_ Copy the child to the node and delete the child
+- _Node to be deleted has two children:_ Find inorder successor of the node. Copy contents of the inorder successor to the node and delete the inorder successor. Note that inorder predecessor can also be used.
+
 ```java
 public void remove(int item) {
 
@@ -57,37 +104,7 @@ public void remove(int item) {
 			}
 		}
 ```
-**Add a node in BST**
 
-```java
-public void add(int item) {
-
-		add(this.root, null, false, item);
-	}
-
-	private void add(Node node, Node parent, boolean ilc, int item) {
-
-		if (node == null) { // base case
-
-			Node nn = new Node();
-			nn.data = item;
-			this.size++;
-			if (ilc)
-				parent.left = nn;
-			else
-				parent.right = nn;
-
-			return;
-		}
-		if (item < node.data) {
-
-			add(node.left, node, true, item);
-		}
-		if (item > node.data) {
-			add(node.right, node, false, item);
-		}
-	}
-```
 **Q1- Print in Range**
 ```java
 public void printInRange(int lower, int upper) {
