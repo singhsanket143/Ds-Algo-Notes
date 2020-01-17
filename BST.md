@@ -86,5 +86,5 @@ Approach2: 3 conditions:
 
 **Q12- Convert a BST into min heap - All values in left. Subtree are less than the values in right subtree**
 
-
+**Q13 - Given a node, find its next node in inorder traversal**
 
