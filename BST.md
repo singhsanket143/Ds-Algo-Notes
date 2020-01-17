@@ -416,6 +416,46 @@ private Node construct(int[] in, int lo, int hi) {
 	}
 ```
 
+**Q- Increasing Order Search Tree: Given a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only 1 right child.**
+
+```cpp
+class Custom {
+public:
+    TreeNode *head;
+    TreeNode *tail;
+    Custom(TreeNode *head, TreeNode *tail) {
+        this->head = head;
+        this->tail = tail;
+    }
+};
+
+class Solution {
+public:
+    Custom *helper(TreeNode* root) {
+        if(root == NULL) return NULL;
+        Custom* lf = helper(root->left);
+        if(lf!=NULL) {
+            root->left = NULL;
+            lf->tail->right = root;
+        } 
+        Custom* rh = helper(root->right);
+        if(rh!=NULL) {
+            root->right = rh->head;
+        }
+        return new Custom((lf!=NULL)?lf->head:root, (rh!=NULL)?rh->tail:root);
+    }
+    
+    
+    TreeNode* increasingBST(TreeNode* root) {
+        Custom* c = helper(root);
+        return c->head;
+    }
+};
+```
+
+```java
+```
+
 **Q (Optional)- Convert a BST into min heap with a constraint that all values in left. Subtree are less than the values in right subtree**
 
 Given a binary search tree which is also a complete binary tree. The problem is to convert the given BST into a Min Heap with the condition that all the values in the left subtree of a node should be less than all the values in the right subtree of the node. This condition is applied on all the nodes in the so converted Min Heap.
