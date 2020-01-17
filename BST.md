@@ -185,7 +185,5 @@ private Node construct(int[] in, int lo, int hi) {
 	}
 ```
 
-**Q9- Convert a BST into min heap - All values in left. Subtree are less than the values in right subtree**
-
-
+**Q9- Convert a BST into min heap with a constraint that all values in left. Subtree are less than the values in right subtree**
 
