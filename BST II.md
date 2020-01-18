@@ -7,11 +7,15 @@ Given a binary tree, you need to find the length of Longest Consecutive Path in 
 
 Especially, this path can be either increasing or decreasing. For example, [1,2,3,4] and [4,3,2,1] are both considered valid, but the path [1,2,4,3] is not valid. On the other hand, the path can be in the child-Parent-child order, where not necessarily be parent-child order.
 
-Approach1: 
+Approach 1: 
 1. Total no. of nodes - n
 2. Total pair of nodes - nC2 = Total no. of paths
 3. Find path between every two nodes and check whether it is increasing or decreasing. 
-4. 
+4. Find the maximum inc/dec out of them. 
+
+Approach 2: 
+1. 
+
 **Q2- Cousins in Binary Tree**
 
 In a binary tree, the root node is at depth 0, and children of each depth k node are at depth k+1.
