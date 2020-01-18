@@ -5,7 +5,7 @@
 
 Given a binary tree, you need to find the length of Longest Consecutive Path in Binary Tree.
 
-Especially, this path can be either increasing or decreasing. For example, [1,2,3,4] and [4,3,2,1] are both considered valid, but the path [1,2,4,3] is not valid. On the other hand, the path can be in the child-Parent-child order, where not necessarily be parent-child order.
+Especially, this path can be either increasing or decreasing. For example, [1,2,3,4] and [4,3,2,1] are both considered valid, but the path [1,2,4,3] is not valid. On the other hand, the path can be in the child-Parent-child order, where not necessarily be parent-child order.               
 
 Approach 1: 
 1. Total no. of nodes - n
@@ -54,16 +54,111 @@ Time Complexity: O(n)
 Space Complexity: O(n)
 
 
-**Q3- Given a BST, find the kth smallest element in the BST**
+**Q3- Given a BST, find the kth smallest element in the BST** (Optional) (Medium)
 
 Approach 1: Write inorder traversal which will be in sorted form. Then find the kth smallest element.
-Approach 2: 
+
+Approach 2: Augmented Tree Data Structure
 
 **Q4- Given the preorder traversal of the BST, find the leaf nodes of the BST.**
 
-**Q5- Given a BT, and distance between two nodes, tell the distance between the two nodes.**
+![Screenshot 2020-01-19 at 1 13 17 AM](https://user-images.githubusercontent.com/35702912/72669537-e616ac00-3a58-11ea-9036-822937838aa1.png)
+
+_Approach 1:_
+
+The idea is to use two min and max variables and taking i (index in input array), the index for given preorder array, and recursively creating root node and correspondingly checking if left and right are existing or not. This method return boolean variable, and if both left and right are false it simply means that left and right are null hence it must be a leaf node so print it right there and return back true as root at that index existed.
+
+```java
+static int i = 0; 
+  
+    // Print the leaf node from the given preorder of BST. 
+    static boolean isLeaf(int pre[], int n, 
+            int min, int max) 
+    { 
+        if (i >= n) 
+        { 
+            return false; 
+        } 
+  
+        if (pre[i] > min && pre[i] < max)  
+        { 
+            i++; 
+  
+            boolean left = isLeaf(pre, n, min, pre[i - 1]); 
+            boolean right = isLeaf(pre, n, pre[i - 1], max); 
+  
+            if (!left && !right)  
+            { 
+                System.out.print(pre[i - 1] + " "); 
+            } 
+  
+            return true; 
+        } 
+        return false; 
+    } 
+```
+Time Complexity: 
+
+Space Complexity: 
+
+
+**Q5- Given a BT, and two nodes, tell the distance between the two nodes.**
+
+Approach 1: Using LCA
+```
+  Dist(n1, n2) = Dist(root, n1) + Dist(root, n2) - 2*Dist(root, lca) 
+  'n1' and 'n2' are the two given keys
+  'root' is root of given Binary Tree.
+  'lca' is lowest common ancestor of n1 and n2
+  Dist(n1, n2) is the distance between n1 and n2.
+
+```
+
+Time Complexity: 
+
+Space Complexity: 
+
+Approach 2: Find LCA of two nodes. Then, find distance from LCA to two nodes.
+
+Time Complexity: 
+
+Space Complexity: 
+
 
 **Q6- Given the preorder traversal of a BST, construct the BST out of it.**
+
+```java
+int idx = 0;
+  int[] preorder;
+  int n;
+
+  public TreeNode helper(int lower, int upper) {
+    // if all elements from preorder are used then the tree is constructed
+    if (idx == n) return null;
+
+    int val = preorder[idx];
+    // if the current element couldn't be placed here to meet BST requirements
+    if (val < lower || val > upper) return null;
+
+    // place the current element and recursively construct subtrees
+    idx++;
+    TreeNode root = new TreeNode(val);
+    root.left = helper(lower, val);
+    root.right = helper(val, upper);
+    return root;
+  }
+
+  public TreeNode bstFromPreorder(int[] preorder) {
+    this.preorder = preorder;
+    n = preorder.length;
+    return helper(Integer.MIN_VALUE, Integer.MAX_VALUE);
+  }
+```
+
+Time Complexity: 
+
+Space Complexity: 
+
 
 **Q7- Target Sum pair in BST**  ( Easy )
 
@@ -173,9 +268,16 @@ public List<Integer> closestKValues(TreeNode root, double target, int k) {
         inorder(reverse? root.left: root.right, target, reverse, s);
     }
 ```
+
+Time Complexity: 
+
+Space Complexity: 
+
 **10- Given a BST, make a BST iterator**
 
+
 **Q11-  Minimum Cost Tree From Leaf Values**
+
 
 ===============
 ### Balanced Binary Search Tree
