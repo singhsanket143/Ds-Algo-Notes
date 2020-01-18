@@ -1,4 +1,5 @@
 
+### BST AND BT MIXED
 **Q1- Longest Consecutive Subsequence in a Binary Tree*
 
 **Q2- Cousins in Binary Tree**
