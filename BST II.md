@@ -82,10 +82,74 @@ Approach 2:
 **Q7- Target Sum pair in BST**
 
 **Q8- Closest Binary Search Tree Value**
+
 Given a non-empty binary search tree and a target value, find the value in the BST that is closest to the target.
+
+![Screenshot 2020-01-18 at 8 45 52 PM](https://user-images.githubusercontent.com/35702912/72665979-9c679a80-3a33-11ea-8bec-185de291c86e.png)
+```java
+
+public int closestValue(TreeNode root, double target) {
+            
+        int val, closest = root.val;
+        while (root != null) {
+        val = root.val;
+        closest = Math.abs(val - target) < Math.abs(closest - target) ? val : closest;
+        root =  target < root.val ? root.left : root.right;
+        }
+    return closest;
+    }
+```
+Time Complexity: O(H)
+Space Complexity: O(1)
 
 **Q9- Closest Binary Search Tree Value II**
 
+Given a non-empty binary search tree and a target value, find k values in the BST that are closest to the target.
+Input: _Same Tree as before._
+k = 2
+Output: [4, 3]
+
+```java
+public List<Integer> closestKValues(TreeNode root, double target, int k) {
+        List<Integer> list = new ArrayList<>();
+        
+        Stack<Integer> s1 = new Stack<>();
+        Stack<Integer> s2 = new Stack<>();
+        
+        inorder(root, target, false, s1);
+        inorder(root, target, true, s2);
+        
+        while(k-- > 0){
+            if(s1.isEmpty()){
+                list.add(s2.pop());
+            }else if(s2.isEmpty()){
+                list.add(s1.pop());
+            }else{
+                if(Math.abs(s1.peek() - target) < Math.abs(s2.peek() - target)){
+                    list.add(s1.pop());
+                }else{
+                    list.add(s2.pop());
+                }
+            }
+        }
+        
+        return list;
+        
+    }
+    
+    public void inorder(TreeNode root, double target, boolean reverse, Stack<Integer> s){
+        if(root == null){
+            return;
+        }
+        
+        inorder(reverse? root.right: root.left, target, reverse, s);
+        if(reverse && root.val <= target || !reverse && root.val > target){
+            return;
+        }
+        s.push(root.val);
+        inorder(reverse? root.left: root.right, target, reverse, s);
+    }
+```
 **10- Given a BST, make a BST iterator**
 
 **Q11-  Minimum Cost Tree From Leaf Values**
