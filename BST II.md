@@ -1,4 +1,6 @@
-**Q1- Cousins in Binary Tree**
+**Q1- Longest Consecutive Subsequence in a Binary Tree*
+
+**Q2- Cousins in Binary Tree**
 
 In a binary tree, the root node is at depth 0, and children of each depth k node are at depth k+1.
 
@@ -51,5 +53,21 @@ public:
 ```
 
 **Q3- Given a BST, find the kth smallest element in the BST**
+
 Approach 1: Write inorder traversal which will be in sorted form. Then find the kth smallest element.
 Approach 2: 
+
+**Q4- Given the preorder traversal of the BST, find the leaf nodes of the BST.**
+
+**Q5- Given a BT, and distance between two nodes, tell the distance between the two nodes.**
+
+**Q6- Given the preorder traversal of a BST, construct the BST out of it.**
+
+**Q7- Target Sum pair in BST**
+
+===============
+### Balanced Binary Search Tree
+
+**Q1- Given a BST, convert it into a BBST**
+
+**Q2- Given a BST, make a BST iterator**
