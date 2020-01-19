@@ -152,10 +152,9 @@ static int i = 0;
         return false; 
     } 
 ```
-Time Complexity: 
+Time Complexity: O(n)
 
-Space Complexity: 
-
+Space Complexity: O(n)
 
 **Q4- Given a BT, and two nodes, tell the distance between the two nodes.**
 
@@ -169,21 +168,22 @@ Approach 1: Using LCA
 
 ```
 
-Time Complexity: 
+Time Complexity: O(n)
 
-Space Complexity: 
+Space Complexity: O(n)
 
 Approach 2: Find LCA of two nodes. Then, find distance from LCA to two nodes.
 
-Time Complexity: 
+Time Complexity: O(n)
 
-Space Complexity: 
+Space Complexity: O(n)
 
 
 **Q5- Given the preorder traversal of a BST, construct the BST out of it.**
 
+
 ```java
-int idx = 0;
+  int idx = 0;
   int[] preorder;
   int n;
 
@@ -210,9 +210,9 @@ int idx = 0;
   }
 ```
 
-Time Complexity: 
+Time Complexity: O(n)
 
-Space Complexity: 
+Space Complexity: O(n)
 
 
 **Q6- Target Sum pair in BST**  ( Easy )
@@ -324,14 +324,11 @@ public List<Integer> closestKValues(TreeNode root, double target, int k) {
     }
 ```
 
-Time Complexity: 
+Time Complexity: O(n)
 
-Space Complexity: 
+Space Complexity: O(n)
 
-**9- Given a BST, make a BST iterator**
-
-
-**Q10-  Minimum Cost Tree From Leaf Values**
+**Q9-  Minimum Cost Tree From Leaf Values**
 
 Given an array arr of positive integers, consider all binary trees such that:
 
@@ -341,11 +338,5 @@ The value of each non-leaf node is equal to the product of the largest leaf valu
 Among all possible binary trees considered, return the smallest possible sum of the values of each non-leaf node.  It is guaranteed this sum fits into a 32-bit integer.
 
 ![Screenshot 2020-01-19 at 1 58 26 AM](https://user-images.githubusercontent.com/35702912/72670080-4c063200-3a5f-11ea-9714-f2fd63f6cb66.png) 
-
-
-===============
-### Balanced Binary Search Tree
-
-**Q11- Given a BST, convert it into a BBST**
 
 
