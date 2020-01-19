@@ -7,6 +7,9 @@ Given a binary tree, you need to find the length of Longest Consecutive Path in 
 
 Especially, this path can be either increasing or decreasing. For example, [1,2,3,4] and [4,3,2,1] are both considered valid, but the path [1,2,4,3] is not valid. On the other hand, the path can be in the child-Parent-child order, where not necessarily be parent-child order.               
 
+![Screenshot 2020-01-19 at 5 29 42 PM](https://user-images.githubusercontent.com/35702912/72680571-59fc9700-3ae1-11ea-8d81-9ed10d6f8178.png)
+Output: 4
+
 Approach 1: 
 1. Total no. of nodes - n
 2. Total pair of nodes - nC2 = Total no. of paths
@@ -14,7 +17,65 @@ Approach 1:
 4. Find the maximum inc/dec out of them. 
 
 Approach 2: 
-1. 
+
+```java
+
+ int result = 0;
+    public class Pair{
+        int inc;
+        int dec;
+    }
+    public int longestConsecutive(TreeNode root) {
+        helper(root);
+        return result;
+        
+    }
+    
+    public Pair helper(TreeNode root){
+        if(root == null){
+            Pair p = new Pair();
+            p.inc = 0;
+            p.dec = 0;
+            return p;
+        }
+        int inc = 1;
+        int dec = 1;
+        Pair left = helper(root.left);
+        Pair right = helper(root.right);
+        
+        Pair mypair  = new Pair();
+        
+        if(root.left != null){   
+            if(root.val == root.left.val + 1){
+                
+                dec += left.dec;
+            }
+            if(root.val == root.left.val - 1){
+                
+                inc += left.inc;
+            }
+        }
+        if(root.right != null){
+            if(root.val == root.right.val + 1){
+                
+                dec = Math.max(dec, right.dec + 1);
+            }
+            if(root.val == root.right.val - 1){
+        
+                inc = Math.max(inc, right.inc + 1);
+            }
+        }
+        
+        result = Math.max(inc + dec - 1, result);
+        mypair.dec = dec;
+        mypair.inc = inc;
+        return mypair;
+    }
+```
+
+Time Complexity: O(n)
+
+Space Complexity: O(n)
 
 **Q2- Cousins in Binary Tree** 
 
@@ -54,13 +115,7 @@ Time Complexity: O(n)
 Space Complexity: O(n)
 
 
-**Q3- Given a BST, find the kth smallest element in the BST** (Optional) (Medium)
-
-Approach 1: Write inorder traversal which will be in sorted form. Then find the kth smallest element.
-
-Approach 2: Augmented Tree Data Structure
-
-**Q4- Given the preorder traversal of the BST, find the leaf nodes of the BST.**
+**Q3- Given the preorder traversal of the BST, find the leaf nodes of the BST.**
 
 ![Screenshot 2020-01-19 at 1 13 17 AM](https://user-images.githubusercontent.com/35702912/72669537-e616ac00-3a58-11ea-9036-822937838aa1.png)
 
@@ -102,7 +157,7 @@ Time Complexity:
 Space Complexity: 
 
 
-**Q5- Given a BT, and two nodes, tell the distance between the two nodes.**
+**Q4- Given a BT, and two nodes, tell the distance between the two nodes.**
 
 Approach 1: Using LCA
 ```
@@ -125,7 +180,7 @@ Time Complexity:
 Space Complexity: 
 
 
-**Q6- Given the preorder traversal of a BST, construct the BST out of it.**
+**Q5- Given the preorder traversal of a BST, construct the BST out of it.**
 
 ```java
 int idx = 0;
@@ -160,7 +215,7 @@ Time Complexity:
 Space Complexity: 
 
 
-**Q7- Target Sum pair in BST**  ( Easy )
+**Q6- Target Sum pair in BST**  ( Easy )
 
 Given a Binary Search Tree and a target number, return true if there exist two elements in the BST such that their sum is equal to the given target.
 
@@ -194,7 +249,7 @@ Time Complexity: O(n)
 
 Space Complexity: O(n)
 
-**Q8- Closest Binary Search Tree Value**  ( Easy )
+**Q7- Closest Binary Search Tree Value**  ( Easy )
 
 Given a non-empty binary search tree and a target value, find the value in the BST that is closest to the target.
 
@@ -217,7 +272,7 @@ Time Complexity: O(H)
 
 Space Complexity: O(1)
 
-**Q9- Closest Binary Search Tree Value II**     ( Medium )
+**Q8- Closest Binary Search Tree Value II**     ( Medium )
 
 Given a non-empty binary search tree and a target value, find k values in the BST that are closest to the target.
 
@@ -273,10 +328,10 @@ Time Complexity:
 
 Space Complexity: 
 
-**10- Given a BST, make a BST iterator**
+**9- Given a BST, make a BST iterator**
 
 
-**Q11-  Minimum Cost Tree From Leaf Values**
+**Q10-  Minimum Cost Tree From Leaf Values**
 
 Given an array arr of positive integers, consider all binary trees such that:
 
@@ -291,6 +346,6 @@ Among all possible binary trees considered, return the smallest possible sum of 
 ===============
 ### Balanced Binary Search Tree
 
-**Q1- Given a BST, convert it into a BBST**
+**Q11- Given a BST, convert it into a BBST**
 
 
