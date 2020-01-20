@@ -112,6 +112,12 @@ If solving using recursion:
 	
 **Q3- Given an array of words, convert it into a unique prefix array**
 	
+	array = ["zebra", "dog", "dove", "duck"];
+	output = ["z", "dog", "dov", "du"];
+	
+	Brute force Approach: Compare all prefixs of all words in array.
+		Time Complexity: O(n^2 x len(max(str)))
+		
 **Q4- Maximum XOR pair**
 
 ```cpp
