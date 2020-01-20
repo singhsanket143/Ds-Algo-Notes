@@ -208,7 +208,7 @@ F(x, y) = F(1, x - 1) ^ F(1, Y) (For all x < y )
 
 Now having the above knowledge, lets say we have an array like [a,b,c,d,e,f]
 
-We know that how to calculate a pair in the array such that it's xor is maximum. Now if you will carefully observe the above equation you will realise the fact that in order to calculate the subarray of any subarray, you can calculate it easily by having the prefix xor subarray values till X-1 and Y.
+We know that how to calculate a pair in the array such that it's xor is maximum. Now if you will carefully observe the above equation you will realise the fact that in order to calculate the xor of any subarray, you can calculate it easily by having the prefix xor subarray values till X-1 and Y.
 
 Lets convert the given array into prefix xor array like
 
