@@ -96,6 +96,84 @@ Given a 2D board and a list of words from the dictionary, find all words in the 
 
 Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
 
+```cpp
+
+class TrieNode {
+public:
+    char ch;
+    bool isTerminal;
+    unordered_map<char, TrieNode*> children;
+    TrieNode(char ch, bool isTerminal) {
+        this->ch = ch;
+        this->isTerminal = isTerminal;
+    }
+    
+};
+class Solution {
+public:
+    vector<string> result;
+    void insert(string word, TrieNode *root) {
+        TrieNode* temp = root;
+        for(int i = 0; i < word.size(); i++) {
+            char ch = word[i];
+            if(temp->children.find(ch) != temp->children.end()) {
+                temp = temp->children[ch];
+            } else {
+                temp->children[ch] = new TrieNode(ch, false);
+                temp = temp->children[ch];
+            }
+        }
+        temp->isTerminal = true;
+        return;
+    }
+    
+    
+    void backtrack(vector<vector<char>>& board, TrieNode* root, int i, int j, bool **visited, string str) {
+        if(i < 0 or j < 0 or i >= board.size() or j >= board[0].size()) {
+            return;
+        }
+        if(visited[i][j] == true) return;
+        char ch = board[i][j];
+        if(root->children.find(ch) == root->children.end()) {
+            return;
+        } else {
+            root = root->children[ch];
+        }
+        if(root->isTerminal == true) {
+            result.push_back(str+board[i][j]);
+            root->isTerminal = false;
+        }
+        visited[i][j] = true;
+        backtrack(board, root, i+1, j, visited, str+board[i][j]);
+        backtrack(board, root, i-1, j, visited, str+board[i][j]);
+        backtrack(board, root, i, j+1, visited, str+board[i][j]);
+        backtrack(board, root, i, j-1, visited, str+board[i][j]);
+        visited[i][j] = false;
+        return;
+    }
+    
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        TrieNode *root = new TrieNode('\0', false);
+        for(string word: words) {
+            insert(word, root);
+        }
+        bool **visited = new bool*[board.size()];
+        for(int i = 0; i < board.size(); i++) {
+            visited[i] = new bool[board[0].size()]();
+        }
+        
+        for(int i = 0; i < board.size(); i++) {
+            for(int j = 0; j < board[0].size(); j++) {
+                TrieNode* temp = root;
+                backtrack(board, temp, i, j, visited, "");
+            }
+        }
+        return result;
+    }
+};
+
+```
+
  **Homework Problem**
  
  https://www.codechef.com/problems/SUBBXOR
