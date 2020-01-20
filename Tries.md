@@ -203,6 +203,23 @@ int findMaxXorPair(trieNode *head, int *arr, int n) {
 ```
 **Q5- Maximum XOR Subarray**
 
+We know that by property of xor, lets say F(x, y) is a function that calculates the xor of an array from index x to index y, then we can deduce the equation like: 
+F(x, y) = F(1, x - 1) ^ F(1, Y) (For all x < y )
+
+Now having the above knowledge, lets say we have an array like [a,b,c,d,e,f]
+
+We know that how to calculate a pair in the array such that it's xor is maximum. Now if you will carefully observe the above equation you will realise the fact that in order to calculate the subarray of any subarray, you can calculate it easily by having the prefix xor subarray values till X-1 and Y.
+
+Lets convert the given array into prefix xor array like
+
+[a, a^b, a^b^c, a^b^c^d, a^b^c^d^e, a^b^c^d^e^f]
+
+Now can we find a pair in the above array such that it's xor is max???? Yes, we have done this question earlier.
+
+Lets say the maximum xor pair is coming from index 2 and index 6 i.e. (a^b) ^ (a^b^c^d^e^f). Lets say this value is C. So C is the max xor pair value in the updated prefix xor array. Now if you will carefully visualize the value of C then you will get that C = (a^b) ^ (a^b^c^d^e^f) = a^b^a^b^c^d^e^f = c^d^e^f. And c^d^e^f is the xor of subarray [c,d,e,f] and as this is the max value so the subarray [c,d,e,f] will give max xor. 
+
+Simple :-p
+
 ```java
 
 import java.util.Scanner;
