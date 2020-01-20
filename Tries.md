@@ -112,16 +112,19 @@ If solving using recursion:
 	
 **Q3- Given an array of words, convert it into a unique prefix array**
 	
-	array = ["zebra", "dog", "dove", "duck"];
-	output = ["z", "dog", "dov", "du"];
+array = ["zebra", "dog", "dove", "duck"];
+output = ["z", "dog", "dov", "du"];
 	
-	Brute force Approach: Compare all prefixs of all words in array.
-		Time Complexity: O(n^2 x len(max(str)))
+Brute force Approach: Compare all prefixs of all words in array.
+Time Complexity: O(n^2 x len(max(str)))
 		
-	Optimised Approach: If a particular prefix is not unique, this means that it will be shared among more than 1 string.
-	So why not keep a count on what are the number of strings in which a particular prefix is stored, and the prefix which
-	is present only in one string will be unique. As we need prefix based calculation, a Trie(Prefix tree) will be 
-	helpful. At each node we can keep a count that the prefix ending at this node is shared among how many strings.
+Optimised Approach: If a particular prefix is not unique, this means that it will be shared among more than 1 string. So why not keep a count on what are the number of strings in which a particular prefix is stored, and the prefix which is present only in one string will be unique. As we need prefix based calculation, a Trie(Prefix tree) will be helpful. At each node we can keep a count that the prefix ending at this node is shared among how many strings.
+
+Now one way to tackle the above approach is to check for those nodes which have more than one child node because they will be showing sharing of a prefix into multiple words. But is this approach enough to cover all corner cases??
+
+No, consider the case of [Zebra, Zebras]. Here the common prefix array will be [Zebra, Zebras]. Alhough the node 'a' is distributed with only single child still it will be unique common prefix.
+
+So other way to handle this is to keep a freq parameter inside our trinode in order to keep a check on how many strings shared nodes till the current node.
 		
 **Q4- Maximum XOR pair**
 
