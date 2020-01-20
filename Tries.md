@@ -128,6 +128,8 @@ So other way to handle this is to keep a freq parameter inside our trinode in or
 		
 **Q4- Maximum XOR pair**
 
+![Screenshot 2020-01-20 at 7 30 22 PM](https://user-images.githubusercontent.com/35702912/72732287-5d645100-3bbb-11ea-86ad-8a16ef24d04e.png)
+
 ```cpp
 class trieNode {
 public:
@@ -282,6 +284,10 @@ public class maxXorSubarray {
 Given a 2D board and a list of words from the dictionary, find all words in the board.
 
 Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+
+![Screenshot 2020-01-20 at 3 11 05 PM](https://user-images.githubusercontent.com/35702912/72732288-5e957e00-3bbb-11ea-986e-5730c6141a40.png)
+
+
 
 ```cpp
 
