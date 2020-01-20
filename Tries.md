@@ -27,4 +27,4 @@ Each word must be constructed from letters of sequentially adjacent cell, where 
 
  **Homework Problem**
  
- 
+ https://www.codechef.com/problems/SUBBXOR
