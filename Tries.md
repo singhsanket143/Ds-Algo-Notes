@@ -1,20 +1,117 @@
 ### Tries
 
+Situation: Rahul is a Software Engineer at Netflix. And he has been asked to implement the search functionality on the website. 
 
-- Derived - Re - Trie - val
+Tasks:
+- Find the names of the all movies available on netflix and store them in a efficient manner. 
+- Efficient Retrieval of the movie. If I type prefix, possible movie names should appear. 
+For eg: term..
+Suggestions: Terminator 1, Terminator 2, Terminator 3,....
+
+
+**Task 1:**
+Given a bag of words, containing all the movies, you need to store them efficiently. Design in such a way that add() functions and search() functions can be done efficiently. 
+ Approach 1: HashMaps <Key, Value>
+ 	     Key: Movie Name
+	     Value: Could be anything..
+	     
+	     Time Complexity: Let's say the length of the longest movie name is 'n'. Also, the movie names are made of only 		  of lowercase alphabets. Some movie lengths can be of length 1, 2, 3, 4, 5 ....
+	     Total space: Space (1) + Space (2) + Space (3) + ...
+	     Considering 1 character, taking 1 byte of space..
+	     Space (1) = 1 x 26
+	     Space (2) = 2 x 26 x 26
+	     .
+	     .
+	     .
+	     Space (n) = n X 26^n
+	     
+	     How can we optimise this?
+	     
+Approach 2: We can store the common things (prefix) together. **Need shared space for common variables.**
+	    Form a tree kind of structure. Single instance of common prefix. 
+		
+	    Can we use stacks? Queues? 
+	    Form a tree structure. Separate node for different movie names.
+	    Time Complexity: Movie names: ape, appy, apple, apiapi
+	   			26 + 26^2 +.........+ 26^n
+	    Time complexity for storing is optimised. But in case of searching, it remains same. O(len(str))
+	    
+	    Let's say if I want to search for "api". api is not present, still we get true as answer.
+	    So, we need one more check.
+	    
+```java
+private class Node {
+		char ch;
+		boolean eow;
+		HashMap<Character, Node> table;
+	}
+```
+
+- Derived from - Re - Trie - val. 
 - Need shared space for common variables. 
-- Example: Autocomplete System
+
+Functions: 
+- Add()
+
+```java
+
+	public void addWord(Node parent, String word) {
+
+		if (word.length() == 0) {
+			if(!parent.eow) {
+			 	parent.eow = true;
+				return;
+			}
+		} 
+		char ch = word.charAt(0);
+		String row = word.substring(1);
+
+		Node child = parent.table.get(ch);
+
+		if (child == null) {
+			child = new Node(ch);
+			parent.table.put(ch, child);
+
+		}	
+		addWord(child, row);		
+	}
+```
+- Search()
+
+```java
+
+	public boolean searchWord(Node parent, String word) {
+
+		if (word.length() == 0) {
+			return parent.eow;
+		}
+
+		char ch = word.charAt(0);
+		String row = word.substring(1);
+
+		Node child = parent.table.get(ch);
+
+		if (child == null) {
+			return false;
+		} else {
+			return searchWord(child, row);
+		}
+	}
+
+```
 
 Time Complexity to insert a new word: O(k)
 Time Complexity to retrieve a word: O(k)
 
-
+If solving using recursion: 
+	Space Complexity: O(n)
+	
 **Q1- Given a set of words, find all the words with given prefix**
-
+	Can be done easily now.
 **Q2- Given a set of words, find all the words with given suffix**
-
+	
 **Q3- Given an array of words, convert it into a unique prefix array**
-
+	
 **Q4- Maximum XOR pair**
 
 ```cpp
