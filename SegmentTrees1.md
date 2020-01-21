@@ -21,3 +21,15 @@ Can we optimize???
 
 ### Approach 2
 
+Let's say F(x, y) is a function which calculates sum of all elements from index X to index Y, then we can say that
+F(x, y) = F(1, x-1) - F(1, y)
+We can observe F(1, y) is the prefix sum of elements till index y and same for F(1, x-1)
+
+So if we can update the given array as a prefix sum array
+
+Then we can answer the query of type 1, in O(1) time 
+
+But here the trade-off is to answer the query of type 2 as in to update the array index we can directly access it and update it because now we have transformed it to a prefix sum array. So to handle this we need to iterate from the given index
+
+
+
