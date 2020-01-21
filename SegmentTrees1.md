@@ -95,3 +95,6 @@ What if we want sum from index 1 to 7? Again, we pick up [1-4] and go to [5-8]. 
 
 In general, when computing Query Type 1 where you need to calculate the answer from index X to Y, we start checking from the root node, and see if the whole range lies inside a particular node or not. If it does then the answer lies in some lower segments, otherwise we will extract answer from some left segments and some right segments. 
 
+How do we store this tree? We can number the elements in the tree level by level, starting from the root, as we do in a heap. If there are N leaves, there are 2N-1 elements in the array, with the leaves in the last N positions. Given a position i, we can compute the positions parent(i), leftchild(i) and rightchild(i) as in a heap.
+To set up the array, do something similar to constructing a heap. The array elements are stored in the last N elements. Working backwards, update A[i] as A[2i]+A[2i+1] (sum of its children).
+
