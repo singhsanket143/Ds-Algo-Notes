@@ -26,10 +26,72 @@ F(x, y) = F(1, x-1) - F(1, y)
 We can observe F(1, y) is the prefix sum of elements till index y and same for F(1, x-1)
 
 So if we can update the given array as a prefix sum array
-
 Then we can answer the query of type 1, in O(1) time 
 
-But here the trade-off is to answer the query of type 2 as in to update the array index we can directly access it and update it because now we have transformed it to a prefix sum array. So to handle this we need to iterate from the given index
+But here the trade-off is to answer the query of type 2 as in to update the array index we can directly access it and update it because now we have transformed it to a prefix sum array. So to handle this we need to iterate from the given index of update and iterate till the last index and maintain the prefix sum to all those index which are going to be affected by this current update.
+
+For query of type 1 
+Time Complexity - O(1)
+Space Complexity - O(1)
+For query of type 2
+Time Complexity - O(n)
+Space Complexity - O(1)
+
+Can we optimize???
+
+## Introduction to Segment Trees
+Till now you might have encountered a lot of data structures, some of them might be linear like arrays, linked list, strings, stacks, queues etc. and some of them might were hierarchical in nature like Binary Trees, Binary Search Trees, Tries etc. 
+Segment trees are one of those data structures which is basically portrayed as a hierarchical data structure but represented in a linear fashion. 
+
+A segment tree is a binary tree build on top of an array. This structure allows aggregation queries and updates over array intervals in logarithmic time. 
+
+Now the big question that might come to you mind is how on the earth one might think about segment trees???? It's not that obvious to think for. 
+
+So as the name suggest, this tree divides your problem into several segments and then try to prune out those segments that are of no use for the current query and try to just use those segments which will contribute something to your answer. If there are a lot of segments present that will contribute to you answer, then their bigger aggregate segment is already maintained that can give you your answers much earlier. 
+
+If the above arguments seems confusing to you guys then dont worry I will elaborate everything perfectly. 
+
+Given an array A, we store the values in the leaves of a tree. At each level we combine two nodes at time and store their sum in the parent. This builds up a binary tree, as shown in the following example with an array of size 8.
+
+arr = [2, 3, 3, 2, 6, 4, 5, 2]
+
+                    ----27-----
+                  /             \
+                10               17
+               /   \            /   \
+             5       5       10       7
+           /  \     /  \     / \     / \
+          2    3   3    2   6   4   5   2
 
 
+Now, suppose we update A[7] from 5 to 8. To update the tree, we start from the leaf A[7] and walk up a path of length log N to the root, updating all values on the way. In the figure below, the updated values are marked with a *.
+
+                    ----30*----
+                  /             \
+                10               27*
+               /   \            /   \
+             5       5       10      10*
+           /  \     /  \     / \     / \
+          2    3   3    2   6   4   8*  2
+
+At each node, lets see what segments are getting stored at which level
+The diagram below shows that what level node is storing which corresponding segment.
+
+                         -----30----
+                       /    [1,8]    \
+                     /                 \
+                   10                    27
+                 [1,4]                  [5,8]
+               /       \              /       \
+             5           5          10          10
+           [1,2]       [3,4]       [5,6]       [7,8]
+           /   \       /   \       /   \       /  \
+          2     3     3     2     6     4     8     2
+        [1,1] [2,2] [3,3] [4,4] [5,5] [6,6] [7,7] [8,8]
+        
+Suppose we want the sum from index 1 to 6. We start from the root and can easily observe that range [1-6] is contained in range [1-8]. If we will go left we will find [1-4] that is contained in [1-6] but not all of it. What is left is [5-6] for which we go right. Seeing [5-8], we go left and find [5-6] and stop.
+
+What if we want sum from index 1 to 7? Again, we pick up [1-4] and go to [5-8]. We then pick up [5-6] and go right to pick up [7-7].
+
+In general, when computing Query Type 1 where you need to calculate the answer from index X to Y, we start checking from the root node, and see if the whole range lies inside a particular node or not. If it does then the answer lies in some lower segments, otherwise we will extract answer from some left segments and some right segments. 
 
