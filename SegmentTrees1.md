@@ -100,6 +100,11 @@ To set up the array, do something similar to constructing a heap. The array elem
 
 Q- 1 -> You are given a sequence of n integers a1 , a2 , ... , an in non-decreasing order. In addition to that, you are given several queries consisting of indices i and j (1 ≤ i ≤ j ≤ n). For each query, determine the most frequent value among the integers ai , ... , aj.
 
+### No Of Nodes In Segment Tree
+
+If n is a power of 2, then there are no dummy nodes. So the size of the segment tree is 2n-1 (n leaf nodes and n-1) internal nodes. If n is not a power of 2, then the size of the tree will be 2*x – 1 where x is the smallest power of 2 greater than n. For example, when n = 10, then size of array representing segment tree is 2*16-1 = 31.
+An alternate explanation for size is based on heignt. Height of the segment tree will be ceil(logn). Since the tree is represented using array and relation between parent and child indexes must be maintained, size of memory allocated for segment tree will be 2*2<sup>ceil(logn)</sup> - 1.
+
 https://www.spoj.com/problems/FREQUENT/
 
 I have taken prefix_value of the merged segment equal to the left prefix_value and prefix_count as the prefix_count of the left segment, similarly suffix_value and suffix_count can be updated using right segment.If prefix value of both left and right segments are same then prefix_count will be summation of both. If suffix value of both left and right segments are same then suffix_count will be summation of both. Now if suffix of left segment and prefix of right segment are equal then we update ans accordingly. Finally the variable ans will contain the number with highest frequency and hence our answer.
