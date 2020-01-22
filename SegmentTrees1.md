@@ -102,6 +102,8 @@ Q- 1 -> You are given a sequence of n integers a1 , a2 , ... , an in non-decreas
 
 https://www.spoj.com/problems/FREQUENT/
 
+I have taken prefix_value of the merged segment equal to the left prefix_value and prefix_count as the prefix_count of the left segment, similarly suffix_value and suffix_count can be updated using right segment.If prefix value of both left and right segments are same then prefix_count will be summation of both. If suffix value of both left and right segments are same then suffix_count will be summation of both. Now if suffix of left segment and prefix of right segment are equal then we update ans accordingly. Finally the variable ans will contain the number with highest frequency and hence our answer.
+
 ```cpp
 #include<iostream>
 #include <stdio.h>
