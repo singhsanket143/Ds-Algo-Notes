@@ -98,6 +98,74 @@ In general, when computing Query Type 1 where you need to calculate the answer f
 How do we store this tree? We can number the elements in the tree level by level, starting from the root, as we do in a heap. If there are N leaves, there are 2N-1 elements in the array, with the leaves in the last N positions. Given a position i, we can compute the positions parent(i), leftchild(i) and rightchild(i) as in a heap.
 To set up the array, do something similar to constructing a heap. The array elements are stored in the last N elements. Working backwards, update A[i] as A[2i]+A[2i+1] (sum of its children).
 
+```java
+
+import java.util.Scanner;
+
+public class SegmentTreeSum {
+
+	public static void main(String[] args) {
+
+		Scanner scn = new Scanner(System.in);
+		int n = scn.nextInt();
+		int[] arr = new int[n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = scn.nextInt();
+		}
+		int[] tree = new int[2 * n];
+		buildTree(arr, tree, 0, n - 1, 1);
+
+		updateTree(arr, tree, 0, n - 1, 1, 2, 10);
+		for (int i = 1; i < tree.length; i++) {
+			System.out.println(tree[i]);
+		}
+		System.out.println(query(tree, 0, n - 1, 1, 2, 4));
+
+	}
+
+	public static void buildTree(int[] arr, int[] tree, int start, int end, int treeNode) {
+		if (start == end) {
+			tree[treeNode] = arr[start];
+			return;
+		}
+		int mid = (start + end) / 2;
+		buildTree(arr, tree, start, mid, 2 * treeNode);
+		buildTree(arr, tree, mid + 1, end, 2 * treeNode + 1);
+
+		tree[treeNode] = tree[2 * treeNode] + tree[2 * treeNode + 1];
+	}
+
+	public static void updateTree(int[] arr, int[] tree, int start, int end, int treeNode, int idx, int val) {
+		if (start == end) {
+			arr[idx] = val;
+			tree[treeNode] = val;
+			return;
+		}
+		int mid = (start + end) / 2;
+		if (idx > mid) {
+			updateTree(arr, tree, mid + 1, end, 2 * treeNode + 1, idx, val);
+		} else {
+			updateTree(arr, tree, start, mid, 2 * treeNode, idx, val);
+		}
+		tree[treeNode] = tree[2 * treeNode] + tree[2 * treeNode + 1];
+	}
+
+	public static int query(int[] tree, int start, int end, int treeNode, int left, int right) {
+		if (start > right || end < left) {
+			return 0;
+		}
+		if (start >= left && end <= right) {
+			return tree[treeNode];
+		}
+		int mid = (start + end) / 2;
+		int ans1 = query(tree, start, mid, 2 * treeNode, left, right);
+		int ans2 = query(tree, mid + 1, end, 2 * treeNode + 1, left, right);
+		return ans1 + ans2;
+	}
+
+}
+```
+
 ### No Of Nodes In Segment Tree
 
 If n is a power of 2, then there are no dummy nodes. So the size of the segment tree is 2n-1 (n leaf nodes and n-1) internal nodes. If n is not a power of 2, then the size of the tree will be 2*x – 1 where x is the smallest power of 2 greater than n. For example, when n = 10, then size of array representing segment tree is 2x16-1 = 31.
@@ -202,3 +270,110 @@ int main(int argc, char const *argv[])
 
 ```
 
+Q-2 -> Find Max Sum Pair In A range from L to R in an array
+
+```java
+public class SegmentTreeMaxSumPair {
+
+	class node {
+		int max=0;
+		int smax=0;
+		int sum=0;
+	}
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int n = scn.nextInt();
+		PrintWriter pw=new PrintWriter(System.out);
+		SegmentTreeMaxSumPair s = new SegmentTreeMaxSumPair();
+		int[] arr = new int[n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = scn.nextInt();
+		}
+		int q = scn.nextInt();
+		node[] tree = new node[3 * n];
+		for(int i=0;i<3*n;i++){
+			tree[i] = s.new node();
+		}
+		buildTree(arr, tree, 1, 0, n-1);
+		for(int i=0;i<q;i++){
+			char type = scn.next().charAt(0);
+			int left = scn.nextInt();
+			int right = scn.nextInt();
+			if(type=='Q') {
+				SegmentTreeMaxSumPair st =new SegmentTreeMaxSumPair();
+				node r=(query(tree, 0, n - 1, 1, left-1, right-1,st));
+				pw.println(r.sum);
+				pw.flush();
+			} else {
+				updateTree(arr, tree, 0, n - 1, 1, left-1, right);
+			}
+		}
+		
+	}
+	
+	public static void buildTree(int[] arr, node[] tree,int treeIndex, int start, int end) {
+		
+		if(start==end) {
+			tree[treeIndex].max=arr[start];
+			tree[treeIndex].smax=0;
+			tree[treeIndex].sum=arr[start];
+			return;
+		}
+		int mid =(start+end)/2;
+		buildTree(arr, tree, 2*treeIndex, start, mid);
+		buildTree(arr, tree, 2*treeIndex+1, mid+1, end);
+		
+		node left = tree[2*treeIndex];
+		node right = tree[2*treeIndex+1];
+		tree[treeIndex].max = Math.max(left.max, right.max);
+		tree[treeIndex].smax = Math.min(Math.max(left.max, right.smax), Math.max(left.smax, right.max));
+		tree[treeIndex].sum=tree[treeIndex].max+tree[treeIndex].smax;
+		return;
+	}
+	
+	public static void updateTree(int[] arr, node[] tree, int start, int end, int treeIndex, int idx, int val) {
+		if (start == end) {
+			arr[idx] = val;
+			tree[treeIndex].max = val;
+			tree[treeIndex].smax=0;
+			tree[treeIndex].sum=val;
+			return;
+		}
+		int mid = (start + end) / 2;
+		if (idx > mid) {
+			updateTree(arr, tree, mid + 1, end, 2 * treeIndex + 1, idx, val);
+		} else {
+			updateTree(arr, tree, start, mid, 2 * treeIndex, idx, val);
+		}
+		node left = tree[2*treeIndex];
+		node right = tree[2*treeIndex+1];
+		tree[treeIndex].max = Math.max(left.max, right.max);
+		tree[treeIndex].smax = Math.min(Math.max(left.max, right.smax), Math.max(left.smax, right.max));
+		tree[treeIndex].sum=tree[treeIndex].max+tree[treeIndex].smax;
+	}
+
+	public static node query(node[] tree, int start, int end, int treeNode, int left, int right,SegmentTreeMaxSumPair s) {
+		if (start > right || end < left) {
+			
+			node n = s.new node();
+			return n;
+		}
+		if (start >= left && end <= right) {
+			return tree[treeNode];
+		}
+		int mid = (start + end) / 2;
+		node ans1 = query(tree, start, mid, 2 * treeNode, left, right,s);
+		node ans2 = query(tree, mid + 1, end, 2 * treeNode + 1, left, right,s);
+		node r=s.new node();
+		r.max=Math.max(ans1.max, ans2.max);
+		r.smax=Math.min(Math.max(ans1.max, ans2.smax), Math.max(ans1.smax, ans2.max));
+		r.sum=r.max+r.smax;
+		return r;
+	}
+
+}
+```
+
+Q-3 -> https://www.hackerearth.com/practice/data-structures/advanced-data-structures/segment-trees/practice-problems/algorithm/shivam-and-expensive-birthday-gift-da58b2f0/
+
+Q-4 -> https://www.hackerearth.com/practice/data-structures/advanced-data-structures/fenwick-binary-indexed-trees/practice-problems/algorithm/2-vs-3/
