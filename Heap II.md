@@ -44,4 +44,18 @@ every element in the array is at a distance atmost K from its sorted position.**
   Space Complexity: O(1)
   Time Complexity: O(nlogn) + O(n)
   
+  - Heap sort has more swaps than quick that's why avoided in internal sorting algorithm
+  
+  
+**Q- Given a row wise and column wise sorted array. Find the Kth smallest element**
+
+10, 20, 30, 40
+15, 25, 35, 45
+24, 29, 37, 48
+32, 33, 39, 50
+  
+  
+  Similar to merge K sorted arrays. Make a heap of size K using all the first index elements from each row. Then just pop min element and insert the next possible element. After K deletions u will have the answer.
+  
+  Time Complexity: O(no_of_rows) + O(klog(no_of_rows))
   
