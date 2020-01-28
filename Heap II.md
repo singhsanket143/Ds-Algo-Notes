@@ -71,6 +71,10 @@ every element in the array is at a distance atmost K from its sorted position.**
   
 **Q- Running median in stream of integers**
 
+    Brute Force: Insertion Sort
+    Optimised Approach : Maintain 2 heaps one max and one min heap.
+    
+
 
 **Q- Given an unsorted array, a number K and a number X, such that you need to find K closest element To X in the array
 
