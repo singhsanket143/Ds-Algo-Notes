@@ -32,5 +32,16 @@ every element in the array is at a distance atmost K from its sorted position.**
   Approach 1: Put all the elements in the min-heap. Extract the minimum elements one by one. 
     
   Time Complexity: O(nlogn) + O(n)
+  Space Complexity: O(n)
   
-  Approach 2: Make a Max heap. Remove elements one by one from the max heap. 
+  Approach 2: Make a In place Min heap. Remove elements one by one from the min heap. But the output will be in descending order. You need to reverse it in order to get ascending order.
+  
+  Space Complexity: O(1)
+  Time Complexity: O(nlogn) + O(n)
+  
+  Approach 3: To avoid the extra reversl instead of a min heap make a max heap
+  
+  Space Complexity: O(1)
+  Time Complexity: O(nlogn) + O(n)
+  
+  
