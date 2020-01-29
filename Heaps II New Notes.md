@@ -16,6 +16,42 @@ _Algo_
 1) Create a min heap of size k+1 using the first k+1 elements of the array. (in O(k) time)
 2) One by one remove min element from heap, put it in the array, and add a new element to heap from remaining elements. (in O((n-k) logk) time.)
 
+
+```
+private static void kSort(int[] arr, int n, int k)  
+    { 
+  
+        // min heap 
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(); 
+  
+        // add first k + 1 items to the min heap 
+        for(int i = 0; i < k + 1; i++) 
+        { 
+            priorityQueue.add(arr[i]); 
+        } 
+  
+        int index = 0; 
+        for(int i = k + 1; i < n; i++)  
+        { 
+            arr[index++] = priorityQueue.peek(); 
+            priorityQueue.poll(); 
+            priorityQueue.add(arr[i]); 
+        } 
+  
+        Iterator<Integer> itr = priorityQueue.iterator(); 
+  
+        while(itr.hasNext())  
+        { 
+            arr[index++] = priorityQueue.peek(); 
+            priorityQueue.poll(); 
+        } 
+  
+    } 
+```
+
+Time Complexity:O(k) + O((n-k) logk)
+Space Complexity: O(k)
+
 **Q2. Heap Sort**
 
 _Intuition_
