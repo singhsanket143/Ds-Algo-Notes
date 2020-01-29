@@ -2,6 +2,10 @@
 
 Ex: Array: 10, 9 , 8 , 7, 4, 70, 60, 50 and k=4 
 
+_Brute Force Approach_: Insertion Sort 
+
+  The inner loop will run at most k times. To move every element to its correct place, at most k elements need to be moved.  So overall complexity will be O(nk)
+  
 _Intuition_
 
 Since each element is at most k away from its target position, the minimum of the array can be found inside the first k+1 elements.
