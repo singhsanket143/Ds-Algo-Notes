@@ -1,22 +1,35 @@
 ## Intro
 
-Today we are going to talk about another sorting algorthim i.e., Insertion Sort. Insertion Sort is not the best sorting algorithm in terms of performance but it is a little bit more efficient than Bubble Sort and Selection Sort. It is also a pretty intuitive sorting technique. Let's see how. 
+Let's talk about another sorting algorthim today - Insertion Sort.
+
+Insertion Sort is not the best sorting algorithm, in terms of performance, but it is a pretty intuitive sorting technique.
+
+Let's see how. 
 
 ## Logic
 
-To explain the logic of Insertion Sort, let's take the example of cards. Let's say we have a set of cards in our hand (9, 6, 3, 4) and we want to arrange them in the increasing order. There are many ways to do that but one of the most intuitive ways is to keep all the cards intially in the left hand. Then, start taking cards one by one from the left hand and try to build a sorted arrangement in the right hand. 
+Let's take the example of cards.  
+Let's say we have a set of cards in our left hand (9, 6, 3, 4) and we want to arrange them in the increasing order.  
 
-1. Since the first card is 9, and there is no other card in the right hand, so 9 simply goes to the right hand. 
+Our right hand is initially empty. At all times, we will make sure that the cards in our right hand remain in sorted order.
 
-2. Now we take the next card from the left hand i.e., 3. When you take 3 to the right hand, you place it before 9 to make sure that the cards are sorted. 
+We now take each card one by one,  
+from our left hand,
+and insert the card,
+in the correct position,
+in our right hand.
+
+1. The first card is 9. There is no other card in the right hand, so 9 simply goes to the right hand. 
+
+2. The next card is 3. When we take 3 to the right hand, we place it before 9 to make sure that the cards are sorted. 
 
 3. At any stage during the process, the left hand is going to be unsorted, and the right hand is going to be sorted. 
 
-4. Now we pick next card, 6, from the left hand and insert it between 3 and 9 in the right hand. 
+4. The next card is 6. We insert it between 3 and 9 in the right hand. 
 
-5. The last card in the left hand is 4 and it needs to be placed between 3 and 6 in the right hand. 
+5. The last card is 4 and it goes between 3 and 6 in the right hand. 
 
-FINALLY, we have a sorted arrangement in the right hand. 
+FINALLY, we have a sorted arrangement in the right hand.
 
 Basic idea is that we have divided the cards into two parts i.e., sorted part and unsorted part. Initially, all the cards are in the unsorted part and the sorted part is empty. 
 At a time, we are picking up one card from the unsorted part and INSERTING it in its right position in the sorted part. 
@@ -49,23 +62,18 @@ In the first iteration, we pick 17 and create a hole at its position. Now to ins
 ## PseudoCode
 
 ```java
-void sort(int arr[])
-    {
-        int n = arr.length;
-        for (int i=1; i<n; ++i)
-        {
-            int key = arr[i];
-            int j = i-1;
-            
-            while (j>=0 && arr[j] > key)
-            {
-                arr[j+1] = arr[j];
-                j = j-1;
-            }
-            arr[j+1] = key;
+void sort(int[] arr) {
+    int n = arr.length;
+    for (int i = 1; i < n; ++i) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j+1] = arr[j];
+            j = j - 1;
         }
+        arr[j+1] = key;
     }
-
+}
 ```
 
 ## Time Complexity
