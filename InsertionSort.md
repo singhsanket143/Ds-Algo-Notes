@@ -80,5 +80,7 @@ For 5, 4, 3, 2, 1 both the nested loops in the pseudocode will run their maximum
 ## When exactly to use insertion sort (Not present on website)
 
 The insertion sort algorithm comes handy when you want to sort a *almost sorted array*. 
+
 For eg: Consider the array with elements 4 7 3 8 9.
+
 Here we can see that except the element 3, all the other elements are at their right position. At this point, you can use Insertion Sort because with this algorithm, you will have to do minimum amount of swaps and the sorted array very fast. 
