@@ -9,7 +9,7 @@ Let's see how.
 ## Logic
 
 Let's take the example of cards.  
-Let's say we have a set of cards in our left hand (9, 6, 3, 4) and we want to arrange them in the increasing order.  
+Let's say we have a set of cards in our left hand (9, 3, 6, 4) and we want to arrange them in the increasing order.  
 
 Our right hand is initially empty. At all times, we will make sure that the cards in our right hand remain in sorted order.
 
