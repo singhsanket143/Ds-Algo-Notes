@@ -9,37 +9,30 @@ Let's see how.
 ## Logic
 
 Let's take the example of cards.  
-Let's say we have a set of cards in our left hand (9, 3, 6, 4) and we want to arrange them in the increasing order.  
+Let's say we have a set of cards in our right hand (9, 3, 6, 4) and we want to arrange them in the increasing order.  
 
-Our right hand is initially empty. At all times, we will make sure that the cards in our right hand remain in sorted order.
+Our left hand is initially empty. At all times, we will make sure that the cards in our left hand remain in sorted order.
 
 We now take each card one by one,  
-from our left hand,
+from our right hand,
 and insert the card,
 in the correct position,
-in our right hand.
+in our hand hand.
 
-1. The first card is 9. There is no other card in the right hand, so 9 simply goes to the right hand. 
+1. The first card is 9. There is no other card in the leftt hand, so 9 simply goes to the left hand. 
 
-2. The next card is 3. When we take 3 to the right hand, we place it before 9 to make sure that the cards are sorted. 
+2. The next card is 3. When we take 3 to the left hand, we place it before 9 to make sure that the cards are sorted. 
 
-3. At any stage during the process, the left hand is going to be unsorted, and the right hand is going to be sorted. 
+3. At any stage during the process, the right hand is going to be unsorted, and the left hand is going to be sorted. 
 
-4. The next card is 6. We insert it between 3 and 9 in the right hand. 
+4. The next card is 6. We insert it between 3 and 9 in the left hand. 
 
-5. The last card is 4 and it goes between 3 and 6 in the right hand. 
+5. The last card is 4 and it goes between 3 and 6 in the left hand. 
 
-FINALLY, we have a sorted arrangement in the right hand.
+FINALLY, we have a sorted arrangement in the left hand.
 
 Basic idea is that we have divided the cards into two parts i.e., sorted part and unsorted part. Initially, all the cards are in the unsorted part and the sorted part is empty. 
 At a time, we are picking up one card from the unsorted part and INSERTING it in its right position in the sorted part. 
-
-Let's try a boundary line, and try to visualise it. ELements to the left of this boundary are sorted and elements to the right of this boundary are unsorted.
-
-Initially all the cards in the unsorted part. Now, we pick each card at a time and INSERT it into the sorted part. 
-Since, it is the first card, we simply put it into the sorted part. Then we pick the next card 3 and insert 
-
-.....
 
 We are done when the unsorted part is empty. 
 
