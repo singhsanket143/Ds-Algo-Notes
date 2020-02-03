@@ -1,4 +1,28 @@
 
+## Recursion
+
+- Also called Divide n conquer. 
+
+- Better to say reduce and conquer. 
+
+- Assume that smaller problem will work and build solution for larger problem. 
+
+- Solution starts aggregating at base case. 
+
+## Backtracking 
+
+- A) Element of choice
+
+- B) Explore all possibilities (Solving question in tree like fashion )
+
+**Steps for Coding:**
+
+- Take a decision (When you take a decision, you know that now your problem has been reduced )
+
+- Recur (Solving reduced problem )
+
+- Undo Decision I
+
 **Q1 Gray Code**
 
 The gray code is a binary numeral system where two successive values differ in only one bit.
@@ -32,6 +56,7 @@ _Recursion_
 public List<String> wordBreak(String s, Set<String> wordDict) {
         return word_Break(s, wordDict, 0);
     }
+    
     public List<String> word_Break(String s, Set<String> wordDict, int start) {
         LinkedList<String> res = new LinkedList<>();
         if (start == s.length()) {
