@@ -134,37 +134,66 @@ Time Complexity:
 
 Given a string s, partition s such that every substring of the partition is a palindrome.
 
-Return all possible palindrome partitioning of s.
+Print all palindromic partitions. 
+
+Partitioning means that dividing the string into k parts such that: 
+
+1. Maintain order
+
+2. Mutually exlusive partitions - no overlap of elements
+
+3. Mutually exhaustive partitions - union of all subsets gets the entire string. 
+
+4. Every partition should be a palindrome
 
 ```
 Input: "aab"
+
 Output:
 [
   ["aa","b"],
   ["a","a","b"]
 ]
 
+Invalid: 
+["a", "ab"]
+
 ```
+- Why a backtracking problem? Because you want to find all possible partitions.
+
+- Element of Choice? Do I introduce a partition after ith element or not? 
+
+- How to represent a state? f(i)
+
+- At each step, you have two choice, whether to introduce partition not introduce partition.
+
+- Also at each step, check if the currString till now is palindrome or not. If it is not, we do pruning. 
 
 ```java
 
 public class Solution {
-        List<List<String>> resultLst;
+
+            List<List<String>> resultLst;
 	    ArrayList<String> currLst;
+	    
 	    public List<List<String>> partition(String s) {
 	        resultLst = new ArrayList<List<String>>();
 	        currLst = new ArrayList<String>();
 	        backTrack(s,0);
 	        return resultLst;
 	    }
+	    
 	    public void backTrack(String s, int l){
-	        if(currLst.size()>0 //the initial str could be palindrome
+	        
+		if(currLst.size()>0 //the initial str could be palindrome
 	            && l>=s.length()){
 	                List<String> r = (ArrayList<String>) currLst.clone();
 	                resultLst.add(r);
 	        }
+		
 	        for(int i=l;i<s.length();i++){
-	            if(isPalindrome(s,l,i)){
+	            
+		    if(isPalindrome(s,l,i)){
 	                if(l==i)
 	                    currLst.add(Character.toString(s.charAt(i)));
 	                else
@@ -174,12 +203,15 @@ public class Solution {
 	            }
 	        }
 	    }
+	    
 	    public boolean isPalindrome(String str, int l, int r){
-	        if(l==r) return true;
+	        
+		if(l==r) return true;
 	        while(l<r){
 	            if(str.charAt(l)!=str.charAt(r)) return false;
 	            l++;r--;
 	        }
+		
 	        return true;
 	    }
 }
