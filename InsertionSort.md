@@ -17,7 +17,7 @@ We now take each card one by one,
 from our right hand,
 and insert the card,
 in the correct position,
-in our hand hand.
+in our left hand.
 
 1. The first card is 9. There is no other card in the leftt hand, so 9 simply goes to the left hand. 
 
@@ -47,7 +47,7 @@ Let's say we want to sort an array of Integers in Sorted Order.
 
 2. Intially the first element of the array, 25 is part of the sorted part and rest all the elements are in the unsorted part. (Why only one element in sorted part? Because a single element is always going to be sorted)
 
-3. Now we go on to pick the elements from the unsorted subset and insert them at their right position in the sorted subset. So, we are basically expanding the sorted part and till unsorted subset becomes empty. 
+3. Now we go on to pick the elements from the unsorted subset and insert them at their right position in the sorted subset. // So, we are basically expanding the sorted part and till unsorted subset becomes empty. 
 In the first iteration, we pick 17 and create a hole at its position. Now to insert 2 at its right position in the sorted part, we shift all elements greater than two to the right. Now we are sorted till index 1. 
 
 ..........
