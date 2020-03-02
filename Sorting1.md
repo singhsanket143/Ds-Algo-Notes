@@ -90,6 +90,50 @@ void selectionSort(int arr[], int n)
 }  
 ```
 
+**Make it Stable**
+
+Basically in selection sort, swap that occurs at the end of each "round" can change the relative order of items having the same value.
+
+for example, suppose you sorted 4 2 3 4 1 with selection sort.
+
+the first "round" will go through each element looking for the minimum element. it will find that 1 is the minimum element. then it will swap the 1 into the first spot. this will cause the 4 in the first spot to go into the last spot: 1 2 3 4 4
+
+now the relative order of the 4's has changed. the "first" 4 in the original list has been moved to a spot after the other 4.
+
+remember the definition of stable is that
+
+the relative order of elements with the same value is maintained.
+
+Well, selection sort works by finding the 'least' value in a set of values, then swap it with the first value:
+
+Code:
+
+2, 3, 1, 1 # scan 0 to n and find 'least' value
+
+1, 3, 2, 1 # swap 'least' with element 0.
+
+1, 3, 2, 1 # scan 1 to n and find 'least' value
+
+1, 1, 2, 3 # swap 'least' with element 1.
+
+...and so on until it is sorted.
+
+To make this stable, instead of swaping values, insert the 'least' value instead:
+
+Code:
+
+2, 3, 1, 1 # scan 0 to n and find 'least' value
+
+1, 2, 3, 1 # insert 'least' at pos 0, pushing other elements back.
+
+1, 3, 2, 1 # scan 1 to n and find 'least' value
+
+1, 1, 2, 3 # insert 'least' at pos 1, pushing other elements back.
+
+...and so on until it is sorted.
+
+It shouldn't be too hard to modify an unstable selection sort algorithm to become stable.
+
 # Bubble Sort
 
 Stable
