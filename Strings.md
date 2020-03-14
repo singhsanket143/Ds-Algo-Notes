@@ -36,4 +36,32 @@ public int firstUniqChar(String s) {
 ```
 
 Time complexity : O(N) since we go through the string of length N two times.
+
 Space complexity : O(N) since we have to keep a hash map with N elements.
+
+**Q2- Isomorphic Strings**
+
+**Given two strings s and t, determine if they are isomorphic.Two strings are isomorphic if the characters in s can be replaced to get t. All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character but a character may map to itself.**
+
+```
+Input: s = "egg", t = "add"
+Output: true
+
+Input: s = "foo", t = "bar"
+Output: false
+
+Input: s = "paper", t = "title"
+Output: true
+```
+
+**Q3- Valid Anagram**
+
+**Given two strings s and t , write a function to determine if t is an anagram of s.**
+
+```
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+Input: s = "rat", t = "car"
+Output: false
+```
