@@ -54,6 +54,12 @@ Input: s = "paper", t = "title"
 Output: true
 ```
 
+Solution: 
+
+https://leetcode.com/problems/isomorphic-strings/discuss/57796/My-6-lines-solution
+
+https://leetcode.com/problems/isomorphic-strings/discuss/57796/My-6-lines-solution
+
 **Q3- Valid Anagram**
 
 **Given two strings s and t , write a function to determine if t is an anagram of s.**
@@ -66,6 +72,7 @@ Input: s = "rat", t = "car"
 Output: false
 ```
 
+https://leetcode.com/problems/valid-anagram/solution/
 **Q4- Check if a string can be obtained by rotating another string 2 places**
 
 ```
@@ -124,6 +131,8 @@ static boolean isRotated(String str1, String str2)
     
 ```
 
+https://www.geeksforgeeks.org/check-string-can-obtained-rotating-another-string-2-places/
+
 **Q5- Given an input string, reverse the string word by word.**
 
 ```
@@ -145,7 +154,11 @@ https://leetcode.com/problems/reverse-words-in-a-string/solution/
 
 **Q6- String to Integer (atoi)**
 
+Question: 
 https://leetcode.com/problems/string-to-integer-atoi/
+
+Answer: 
+https://leetcode.com/problems/string-to-integer-atoi/discuss/4643/Java-Solution-with-4-steps-explanations
 
 **Q7- Longest Substring Without Repeating Characters**
 
