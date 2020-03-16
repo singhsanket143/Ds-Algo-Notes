@@ -33,6 +33,7 @@ public int firstUniqChar(String s) {
                 return i;
         }
         return -1;
+}
 ```
 
 Time complexity : O(N) since we go through the string of length N two times.
@@ -56,9 +57,13 @@ Output: true
 
 Solution: 
 
-https://leetcode.com/problems/isomorphic-strings/discuss/57796/My-6-lines-solution
+The idea is that we need to map a char to another one, for example, "egg" and "add", we need to constract the mapping 'e' -> 'a' and 'g' -> 'd'. Instead of directly mapping 'e' to 'a', another way is to mark them with same value, for example, 'e' -> 1, 'a'-> 1, and 'g' -> 2, 'd' -> 2, this works same.
+
+So we use two arrays here m1 and m2, initialized space is 256 (Since the whole ASCII size is 256, 128 also works here). Traverse the character of both s and t on the same position, if their mapping values in m1 and m2 are different, means they are not mapping correctly, returen false; else we construct the mapping, since m1 and m2 are both initialized as 0, we want to use a new value when i == 0, so i + 1 works here.
 
 https://leetcode.com/problems/isomorphic-strings/discuss/57796/My-6-lines-solution
+
+https://leetcode.com/problems/isomorphic-strings/discuss/57802/Java-solution-using-HashMap
 
 **Q3- Valid Anagram**
 
@@ -73,6 +78,7 @@ Output: false
 ```
 
 https://leetcode.com/problems/valid-anagram/solution/
+
 **Q4- Check if a string can be obtained by rotating another string 2 places**
 
 ```
@@ -175,6 +181,10 @@ Explanation: The answer is "wke", with the length of 3.
 ```
 
 https://leetcode.com/problems/longest-substring-without-repeating-characters/solution/
+
+**Q8- Longest Duplicate Substring**
+
+https://leetcode.com/problems/longest-duplicate-substring/
 
 **Homework Problem**
 
