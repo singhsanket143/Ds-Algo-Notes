@@ -136,8 +136,15 @@ static boolean isRotated(String str1, String str2)
     
     
 ```
+Time Complexity: O(n)
 
 https://www.geeksforgeeks.org/check-string-can-obtained-rotating-another-string-2-places/
+
+Followup Question: 
+
+https://www.geeksforgeeks.org/check-if-a-string-can-be-obtained-by-rotating-another-string-d-places/
+
+https://www.geeksforgeeks.org/a-program-to-check-if-strings-are-rotations-of-each-other/
 
 **Q5- Given an input string, reverse the string word by word.**
 
