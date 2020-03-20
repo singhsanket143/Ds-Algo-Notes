@@ -41,6 +41,7 @@ A linear data structure traverses the data elements sequentially, in which only 
 
 - *Queue* - Will discuss later
 
+
 ### Application of Stack
 
 - Recursion
@@ -56,7 +57,206 @@ A linear data structure traverses the data elements sequentially, in which only 
 
 *Iterative code better than recursion because you might run out of memory space* 
 
-**Q1- Given only two operations i.e., push() and pop(), implement insertAtBottom() function**
+**Q1- Valid Paranthesis** (1st Question)
+
+Input: "()[]{}"
+Output: true
+
+Approach: 
+
+https://leetcode.com/problems/valid-parentheses/solution/
+
+```java
+public boolean isValid(String s) {
+        Stack<Character> st = new Stack<>();
+        for(int i = 0 ; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if(ch == '(' || ch == '[' || ch == '{') {
+                st.push(ch);
+            } else {
+                if(st.isEmpty()) return false;
+                char p = st.peek();
+                if(ch == ')' && p != '(') return false;
+                else if(ch == ']' && p != '[') return false;
+                else if(ch == '}' && p != '{') return false;
+                else st.pop();
+            }
+        }
+        return st.isEmpty();
+    }
+
+```
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+**Q2- Remove consecutive duplicates in a string**               
+                                                                                                                           
+String: kabbal 
+Output: kl
+
+*Special case*
+
+String: aaa 
+Output: a
+
+Time Complexity: O(string.length)
+Space Complexity: O(string.length)
+
+
+
+**Q4- Stock Span Problem** 
+
+**The span Si of the stock’s price on a given day i is defined as the maximum number of consecutive days just before the given day, for which the price of the stock on the current day is less than or equal to its price on the given day.**
+
+For example, 
+
+If an array of 7 days prices is given as {100, 80, 60, 70, 60, 75, 85}, then the span values for corresponding 7 days are {1, 1, 1, 2, 1, 4, 6}
+
+**Approach 1** -> Naive Approach
+
+Traverse the input price array. For every element being visited, traverse elements on left of it and increment the span value of it while elements on the left side are smaller.
+
+*Time Complexity:* O(n^2)
+
+*Space Complexity:* O(1)
+
+**Approach 2** -> Optimised Approach
+
+- If arr[i] < arr[i - 1], then the span of arr[i] = 1.
+
+- If value at arr[i] > arr[i-1], then all the elements in the span of arr[i - 1] will be included in my span, so it makes no sense to make those calculations again. We can simply jump back to that element which was not a part of span of arr[i-1]. 
+
+
+```java
+public static int[] StockSpan(int[] prices) throws Exception {
+
+		Stack stack = new Stack(prices.length);
+		int[] span = new int[prices.length]; // resultant array
+
+		stack.push(0); // put index of first stock to the stack
+		span[0] = 1; // update span
+
+		for (int i = 1; i < prices.length; i++) {
+
+			while (!stack.isempty() && prices[i] > prices[stack.top()]) {
+
+				stack.pop();
+			}
+
+			if (stack.isempty()) {
+
+				span[i] = i + 1; // all stocks removed
+			} else {
+
+				span[i] = i - stack.top();
+			}
+			stack.push(i);
+		}
+		return span;
+
+	}
+```
+Time Complexity: O(n)
+
+Space Complexity: O(n)
+
+**Q2- Next Greater Element I**
+Find the just greater element on right side of each element.
+Ex - 4 5 2 25
+Ans- 5 25 25 -1
+
+Ex - 10 7 4 2 9 10 11 3 2
+Ans- 11 9 9 9 10 11 -1 -1 -1
+
+_Approach 1:_ Use two loops: The outer loop picks all the elements one by one. The inner loop looks for the first greater element for the element picked by the outer loop. If a greater element is found then that element is printed as next element, otherwise -1 is printed.
+
+Time Complexity: O(n^2)
+Space Complexity: O(1)
+
+_Approach 2:_
+  Intuition:
+  In case of a decreasing sequence, the answer is always going to be -1 for all elements till I dont encounter a increasing   sequence/number. 
+  ```
+  For eg: 5 4 3 2 1        
+	  
+	  -1 -1 -1 -1 -1
+          
+          5 4 3 2 1 10
+          10 10 10 10 10 -1
+          
+          For all the elements less than 10 in a decreasing sequence are going to have the answer 10. 
+          
+          11 4 3 2 10 12
+          
+          Till 2, it is a decreasing sequence. After that, it is a increasing sequence then. So, for all the elements less 
+	  than 10, the elements are going to have an answer 10. 
+          Now the question is reduced to 11 10 12. Again 11 and 10 is a decreasing sequence, so the answer for them is going           to be 12 12. 
+          
+```
+
+```java
+static void printNGE(int arr[], int n)  
+    { 
+        int i = 0; 
+        stack s = new stack(); 
+        s.top = -1; 
+        int element, next; 
+        s.push(arr[0]); 
+        for (i = 1; i < n; i++)  
+        { 
+            next = arr[i]; 
+            if (s.isEmpty() == false)  
+            {  
+                element = s.pop(); 
+                while (element < next)  
+                { 
+                    System.out.println(element + "-->" + next); 
+                    if (s.isEmpty() == true) 
+                        break; 
+                    element = s.pop(); 
+                } 
+                if (element > next) 
+                    s.push(element); 
+            } 
+            s.push(next); 
+        } 
+        while (s.isEmpty() == false)  
+        { 
+            element = s.pop(); 
+            next = -1; 
+            System.out.println(element + "-->" + next); 
+        } 
+```
+Time Complexity: O(n) 
+Space Complexity: O(n)
+
+**Q5- Next Greater Element II**
+Consider the case of circular array
+Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
+Output: [-1,3,-1]
+```java
+public int[] nextGreaterElement(int[] findNums, int[] nums) {
+        Stack < Integer > stack = new Stack < > ();
+        HashMap < Integer, Integer > map = new HashMap < > ();
+        int[] res = new int[findNums.length];
+        for (int i = 0; i < nums.length; i++) {
+            while (!stack.empty() && nums[i] > stack.peek())
+                map.put(stack.pop(), nums[i]);
+            stack.push(nums[i]);
+        }
+        while (!stack.empty())
+            map.put(stack.pop(), -1);
+        for (int i = 0; i < findNums.length; i++) {
+            res[i] = map.get(findNums[i]);
+        }
+        return res;
+    }
+```
+Time complexity : O(m+n)O(m+n)
+Space complexity : O(m+n)O(m+n).
+
+**Q6- Given only two operations i.e., push() and pop(), implement insertAtBottom() function** (3
 
 Approach 1: Using Extra Stack
 
@@ -78,8 +278,8 @@ insertAtBotton(Stack s, int n){
 Time Complexity: O(n)
 
 Space Complexity: O(n)
-
-**Q2- Reverse a stack** 
+ 
+**7- Reverse a stack**  
 
 (Perform Reversal in same stack)
 
@@ -110,7 +310,7 @@ Time Complexity: O(n)
 
 Space Complexity: O(n)
 
-**Q3- Implement Sorting using stack**
+**Q8- Implement Sorting using stack**
 
 The idea of the solution is to hold all values in Function Call Stack until the stack becomes empty. When the stack becomes empty, insert all held items one by one in sorted order. Here sorted order is important.
 
@@ -139,9 +339,11 @@ Time Complexity: O(n^2)
 
 Space Complexity: O(n) 
 
-**Q4- Implement getMin() function**
+**Q9- Implement getMin() function**
 
 **Approach 1:** 
+
+https://leetcode.com/articles/min-stack/
 
 Using another stack.  
 
@@ -205,190 +407,8 @@ min = 2*min - st.top()
 Space Complexity: O(1)
 Time Complexity: O(1)
 
-**Q5- Remove consecutive duplicates in a string**               
-                                                                                                                           
-String: kabbal 
-Output: kl
-
-*Special case*
-
-String: aaa 
-Output: a
-
-Time Complexity: O(string.length)
-Space Complexity: O(string.length)
-
-**Q6- Valid Paranthesis**
-
-Input: "()[]{}"
-Output: true
-
-Approach: 
-
-https://leetcode.com/problems/valid-parentheses/solution/
-
-```java
-public boolean isValid(String s) {
-        Stack<Character> st = new Stack<>();
-        for(int i = 0 ; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if(ch == '(' || ch == '[' || ch == '{') {
-                st.push(ch);
-            } else {
-                if(st.isEmpty()) return false;
-                char p = st.peek();
-                if(ch == ')' && p != '(') return false;
-                else if(ch == ']' && p != '[') return false;
-                else if(ch == '}' && p != '{') return false;
-                else st.pop();
-            }
-        }
-        return st.isEmpty();
-    }
-
-```
-
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q7- Evaluate Infix Expression**
-
-1. Maintain two stacks, one for integers and one for operators
-
-```java
-         //Stack for numbers
-         Stack<Integer> numbers = new Stack<>();
-
-        //Stack for operators
-        Stack<Character> operations = new Stack<>();
-        
-        for(int i=0; i<expression.length();i++) {
-            char c = expression.charAt(i);
-            
-            //check if it is number
-            if(Character.isDigit(c)){
-                //Entry is Digit, it could be greater than one digit number
-                int num = 0;
-                while (Character.isDigit(c)) {
-                    num = num*10 + (c-'0');
-                    i++;
-                    if(i < expression.length())
-                        c = expression.charAt(i);
-                    else
-                        break;
-                }
-                i--;
-                //push it into stack
-                numbers.push(num);
-            }else if(c=='('){
-                //push it to operators stack
-                operations.push(c);
-            }
-            
-            
-            else if(c==')') {
-                while(operations.peek()!='('){
-                    int output = performOperation(numbers, operations);
-                    numbers.push(output);
-                }
-                operations.pop();
-            }
-            // current character is operator
-            else if(isOperator(c)){
-                operations.push(c);
-            }
-        }
-
-        while(!operations.isEmpty()){
-            int output = performOperation(numbers, operations);
-            numbers.push(output);
-        }
-        return numbers.pop();
-    }
-
-    public int performOperation(Stack<Integer> numbers, Stack<Character> operations) {
-        int a = numbers.pop();
-        int b = numbers.pop();
-        char operation = operations.pop();
-        switch (operation) {
-            case '+':
-                return a + b;
-            case '-':
-                return b - a;
-            case '*':
-                return a * b;
-            case '/':
-                if (a == 0)
-                    throw new
-                            UnsupportedOperationException("Cannot divide by zero");
-                return b / a;
-        }
-        return 0;
-    }
-
-    public boolean isOperator(char c){
-        return (c=='+'||c=='-'||c=='/'||c=='*'||c=='^');
-    }
-```
-
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q8- Stock Span Problem** 
-
-**The span Si of the stock’s price on a given day i is defined as the maximum number of consecutive days just before the given day, for which the price of the stock on the current day is less than or equal to its price on the given day.**
-
-For example, 
-
-If an array of 7 days prices is given as {100, 80, 60, 70, 60, 75, 85}, then the span values for corresponding 7 days are {1, 1, 1, 2, 1, 4, 6}
-
-**Approach 1** -> Naive Approach
-
-Traverse the input price array. For every element being visited, traverse elements on left of it and increment the span value of it while elements on the left side are smaller.
-
-*Time Complexity:* O(n^2)
-
-*Space Complexity:* O(1)
-
-**Approach 2** -> Optimised Approach
-
-- If arr[i] < arr[i - 1], then the span of arr[i] = 1.
-
-- If value at arr[i] > arr[i-1], then all the elements in the span of arr[i - 1] will be included in my span, so it makes no sense to make those calculations again. We can simply jump back to that element which was not a part of span of arr[i-1]. 
 
 
-```java
-public static int[] StockSpan(int[] prices) throws Exception {
-
-		Stack stack = new Stack(prices.length);
-		int[] span = new int[prices.length]; // resultant array
-
-		stack.push(0); // put index of first stock to the stack
-		span[0] = 1; // update span
-
-		for (int i = 1; i < prices.length; i++) {
-
-			while (!stack.isempty() && prices[i] > prices[stack.top()]) {
-
-				stack.pop();
-			}
-
-			if (stack.isempty()) {
-
-				span[i] = i + 1; // all stocks removed
-			} else {
-
-				span[i] = i - stack.top();
-			}
-			stack.push(i);
-		}
-		return span;
-
-	}
-```
-Time Complexity: O(n)
-
-Space Complexity: O(n)
 
 Q- https://www.hackerearth.com/practice/data-structures/stacks/basics-of-stacks/practice-problems/algorithm/monk-and-order-of-phoenix/description/
 
