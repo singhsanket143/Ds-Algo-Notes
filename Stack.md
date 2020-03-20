@@ -291,57 +291,65 @@ Space Complexity: O(n)
 Time Complexity: O(n)
 Space Complexity: O(n)
 
-**Q- Stock Span Problem**
+**Q- Stock Span Problem** 
 
-The span Si of the stock’s price on a given day i is defined as the maximum number of consecutive days just before the given day, for which the price of the stock on the current day is less than or equal to its price on the given day.
+*The span Si of the stock’s price on a given day i is defined as the maximum number of consecutive days just before the given day, for which the price of the stock on the current day is less than or equal to its price on the given day.*
 
-For example, if an array of 7 days prices is given as {100, 80, 60, 70, 60, 75, 85}, then the span values for corresponding 7 days are {1, 1, 1, 2, 1, 4, 6}
+For example, 
 
-Approach 1 -> Brute Force 
+If an array of 7 days prices is given as {100, 80, 60, 70, 60, 75, 85}, then the span values for corresponding 7 days are {1, 1, 1, 2, 1, 4, 6}
+
+Approach 1 -> Naive Approach
+
+Traverse the input price array. For every element being visited, traverse elements on left of it and increment the span value of it while elements on the left side are smaller.
+
 Time Complexity: O(n^2)
+
 Space Complexity: O(1)
 
-Approach 2 -> 
+Approach 2 -> Optimised Approach
 
-If value at arr[i] > arr[i-1], then all the elements in the span of arr[j] will be included in my span, so it makes sense not to make those calculations again. We can simply jump back to that element which was not a part of span of arr[i-1]
+- If arr[i] < arr[i - 1], then the span of arr[i] = 1.
+
+- If value at arr[i] > arr[i-1], then all the elements in the span of arr[i - 1] will be included in my span, so it makes no sense to make those calculations again. We can simply jump back to that element which was not a part of span of arr[i-1]. 
+
 
 ```java
-tatic void calculateSpan(int price[], int n, int S[]) 
-    { 
-        // Create a stack and push index of first element 
-        // to it 
-        Stack<Integer> st = new Stack<>(); 
-        st.push(0); 
-  
-        // Span value of first element is always 1 
-        S[0] = 1; 
-  
-        // Calculate span values for rest of th n; i++) { 
-  
-            // Pop elements from stack while stack is not 
-            // empty and top of stack is smaller than 
-            // price[i] 
-            while (!st.empty() && price[st.peek()] <= price[i]) 
-                st.pop(); 
-  
-            // If stack becomes empty, then price[i] is 
-            // greater than all elements on left of it, i.e., 
-            // price[0], price[1], ..price[i-1]. Else price[i] 
-            // is greater than elements after top of stack 
-            S[i] = (st.empty()) ? (i + 1) : (i - st.peek()); 
-  
-            // Push this element to stack 
-            st.push(i); 
-        } 
-    } 
+public static int[] StockSpan(int[] prices) throws Exception {
+
+		Stack stack = new Stack(prices.length);
+		int[] span = new int[prices.length]; // resultant array
+
+		stack.push(0); // put index of first stock to the stack
+		span[0] = 1; // update span
+
+		for (int i = 1; i < prices.length; i++) {
+
+			while (!stack.isempty() && prices[i] > prices[stack.top()]) {
+
+				stack.pop();
+			}
+
+			if (stack.isempty()) {
+
+				span[i] = i + 1; // all stocks removed
+			} else {
+
+				span[i] = i - stack.top();
+			}
+			stack.push(i);
+		}
+		return span;
+
+	}
 ```
 Time Complexity: O(n)
+
 Space Complexity: O(n)
 
 Q- https://www.hackerearth.com/practice/data-structures/stacks/basics-of-stacks/practice-problems/algorithm/monk-and-order-of-phoenix/description/
 
 ![Screenshot 2020-01-08 at 7 26 58 PM](https://user-images.githubusercontent.com/29747452/71984365-b7c1f100-324e-11ea-94c4-88c9e679f0f3.png)
-
 
 ![Screenshot 2020-01-08 at 7 27 14 PM](https://user-images.githubusercontent.com/29747452/71984364-b7c1f100-324e-11ea-8f09-239417073859.png)
 
