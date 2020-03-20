@@ -105,7 +105,7 @@ Space Complexity: O(string.length)
 
 
 
-**Q4- Stock Span Problem** 
+**Q3- Stock Span Problem** 
 
 **The span Si of the stock’s price on a given day i is defined as the maximum number of consecutive days just before the given day, for which the price of the stock on the current day is less than or equal to its price on the given day.**
 
@@ -161,7 +161,7 @@ Time Complexity: O(n)
 
 Space Complexity: O(n)
 
-**Q2- Next Greater Element I**
+**Q4- Next Greater Element I**
 Find the just greater element on right side of each element.
 Ex - 4 5 2 25
 Ans- 5 25 25 -1
