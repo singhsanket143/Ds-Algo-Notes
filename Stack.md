@@ -408,7 +408,13 @@ Space Complexity: O(1)
 Time Complexity: O(1)
 
 
+For inital example: 16, 15, 29, 14, 18
 
+Stack: 16, -1, 29, -1, 18 
+
+Improved: 16, 15, -13, 12 
+
+Stack: 16, 14, -41, 12
 
 Q- https://www.hackerearth.com/practice/data-structures/stacks/basics-of-stacks/practice-problems/algorithm/monk-and-order-of-phoenix/description/
 
