@@ -1,41 +1,62 @@
 
 ## Stack
 
-- Abstract Datatype
+- Visualisation by a stack of plates. 
+
+- Single Ended Structure. 
+- Abstract Datatype 
+
+The definition of ADT only mentions what operations are to be performed but not how these operations will be implemented. It does not specify how data will be organized in memory and what algorithms will be used for implementing the operations. It is called “abstract” because it gives an implementation-independent view. The process of providing only the essentials and hiding the details is known as abstraction.
+
 - Linear data structure 
-- Sequential Access
+
+A linear data structure traverses the data elements sequentially, in which only one data element can directly be reached.
+
 - LIFO (Last In First Out)
 
 ### Stack Operations
 
-- Push
-- Pop
+- Push (Adds an item in the stack) 
+- Pop (Removes an item from the stack)
+
 ### Implementation of Stack
 
-- Array (Keep the two conditions in mind during interviews)
-  - Stack Overflow
-  - Stack Underflow
-  - **Pros**: Easy to implement. Memory is saved as pointers are not involved.
+- *Array* (Keep the two conditions in mind during interviews)
+  
+  - Stack Overflow - Adding an element to the stack which is already filled. 
+  - Stack Underflow - Deleting an element from stack which is already empty. 
+  
+  - **Pros**: Easy to implement. Memory is saved as pointers are not involved. 
   - **Cons**: It is not dynamic. It doesn’t grow and shrink depending on needs at runtime.
-  - Can use Vectors/ArrayList also
-- LinkedList
+  
+  - Can use Vectors/ArrayList also.
+
+- *LinkedList*
+
   - Push() - Add at head. O(1)
   - Pop() - Remove at Head. O(1)
-- Queue - Will discuss later
+  
+  - **Pros:** The linked list implementation of stack can grow and shrink according to the needs at runtime.
+  - **Cons:** Requires extra memory due to involvement of pointers.
+
+- *Queue* - Will discuss later
 
 ### Application of Stack
 
 - Recursion
-- Undo/Redo
+- Undo/Redo feature at many places like editors, photoshops. 
+- Forward and backward feature in web browser. 
 - Arithmetic Expression Evaluation
+  
   Prefix  +ab
   Infix   a+b
   Postfix ab+
   
 - Using factorial example, explain callstack.
-- Iterative code better than recursion because you might run out of memory space. 
 
-**Q- Given only two operations i.e., push() and pop(), implement insertAtBottom() function**
+*Iterative code better than recursion because you might run out of memory space* 
+
+**Q1- Given only two operations i.e., push() and pop(), implement insertAtBottom() function**
 
 Approach 1: Using Extra Stack
 
@@ -54,9 +75,16 @@ insertAtBotton(Stack s, int n){
 
 ```
 
-**Q- Reverse a stack** 
+Time Complexity: O(n)
+
+Space Complexity: O(n)
+
+**Q2- Reverse a stack** 
+
 (Perform Reversal in same stack)
+
 Approach 1: 
+
 ```java
 
 reverse(Stack s){
@@ -67,17 +95,23 @@ reverse(Stack s){
   reverse(s, n);
   insertAtBottom(s, temp);
 }
-
 ```
 
-  Time Complexity - 
-  Pushing one element at the bottom - O(n)
-  Pushing n elements at the bottom - O(n^2)
+Time Complexity:
+
+Pushing one element at the bottom - O(n)
+Pushing n elements at the bottom - O(n^2)
+
+Space Complexity:
 
 Approach 2: Take two auxillary stack
 
+Time Complexity: O(n)
 
-**Q- Implement Sorting using stack**
+Space Complexity: O(n)
+
+**Q3- Implement Sorting using stack**
+
 The idea of the solution is to hold all values in Function Call Stack until the stack becomes empty. When the stack becomes empty, insert all held items one by one in sorted order. Here sorted order is important.
 
 Similar to above question. Just implement insertInSortedWay(). 
@@ -102,14 +136,17 @@ sortStack(stack S)
  ```
  
 Time Complexity: O(n^2)
+
 Space Complexity: O(n) 
 
+**Q4- Implement getMin() function**
 
+**Approach 1:** 
 
-**Q- Implement getMin() function**
-Approach 1: 
 Using another stack.  
+
 Space Complexity: O(n)
+
 Time Complexity: O(1)
 
 ```java
@@ -130,7 +167,7 @@ public void push(int x) {
     }
 ```
 
-Approach 2: 
+**Approach 2:** 
 
 Lets suppose than new element to be added is `x` and the old minimum is `min` 
 
@@ -168,22 +205,27 @@ min = 2*min - st.top()
 Space Complexity: O(1)
 Time Complexity: O(1)
 
-
-**Q- Remove consecutive duplicates in a string**
+**Q5- Remove consecutive duplicates in a string**               
+                                                                                                                           
 String: kabbal 
 Output: kl
 
-**Special case**
+*Special case*
+
 String: aaa 
 Output: a
 
 Time Complexity: O(string.length)
 Space Complexity: O(string.length)
 
-**Q- Valid Paranthesis**
+**Q6- Valid Paranthesis**
 
 Input: "()[]{}"
 Output: true
+
+Approach: 
+
+https://leetcode.com/problems/valid-parentheses/solution/
 
 ```java
 public boolean isValid(String s) {
@@ -209,7 +251,8 @@ public boolean isValid(String s) {
 Time Complexity: O(n)
 Space Complexity: O(n)
 
-**Q-- Evaluate Infix Expression**
+**Q7- Evaluate Infix Expression**
+
 1. Maintain two stacks, one for integers and one for operators
 
 ```java
@@ -291,23 +334,23 @@ Space Complexity: O(n)
 Time Complexity: O(n)
 Space Complexity: O(n)
 
-**Q- Stock Span Problem** 
+**Q8- Stock Span Problem** 
 
-*The span Si of the stock’s price on a given day i is defined as the maximum number of consecutive days just before the given day, for which the price of the stock on the current day is less than or equal to its price on the given day.*
+**The span Si of the stock’s price on a given day i is defined as the maximum number of consecutive days just before the given day, for which the price of the stock on the current day is less than or equal to its price on the given day.**
 
 For example, 
 
 If an array of 7 days prices is given as {100, 80, 60, 70, 60, 75, 85}, then the span values for corresponding 7 days are {1, 1, 1, 2, 1, 4, 6}
 
-Approach 1 -> Naive Approach
+**Approach 1** -> Naive Approach
 
 Traverse the input price array. For every element being visited, traverse elements on left of it and increment the span value of it while elements on the left side are smaller.
 
-Time Complexity: O(n^2)
+*Time Complexity:* O(n^2)
 
-Space Complexity: O(1)
+*Space Complexity:* O(1)
 
-Approach 2 -> Optimised Approach
+**Approach 2** -> Optimised Approach
 
 - If arr[i] < arr[i - 1], then the span of arr[i] = 1.
 
