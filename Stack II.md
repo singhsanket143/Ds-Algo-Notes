@@ -1,45 +1,85 @@
+**Q3- Evaluate Infix Expression**
 
-**Q1- Stock Span Problem**
-
-The span Si of the stock’s price on a given day i is defined as the maximum number of consecutive days just before the given day, for which the price of the stock on the current day is less than or equal to its price on the given day.
-
-For example: {100, 80, 60, 70, 60, 75, 85}
-then the span values for corresponding 7 days are {1, 1, 1, 2, 1, 4, 6}.
-
-_Approach 1_ -> Brute Force 
-
-Time Complexity: O(n^2)
-Space Complexity: O(1)
-
-_Approach 2_ -> 
-
-If value at arr[i] > arr[i-1], then all the elements in the span of arr[i - 1] will be included in my span, so it makes sense not to make those calculations again. We can simply jump back to that element which was not a part of span of arr[i-1]
+1. Maintain two stacks, one for integers and one for operators
 
 ```java
-tatic void calculateSpan(int price[], int n, int S[]) 
-    { 
-        // Create a stack and push index of first element to it 
-        Stack<Integer> st = new Stack<>(); 
-        st.push(0); 
+         //Stack for numbers
+         Stack<Integer> numbers = new Stack<>();
+
+        //Stack for operators
+        Stack<Character> operations = new Stack<>();
         
-        // Span value of first element is always 1 
-        S[0] = 1; 
-  
-        // Pop elements from stack while stack is not empty and top of stack is smaller than price[i] 
-        while (!st.empty() && price[st.peek()] <= price[i]) 
-          st.pop(); 
-  
-        // If stack becomes empty, then price[i] is greater than all elements on left of it, i.e., price[0], price[1],               //..price[i-1]. Else price[i] is greater than elements after top of stack 
-        S[i] = (st.empty()) ? (i + 1) : (i - st.peek()); 
-  
-        // Push this element to stack 
-        st.push(i); 
-        } 
-    } 
+        for(int i=0; i<expression.length();i++) {
+            char c = expression.charAt(i);
+            
+            //check if it is number
+            if(Character.isDigit(c)){
+                //Entry is Digit, it could be greater than one digit number
+                int num = 0;
+                while (Character.isDigit(c)) {
+                    num = num*10 + (c-'0');
+                    i++;
+                    if(i < expression.length())
+                        c = expression.charAt(i);
+                    else
+                        break;
+                }
+                i--;
+                //push it into stack
+                numbers.push(num);
+            }else if(c=='('){
+                //push it to operators stack
+                operations.push(c);
+            }
+            
+            
+            else if(c==')') {
+                while(operations.peek()!='('){
+                    int output = performOperation(numbers, operations);
+                    numbers.push(output);
+                }
+                operations.pop();
+            }
+            // current character is operator
+            else if(isOperator(c)){
+                operations.push(c);
+            }
+        }
+
+        while(!operations.isEmpty()){
+            int output = performOperation(numbers, operations);
+            numbers.push(output);
+        }
+        return numbers.pop();
+    }
+
+    public int performOperation(Stack<Integer> numbers, Stack<Character> operations) {
+        int a = numbers.pop();
+        int b = numbers.pop();
+        char operation = operations.pop();
+        switch (operation) {
+            case '+':
+                return a + b;
+            case '-':
+                return b - a;
+            case '*':
+                return a * b;
+            case '/':
+                if (a == 0)
+                    throw new
+                            UnsupportedOperationException("Cannot divide by zero");
+                return b / a;
+        }
+        return 0;
+    }
+
+    public boolean isOperator(char c){
+        return (c=='+'||c=='-'||c=='/'||c=='*'||c=='^');
+    }
 ```
+
 Time Complexity: O(n)
 Space Complexity: O(n)
-
 **Q2- Next Greater Element I**
 Find the just greater element on right side of each element.
 Ex - 4 5 2 25
