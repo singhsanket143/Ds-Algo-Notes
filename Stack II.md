@@ -1,4 +1,83 @@
-**Q3- Evaluate Infix Expression**
+
+**Q1- Implement getMin() function**
+
+**Approach 1:** 
+
+https://leetcode.com/articles/min-stack/
+
+Using another stack.  
+
+Space Complexity: O(n)
+
+Time Complexity: O(1)
+
+```java
+public void push(int x) {
+        st.push(x);
+        if(minst.isEmpty()){
+           minst.push(x); 
+        }else if(x <= minst.peek()){
+            minst.push(x);
+        }
+    }
+    
+    public void pop() {
+        int val = st.pop();
+        if(val == minst.peek()){
+            minst.pop();
+        }
+    }
+```
+
+**Approach 2:** 
+
+Lets suppose than new element to be added is `x` and the old minimum is `min` 
+
+Now if x < min -> then we were pushing this into our auxillary stack, But here we are supposed to save the space. So in order to save the space what can think of? 
+May be we can take a varibale that can store current minimum, but the issue is if we will pop this element from the stack then we will loose access to the previous minimum
+
+Can we do something to store the value of previous minimum ??????
+
+If x < min, then x - min < 0 (i.e. value if x - min is negative)
+Now what we can do is instead of storing x in our space we can store x - min in our stack. Why because at any point of time we can extract the old minimum from the equation . How??
+
+2 -> 3 -> 4 -> 1
+
+After addition of 1 my current minimum will become 1, but if we pop() the stack and remove one how will you get 2??
+Instead before adding 1 the value of min was equal to 2. So instead of pushing 1, push 1 - 2 (i.e. x - min) equals to -1 in stack. 
+
+Stack becomes 2 -> 3 -> 4 -> -1 and the new min becomes , min = 1
+
+Now when we pop the stack we know if the element at top of stack is negative then removing this element will change the current min of stack. After popping we will update min as min = min - st.top() => min = 1 - (-1) = 2
+So min will be updated to 2 and stack becomes 2 -> 3 -> 4
+
+But wait!!!
+This approach only work for stack having positive elements, what will we do if also have negative elements in the stack???? How to keep a check that when we are supposed to update the min????
+
+if x < min => x - min < 0 then adding x on both sides
+
+2x - min < x,
+
+i.e if x was the new min which is supposed to be lesser than all elements of stack, and 2x - min is lesser than x also then we can say that 2x - min can be stored in the stack!!!
+
+So whenever a new element comes which is less than our current min, store 2x - min in the stack and update min to be equal to x.
+How this handles negative elements, because now we no more need to trigger the update min action on encountering the negative element. When we see that ok, top of stack is less than current min, the before popping we update min to be 
+min = 2*min - st.top()
+
+Space Complexity: O(1)
+
+Time Complexity: O(1)
+
+
+For inital example: 16, 15, 29, 14, 18
+
+Stack: 16, -1, 29, -1, 18 
+
+Improved: 16, 15, -13, 12 
+
+Stack: 16, 14, -41, 12
+
+**Q2- Evaluate Infix Expression**
 
 1. Maintain two stacks, one for integers and one for operators
 
@@ -79,104 +158,17 @@
 ```
 
 Time Complexity: O(n)
-Space Complexity: O(n)
-**Q2- Next Greater Element I**
-Find the just greater element on right side of each element.
-Ex - 4 5 2 25
-Ans- 5 25 25 -1
 
-Ex - 10 7 4 2 9 10 11 3 2
-Ans- 11 9 9 9 10 11 -1 -1 -1
-
-_Approach 1:_ Use two loops: The outer loop picks all the elements one by one. The inner loop looks for the first greater element for the element picked by the outer loop. If a greater element is found then that element is printed as next element, otherwise -1 is printed.
-
-Time Complexity: O(n^2)
-Space Complexity: O(1)
-
-_Approach 2:_
-  Intuition:
-  In case of a decreasing sequence, the answer is always going to be -1 for all elements till I dont encounter a increasing   sequence/number. 
-  For eg: 5 4 3 2 1
-          -1 -1 -1 -1 -1
-          
-          5 4 3 2 1 10
-          10 10 10 10 10 -1
-          
-          For all the elements less than 10 in a decreasing sequence are going to have the answer 10. 
-          
-          11 4 3 2 10 12
-          
-          Till 2, it is a decreasing sequence. After that, it is a increasing sequence then. So, for all the elements less             than 10, the elements are going to have an answer 10. 
-          Now the question is reduced to 11 10 12. Again 11 and 10 is a decreasing sequence, so the answer for them is going           to be 12 12. 
-          
-```java
-static void printNGE(int arr[], int n)  
-    { 
-        int i = 0; 
-        stack s = new stack(); 
-        s.top = -1; 
-        int element, next; 
-        s.push(arr[0]); 
-        for (i = 1; i < n; i++)  
-        { 
-            next = arr[i]; 
-            if (s.isEmpty() == false)  
-            {  
-                element = s.pop(); 
-                while (element < next)  
-                { 
-                    System.out.println(element + "-->" + next); 
-                    if (s.isEmpty() == true) 
-                        break; 
-                    element = s.pop(); 
-                } 
-                if (element > next) 
-                    s.push(element); 
-            } 
-            s.push(next); 
-        } 
-        while (s.isEmpty() == false)  
-        { 
-            element = s.pop(); 
-            next = -1; 
-            System.out.println(element + "-->" + next); 
-        } 
-```
-Time Complexity: O(n) 
 Space Complexity: O(n)
 
-**Q3- Next Greater Element II**
-Consider the case of circular array
-Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
-Output: [-1,3,-1]
-```java
-public int[] nextGreaterElement(int[] findNums, int[] nums) {
-        Stack < Integer > stack = new Stack < > ();
-        HashMap < Integer, Integer > map = new HashMap < > ();
-        int[] res = new int[findNums.length];
-        for (int i = 0; i < nums.length; i++) {
-            while (!stack.empty() && nums[i] > stack.peek())
-                map.put(stack.pop(), nums[i]);
-            stack.push(nums[i]);
-        }
-        while (!stack.empty())
-            map.put(stack.pop(), -1);
-        for (int i = 0; i < findNums.length; i++) {
-            res[i] = map.get(findNums[i]);
-        }
-        return res;
-    }
-```
-Time complexity : O(m+n)O(m+n)
-Space complexity : O(m+n)O(m+n).
 
-**Q5- Next Smaller Element**
+**Q3- Next Smaller Element**
 
-**Q6- Maximum area of a rectangle in a histogram**
+**Q4- Maximum area of a rectangle in a histogram**
 Input: 7 bars of heights {6, 2, 5, 4, 5, 1, 6}
 Output: Max Area = 12
 
-**Q7- Maximal Rectangle**
+**Q5- Maximal Rectangle**
 Input:
 [
   ["1","0","1","0","0"],
@@ -222,7 +214,7 @@ public int leetcode84(int[] heights) {
   
 ```
 
-**Q8- Remove Duplicates and answer should be lexicographically smallest**
+**Q6- Remove Duplicates and answer should be lexicographically smallest**
 
 Input: bcabc
 Output: abc
@@ -278,7 +270,7 @@ class Solution {
 Time Complexity: 0(length of string)
 Space Complexity: 0(1)
 
-**Q9- Decode an encrypted string**
+**Q7- Decode an encrypted string**
 
 Given a String A and an integer B. String A is encoded consisting of lowercase English letters and numbers. A is encoded
 in a way where repetitions of substrings are represented as substring followed by the count of substrings.
@@ -338,7 +330,7 @@ Time Complexity: 0(length of string)
 Space Complexity: 0(length of string)
 
 ```
-**Q10- Number of Valid Subarrays**
+**Q8- Number of Valid Subarrays**
 
 Given an array A of integers, return the number of non-empty continuous subarrays that satisfy the following condition:
 The leftmost element of the subarray is not larger than other elements in the subarray.
@@ -364,7 +356,7 @@ public int validSubarrays(int[] nums) {
 Time Complexity: O(n) 
 Space Complexity: O(n)
 
-**Q11- Miscellaneous Question**
+**Homework Problems**
 
 http://codeforces.com/contest/797/problem/c
 
