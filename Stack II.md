@@ -165,17 +165,27 @@ Space Complexity: O(n)
 **Q3- Next Smaller Element**
 
 **Q4- Maximum area of a rectangle in a histogram**
+
 Input: 7 bars of heights {6, 2, 5, 4, 5, 1, 6}
+
 Output: Max Area = 12
 
 **Q5- Maximal Rectangle**
+
 Input:
+
 [
+
   ["1","0","1","0","0"],
+  
   ["1","0","1","1","1"],
+  
   ["1","1","1","1","1"],
+  
   ["1","0","0","1","0"]
+  
 ]
+
 Output: 6
 
 ```java
@@ -217,9 +227,11 @@ public int leetcode84(int[] heights) {
 **Q6- Remove Duplicates and answer should be lexicographically smallest**
 
 Input: bcabc
+
 Output: abc
 
 Input: cbacdcbc
+
 Output: acdb
 
 For bab, you always want to remove the first b, because it is followed by a smaller character. 
@@ -268,6 +280,7 @@ class Solution {
 }
 ```
 Time Complexity: 0(length of string)
+
 Space Complexity: 0(1)
 
 **Q7- Decode an encrypted string**
@@ -327,6 +340,7 @@ string Solution::solve(string A, int B) {
 }
 
 Time Complexity: 0(length of string)
+
 Space Complexity: 0(length of string)
 
 ```
@@ -334,10 +348,11 @@ Space Complexity: 0(length of string)
 
 Given an array A of integers, return the number of non-empty continuous subarrays that satisfy the following condition:
 The leftmost element of the subarray is not larger than other elements in the subarray.
+```
 Input: [1,4,2,5,3]
 Output: 11
 Explanation: There are 11 valid subarrays: [1],[4],[2],[5],[3],[1,4],[2,5],[1,4,2],[2,5,3],[1,4,2,5],[1,4,2,5,3].
-
+```
 
 ```java 
 public int validSubarrays(int[] nums) {
@@ -354,6 +369,7 @@ public int validSubarrays(int[] nums) {
     }
 ```
 Time Complexity: O(n) 
+
 Space Complexity: O(n)
 
 **Homework Problems**
@@ -395,4 +411,5 @@ int main()
 }
 ```
 Time Complexity: O(n)
+
 Space Complexity: O(n)
