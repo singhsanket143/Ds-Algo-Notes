@@ -281,7 +281,7 @@ class Solution {
 ```
 Time Complexity: 0(length of string)
 
-Space Complexity: 0(1)
+Space Complexity: 0(length of string)
 
 **Q7- Decode an encrypted string**
 
@@ -294,11 +294,20 @@ Output: ababc ababc ababc  "a"
 You have to find and return the Bth character in the decrypted string.
 
 Note: Frequency of encrypted substring can be of more than one digit. For example,
-in “ab12c3”, ab is repeated 12 times. No leading 0 is present in the frequency of substring.
+in “ab12c3”, ab is repeated 12 times. 
 
-Approach: We dont care about the characters that occur after k? Lets see how we can solve it without expanding the string. Do we see a pattern in this string? String repeated thrice. Lets say I have a string of substring length 5 which is repeated n times, then can we find the kth character by (k%5) i.e., (8%5) = 3. Now find 3rd character in ababc. We see again a pattern in this. A repeated subtring of length 2. So, now find 3%2. 
+No leading 0 is present in the frequency of substring.
+
+**Approach 1** 
+
+Hints: 
+
+- Do we care about the characters that occur after k? NO
+
+We dont care about the characters that occur after k. Lets see how we can solve it without expanding the string. Do we see a pattern in this string? String repeated thrice. Lets say I have a string of substring length 5 which is repeated n times, then can we find the kth character by (k%5) i.e., (8%5) = 3. Now find 3rd character in ababc. We see again a pattern in this. A repeated subtring of length 2. So, now find 3%2. 
 
 ((((1+1) * 2) + 1)*3)
+
 ```cpp
 string Solution::solve(string A, int B) {
     stack < pair<string, int > > st;
@@ -344,6 +353,15 @@ Time Complexity: 0(length of string)
 Space Complexity: 0(length of string)
 
 ```
+
+**Approach 2**
+
+https://leetcode.com/problems/decoded-string-at-index/solution/
+
+Time Complexity: 0(length of string)
+
+Space Complexity: 0(1)
+
 **Q8- Number of Valid Subarrays**
 
 Given an array A of integers, return the number of non-empty continuous subarrays that satisfy the following condition:
