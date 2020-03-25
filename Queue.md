@@ -18,12 +18,16 @@
 ### Implementation
 
 - Array
+
   Maintain two pointers: Front and end. 
   Both will point to -1 in the end.
-  Enqueue -> rear, Deequeue -> rear
+  Enqueue -> rear, Deequeue -> front
+  
   Problems  
+  
     - not being able to dynamically resize. 
     - front becomes equal to rear even when array is empty. 
+    
 - Circular Array
 
 ```cpp
@@ -67,9 +71,12 @@ public:
 };
 
 ```
+
 - LinkedList
+
 	Enqueue - Add at head. O(n) if no tail pointer otherwise O(1)
 	Dequeue - O(1)
+	
 - Stack ( 2 ways of implementation )
 
 
@@ -80,8 +87,11 @@ public:
 	insertLast(): Adds an item at the rear of Deque.
 	deleteFront(): Deletes an item from front of Deque.
 	deleteLast(): Deletes an item from rear of Deque.
+	
 - Supports both stack and queue operations. 
+
 - Implementation of Circular Double Ended Queue
+
   - Circular Array
   - Doubly LinkedList
   
