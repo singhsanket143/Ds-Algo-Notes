@@ -50,7 +50,115 @@ Can we do it in single iteration?
 Take two pointers, move one pointer with n distance and then increment both by 1
 We need to get something from last, if we look from behind, explain using displacement theory
 
+**Q- Reverse the LinkedList**
+    - Discuss all four approaches
+    
+  _Pointer Iteratively_
+    
+```java
+    
+    public ListNode reverseList(ListNode head) {
+   
+        ListNode temp = head;
+        ListNode prev = null;
+        
+        while(temp != null){
+            ListNode fast = temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = fast;
+        } 
+        return prev;
+    }
+```
+   _Data Iteratively_
+    
+```java
+   public Node reverseList(ListNode head) {
 
+		if (this.size == 0) {
+			throw new Exception("LL is empty");
+		}
+
+		for (int i = 0; i < this.size / 2; i++) { // O(n/2)
+
+			Node n1 = getNodeAt(i); // O(n)
+			Node n2 = getNodeAt(this.size - i - 1);
+
+			int temp = n1.data; // swap
+			n1.data = n2.data;
+			n2.data = temp;
+
+		}
+
+	}
+```
+    
+  _Pointer Recursively_
+   
+```java
+    public void Reverse_PR() throws Exception {
+
+		if (this.size == 0) {
+			throw new Exception("LL is empty");
+		}
+
+		RPH(this.head, this.head.next);
+
+		Node temp = this.head; // swap tail and head
+		this.head = this.tail;
+		this.tail = temp;
+		this.tail.next = null;
+
+	}
+
+	private void RPH(Node prev, Node curr) {
+
+		if (curr == null) { // base case
+			return;
+		}
+
+		RPH(prev.next, curr.next);
+		curr.next = prev;
+
+	}
+    
+```
+   _Data Recursively_
+```java
+    public void Reverse_RD() throws Exception {
+
+		if (this.size == 0) {
+			throw new Exception("LL is empty");
+		}
+
+		Heapmover left = new Heapmover();
+		left.node = this.head;
+
+		RDH(left, this.head, 0);
+
+	}
+
+	public void RDH(Heapmover left, Node right, int count) {
+
+		if (right == null) {
+			return;
+		}
+
+		RDH(left, right.next, count + 1);
+
+		if (count >= this.size / 2) {
+
+			int temp = left.node.data; // swapping of data
+			left.node.data = right.data;
+			right.data = temp;
+		}
+
+		left.node = left.node.next;
+
+	}
+    
+```
 **Q2- K Reverse**
 ```java
 public void kreverse(int k, Node head) throws Exception {
@@ -125,3 +233,39 @@ class Solution {
 **Q4- Copy List**
 
 https://leetcode.com/problems/copy-list-with-random-pointer/
+
+## Homework Problems
+
+**Q1- Find mid node in LL**
+Approach 1 -> calculate length then again traverse length/2 distance
+Approach 2 ->Mid point is at distance 'd' and end point is at distance '2d'
+
+**Q4 - Given a linked list, swap every two adjacent nodes and return its head. You may  not  modify the values in the list's nodes, only nodes itself may be changed.**
+```java
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode  curr = head.next;
+        ListNode prev = head;
+        while(head != null && head.next != null){
+            
+            ListNode first = head;
+            ListNode second = head.next;
+            prev.next = second;
+            first.next = second.next;
+            second.next = first;
+            
+            
+            prev = first;
+            head = first.next;
+        }
+        
+        return curr;
+     }
+}
+```
+
+
+
