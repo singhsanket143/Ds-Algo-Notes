@@ -33,7 +33,7 @@ class Node {
 - Traversal
   	- O(n)
 
-*Essential feature to know in the LL is head**
+*Essential feature to know in the LL is head*
 
 **Q - How to delete the complete list if we know the head??**
 In Java just delete the head, but in C or C++ there is no auto garbage collection, we will iteratively delete the nodes
