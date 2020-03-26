@@ -239,8 +239,13 @@ https://leetcode.com/problems/copy-list-with-random-pointer/
 ## Homework Problems
 
 **Q1- Find mid node in LL**
+
 Approach 1 -> calculate length then again traverse length/2 distance
 Approach 2 ->Mid point is at distance 'd' and end point is at distance '2d'
+
+**Q2- Remove Duplicates from a LinkedList**
+
+**Q3- Reverse a linked list A from position B to C.**
 
 **Q4 - Given a linked list, swap every two adjacent nodes and return its head. You may  not  modify the values in the list's nodes, only nodes itself may be changed.**
 ```java
