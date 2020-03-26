@@ -261,32 +261,6 @@ Following cases to be handled. <br>
 **Q- Reverse last K nodes**
 
 
-**Q- K Reverse**
-```java
-public void kreverse(int k, Node head) throws Exception {
-
-		LinkedList prev = null;
-		LinkedList curr = null;
-
-		while (this.size != 0) {
-
-			curr = new LinkedList();
-			for (int i = 1; i <= k; i++) {
-				curr.addFirst(this.removeFirst());
-			}
-			if (prev == null) {
-				prev = curr;
-			} else {
-				prev.tail.next = curr.head;
-				prev.tail = curr.tail;
-				prev.size = prev.size + curr.size;
-			}
-		}
-		this.head = prev.head;
-		this.tail = prev.tail;
-		this.size = prev.size;
-	}
-```
 **Q- Palindrome**
 
 ```java
