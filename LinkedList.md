@@ -1,3 +1,14 @@
+- Disadvantages of Array
+                -  Store the height of all students.
+                - Fixed Length
+- Structure of Node
+                - Head node
+- Comparision of Array and Linkedlist
+                - Contiguous Memory Allocation
+                - Time Complexities
+                - Searching - O(n)
+- Explain a the previous example again
+
 # Linked List
 
 - LinkedList donot have index based access
