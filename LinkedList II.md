@@ -45,13 +45,13 @@ public:
 ```
 
 
-**Q - Cycle detection in LL**
+**Q5- Cycle detection in LL**
 Explain Hashmap marking approach
 Dummy node approach
 Floydd Algorithm
 Fast pointer can move by doube triple or any higher speed
 
- **Q- How to detect the start of the loop**
+ **Q5- How to detect the start of the loop**
 If we have a complete circular LL then the collisiton will occur in n*l cycles
 
 For any LL
@@ -261,7 +261,7 @@ Following cases to be handled. <br>
 **Q- Reverse last K nodes**
 
 
-**Q- Palindrome**
+**Q1- Palindrome**
 
 ```java
 public boolean isPalindrome(ListNode head) {
@@ -325,7 +325,7 @@ public boolean isPalindrome(ListNode head) {
 
 ``` 
 
-**Q- Longest Palindromic Sequence in a LinkedList**
+**Q2- Longest Palindromic Sequence in a LinkedList**
      10 -> 10 -> 2 -> 3 -> 7 -> 3 -> 2 -> 12 -> 20 -> x
 ```java
 static int countCommon(Node a, Node b)  
