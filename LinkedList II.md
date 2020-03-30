@@ -2,6 +2,33 @@
 
 **Q1- Palindrome**
 
+- **Approach 1:** 
+
+(Two Pointer Technique)
+
+Therefore, the simplest solution is to copy the values of the Linked List into an Array List (or Vector, or plain Array). Then, we can solve the problem using the two-pointer technique.
+
+*Algorithm*
+
+We can split this approach into 2 steps:
+
+- Copying the Linked List into an Array.
+- Checking whether or not the Array is a palindrome.
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+- **Approach 2:** 
+
+*Algorithm*
+
+
+- Find the end of the first half.
+- Reverse the second half.
+- Determine whether or not there is a palindrome.
+- Restore the list.
+- Return the result.
+
 ```java
 public boolean isPalindrome(ListNode head) {
         if(head == null || head.next == null){
@@ -63,8 +90,14 @@ public boolean isPalindrome(ListNode head) {
 }
 
 ``` 
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
 **Q2- Longest Palindromic Sequence in a LinkedList**
      10 -> 10 -> 2 -> 3 -> 7 -> 3 -> 2 -> 12 -> 20 -> x
+     
+     
 ```java
 static int countCommon(Node a, Node b)  
 {  
@@ -242,14 +275,6 @@ public:
 };
 ```
 
-
-
-
-
-
-
-
-
 **Q4- Flattening a Linked List**
     
 ```java
@@ -271,6 +296,9 @@ public:
     } 
     
 ```
+
+## Extra Questions
+
 **Q- Swap Nodes**
 
 Following cases to be handled. <br>
