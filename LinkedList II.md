@@ -1,50 +1,116 @@
+## Assignment Problems
 
-**Q - You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.**
-```cpp
-class Solution {
-public:
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        stack<ListNode*> s1;
-        stack<ListNode*> s2;
-        ListNode* n1 = l1; ListNode* n2 = l2;
-        while(n1 != NULL) {
-            s1.push(n1);
-            n1 = n1->next;
+**Q1- Palindrome**
+
+```java
+public boolean isPalindrome(ListNode head) {
+        if(head == null || head.next == null){
+            return true;
         }
-        while(n2 != NULL) {
-            s2.push(n2);
-            n2 = n2->next;
+        ListNode prev = head;
+        ListNode mid = head;
+        ListNode fast = head;
+        
+        while(fast != null && fast.next != null){
+            mid = mid.next;
+            fast = fast.next.next;
         }
         
-        int carry = 0;
-        ListNode* ans = NULL;
-        while(!s1.empty() or !s2.empty()) {
-            int val1 = (s1.empty()) ? 0 : s1.top()->val;
-            int val2 = (s2.empty()) ? 0 : s2.top()->val;
-            int sum = val1 + val2 + carry;
-            carry = sum / 10;
-            sum = sum % 10;
-            if(ans == NULL) {
-                ans = new ListNode(sum);
-            } else {
-                ListNode* temp = new ListNode(sum);
-                temp->next = ans;
-                ans = temp;
+        while(prev.next != mid && prev.next != null) {
+            prev = prev.next;
+        
+        }
+        
+        ListNode n = null;
+        if(fast == null){
+            n = mid;
+            prev.next = null;
+        }else{
+            n = mid.next;
+            mid.next = null;
+        }
+        
+        ListNode second = reverseList(n);
+        
+        while(second != null && head != null){
+            if(second.val != head.val){
+                return false;
             }
-            if(!s1.empty()) s1.pop();
-            if(!s2.empty()) s2.pop();
+            second = second.next;
+            head = head.next;
         }
-        if(carry!=0) {
-            ListNode* temp = new ListNode(carry);
-            temp->next = ans;
-            ans = temp;
-        }
-        return ans;
+        return true;
+        
     }
-};
+    
+    public ListNode reverseList(ListNode head) {
+        
+        
+        ListNode temp = head;
+        ListNode prev = null;
+        
+        
+        while(temp != null){
+            ListNode fast = temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = fast;
+        }
+        
+        return prev;
+    }
+    
+}
+
+``` 
+**Q2- Longest Palindromic Sequence in a LinkedList**
+     10 -> 10 -> 2 -> 3 -> 7 -> 3 -> 2 -> 12 -> 20 -> x
+```java
+static int countCommon(Node a, Node b)  
+{  
+    int count = 0;  
+  
+    // loop to count coomon in the list starting  
+    // from node a and b  
+    for (; a != null && b != null; 
+            a = a.next, b = b.next)  
+  
+        // increment the count for same values  
+        if (a.data == b.data)  
+            ++count;  
+        else
+            break;  
+  
+    return count;  
+}  
+// Returns length of the longest palindrome sublist in given list  
+static int maxPalindrome(Node head)  
+{  
+    int result = 0;  
+    Node prev = null, curr = head;  
+  
+    // loop till the end of the linked list  
+    while (curr != null)  
+    {  
+        // The sublist from head to current reversed.  
+        Node next = curr.next;  
+        curr.next = prev;  
+  
+        // check for odd length palindrome by finding longest common list elements beginning from prev and from next (We exclude curr)  
+        result = Math.max(result,  
+                    2 * countCommon(prev, next)+1);  
+  
+        // check for even length palindrome by finding longest common list elements beginning from curr and from next  
+        result = Math.max(result,  
+                    2*countCommon(curr, next));  
+  
+        // update prev and curr for next iteration  
+        prev = curr;  
+        curr = next;  
+    }  
+    return result;  
+}  
 ```
-
-
 **Q5- Cycle detection in LL**
 Explain Hashmap marking approach
 Dummy node approach
@@ -62,8 +128,9 @@ dist_fast = 2*dist_small
 
 then solve the eqn
 
+## Homework Problems
 
-**Q - Merge Sorted List without space and with space**
+**Q1- Merge Sorted List without space and with space**
 ```java
 /**
  * Definition for singly-linked list.
@@ -125,12 +192,85 @@ class Solution {
 }
 ```
 
-**Q - Reverse merge sorted listfy**
+**Q- Reverse merge sorted listfy**
 
-**Q - Find intersection of 2 lists which have been merged**
+**Q2- Find intersection of 2 lists which have been merged**
 
-Analogy with Array that why LL will be better
 
+**Q3- You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.**
+```cpp
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        stack<ListNode*> s1;
+        stack<ListNode*> s2;
+        ListNode* n1 = l1; ListNode* n2 = l2;
+        while(n1 != NULL) {
+            s1.push(n1);
+            n1 = n1->next;
+        }
+        while(n2 != NULL) {
+            s2.push(n2);
+            n2 = n2->next;
+        }
+        
+        int carry = 0;
+        ListNode* ans = NULL;
+        while(!s1.empty() or !s2.empty()) {
+            int val1 = (s1.empty()) ? 0 : s1.top()->val;
+            int val2 = (s2.empty()) ? 0 : s2.top()->val;
+            int sum = val1 + val2 + carry;
+            carry = sum / 10;
+            sum = sum % 10;
+            if(ans == NULL) {
+                ans = new ListNode(sum);
+            } else {
+                ListNode* temp = new ListNode(sum);
+                temp->next = ans;
+                ans = temp;
+            }
+            if(!s1.empty()) s1.pop();
+            if(!s2.empty()) s2.pop();
+        }
+        if(carry!=0) {
+            ListNode* temp = new ListNode(carry);
+            temp->next = ans;
+            ans = temp;
+        }
+        return ans;
+    }
+};
+```
+
+
+
+
+
+
+
+
+
+**Q4- Flattening a Linked List**
+    
+```java
+    Node flatten(Node root) {
+     
+        // Base Cases 
+        if (root == null || root.right == null) 
+            return root; 
+  
+        // recur for list on right 
+        root.right = flatten(root.right); 
+  
+        // now merge 
+        root = merge(root, root.right); 
+  
+        // return the root 
+        // it will be in turn merged with its left 
+        return root; 
+    } 
+    
+```
 **Q- Swap Nodes**
 
 Following cases to be handled. <br>
@@ -208,27 +348,6 @@ Following cases to be handled. <br>
         
         return curr;
 ```
-**Q- Flattening a Linked List**
-    
-```java
-    Node flatten(Node root) {
-     
-        // Base Cases 
-        if (root == null || root.right == null) 
-            return root; 
-  
-        // recur for list on right 
-        root.right = flatten(root.right); 
-  
-        // now merge 
-        root = merge(root, root.right); 
-  
-        // return the root 
-        // it will be in turn merged with its left 
-        return root; 
-    } 
-    
-```
 
 **Q- Flattening a Multilevel Double Linked List**
 
@@ -260,116 +379,3 @@ Following cases to be handled. <br>
 
 **Q- Reverse last K nodes**
 
-
-**Q1- Palindrome**
-
-```java
-public boolean isPalindrome(ListNode head) {
-        if(head == null || head.next == null){
-            return true;
-        }
-        ListNode prev = head;
-        ListNode mid = head;
-        ListNode fast = head;
-        
-        while(fast != null && fast.next != null){
-            mid = mid.next;
-            fast = fast.next.next;
-        }
-        
-        while(prev.next != mid && prev.next != null) {
-            prev = prev.next;
-        
-        }
-        
-        ListNode n = null;
-        if(fast == null){
-            n = mid;
-            prev.next = null;
-        }else{
-            n = mid.next;
-            mid.next = null;
-        }
-        
-        ListNode second = reverseList(n);
-        
-        while(second != null && head != null){
-            if(second.val != head.val){
-                return false;
-            }
-            second = second.next;
-            head = head.next;
-        }
-        return true;
-        
-    }
-    
-    public ListNode reverseList(ListNode head) {
-        
-        
-        ListNode temp = head;
-        ListNode prev = null;
-        
-        
-        while(temp != null){
-            ListNode fast = temp.next;
-            temp.next = prev;
-            prev = temp;
-            temp = fast;
-        }
-        
-        return prev;
-    }
-    
-}
-
-``` 
-
-**Q2- Longest Palindromic Sequence in a LinkedList**
-     10 -> 10 -> 2 -> 3 -> 7 -> 3 -> 2 -> 12 -> 20 -> x
-```java
-static int countCommon(Node a, Node b)  
-{  
-    int count = 0;  
-  
-    // loop to count coomon in the list starting  
-    // from node a and b  
-    for (; a != null && b != null; 
-            a = a.next, b = b.next)  
-  
-        // increment the count for same values  
-        if (a.data == b.data)  
-            ++count;  
-        else
-            break;  
-  
-    return count;  
-}  
-// Returns length of the longest palindrome sublist in given list  
-static int maxPalindrome(Node head)  
-{  
-    int result = 0;  
-    Node prev = null, curr = head;  
-  
-    // loop till the end of the linked list  
-    while (curr != null)  
-    {  
-        // The sublist from head to current reversed.  
-        Node next = curr.next;  
-        curr.next = prev;  
-  
-        // check for odd length palindrome by finding longest common list elements beginning from prev and from next (We exclude curr)  
-        result = Math.max(result,  
-                    2 * countCommon(prev, next)+1);  
-  
-        // check for even length palindrome by finding longest common list elements beginning from curr and from next  
-        result = Math.max(result,  
-                    2*countCommon(curr, next));  
-  
-        // update prev and curr for next iteration  
-        prev = curr;  
-        curr = next;  
-    }  
-    return result;  
-}  
-```
