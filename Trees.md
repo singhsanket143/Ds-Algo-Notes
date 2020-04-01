@@ -1,13 +1,33 @@
 ## Binary Tree
 
+- Covered Linear Data Structure already. Contains a logical start, logical end and a next pointer. 
 ### Introduction
 
+ 
+- Hierarchial data structure (Example of Company Hierarchy)
+- Relation b/w real tree and computer tree
+- Structure of Node
+```
+class Node{
+ int data;
+ Node left; 
+ Node right;
+}
+```
+
 - Recursive Data Structure
-- Hierarchial data structure
-- Linear traversal not possible like in case of Linkedlist. 
 - We have two possible directions we can move in (no linear way of traversal possible)
 - Relationships - Parent-child, sibling, grandfather, root. 
+- *Depth* - The depth of a node is the number of edges from the node to the tree's root node.
+A root node will have a depth of 0.
+- *Height* - The height of a node is the number of edges on the longest path from the node to a leaf.
+A leaf node will have a height of 0.
 
+![Screenshot 2020-04-01 at 7 32 20 PM](https://user-images.githubusercontent.com/35702912/78146364-b3713280-744f-11ea-9a90-3c4673f24633.png)
+
+- K Array Tree - Maximum no of child from a node in a tree
+- Binary Tree - Two nodes from each child. 
+ 
 ### Application
 
  - File system components
@@ -16,29 +36,27 @@
  - URL lookups
  
 ### Properties
+
 1) The maximum number of nodes at level ‘l’ of a binary tree is 2^(l-1).
 
-2) Maximum number of nodes in a binary tree of height ‘h’ is 2h – 1.
+2) Maximum number of nodes in a binary tree of height ‘h’ is 2^h – 1.
 
 ### Types of Trees
 
+
 - _Full Binary Tree_: A Binary Tree is full if every node has 0 or 2 children. 
+
 - _Complete Binary Tree:_ A Binary Tree is complete Binary Tree if all levels are completely filled except possibly the last level and the last level has all keys as left as possible
-- A binary tree is _balanced_ if the height of the tree is O(Log n) where n is the number of nodes. For Example, AVL tree maintains O(Log n) height by making sure that the difference between heights of left and right subtrees is atmost 1. 
-A degenerate (or pathological) tree A Tree where every internal node has one child. Such trees are performance-wise same as linked list.
+
+- _Perfect Binary Tree:_ A Binary tree is Perfect Binary Tree in which all internal nodes have two children and all leaves are at the same level.
+ 
+
 ### Traversal
+
+- Preorder    NLR
 - Inorder     LNR
 - Postorder   LRN
-- Preorder    NLR
-- Level order 
 
-Time Complexity : O(n)
-Space Complexity: O(n)
-
-
-
-Time Complexity: O(n)
-Space Complexity: O(n)
 
 **Q1- Inorder**
 
@@ -79,6 +97,20 @@ void inorder()
      }
 
 ```
+
+```java
+
+
+//  Preorder Iteratively Algo
+
+1) Create an empty stack nodeStack and push root node to stack.
+2) Do following while nodeStack is not empty.
+….a) Pop an item from stack and print it.
+….b) Push right child of popped item to stack
+….c) Push left child of popped item to stack
+
+
+```
 **Q2- Construct Binary Tree using Inorder and PreOrder**
 
 Inorder sequence: D B E A F C
@@ -93,8 +125,7 @@ private Node construct(int[] pre, int[] in, int plo, int phi, int ilo, int ihi) 
 		// make a new node
 		Node nn = new Node();
 		nn.data = pre[plo]; // first node of preorder array will be root node
-		// increment size
-		this.size++;
+		
 		int s = -1;
 		// search the node in inorder array
 		for (int i = ilo; i <= ihi; i++) {
@@ -118,9 +149,11 @@ private Node construct(int[] pre, int[] in, int plo, int phi, int ilo, int ihi) 
 Time Complexity: O(n)
 Space Complexity: O(n)
 
-**Q4- Check if given Preorder, Inorder and Postorder traversals are of same tree**
+**Q3- Check if given Preorder, Inorder and Postorder traversals are of same tree**
 
-**Q2- LevelOrder Traversal**
+
+*Another type of Traversal*
+**Q4- LevelOrder Traversal**
 
 ```java
 
@@ -259,6 +292,10 @@ static void getVerticalOrder(Node root, int hd,
         } 
     } 
 ```
+
+Time Complexity: O(n)
+
+Space Complexity: O(n)
 
 **Codechef - Joker vs Batman**
 
