@@ -1,5 +1,7 @@
 ## Binary Tree
+
 ### Introduction
+
 - Recursive Data Structure
 - Hierarchial data structure
 - Linear traversal not possible like in case of Linkedlist. 
@@ -7,6 +9,7 @@
 - Relationships - Parent-child, sibling, grandfather, root. 
 
 ### Application
+
  - File system components
  - Decision Tree
  - Tries
@@ -19,7 +22,7 @@
 
 ### Types of Trees
 
-- _Full Binary Tree_ A Binary Tree is full if every node has 0 or 2 children. 
+- _Full Binary Tree_: A Binary Tree is full if every node has 0 or 2 children. 
 - _Complete Binary Tree:_ A Binary Tree is complete Binary Tree if all levels are completely filled except possibly the last level and the last level has all keys as left as possible
 - A binary tree is _balanced_ if the height of the tree is O(Log n) where n is the number of nodes. For Example, AVL tree maintains O(Log n) height by making sure that the difference between heights of left and right subtrees is atmost 1. 
 A degenerate (or pathological) tree A Tree where every internal node has one child. Such trees are performance-wise same as linked list.
@@ -32,6 +35,12 @@ A degenerate (or pathological) tree A Tree where every internal node has one chi
 Time Complexity : O(n)
 Space Complexity: O(n)
 
+
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+**Q1- Inorder**
 
 ```java
 //Recursion
@@ -68,37 +77,13 @@ void inorder()
             curr = curr.right; 
         }
      }
- 
- // LevelOrder
- 
- public void LevelOrder() {
 
-		LinkedList<Node> queue = new LinkedList<>();
-		queue.addLast(this.root);
-
-		while (!queue.isEmpty()) {
-
-			Node rn = queue.removeFirst();
-			System.out.println(rn.data);
-
-			if (rn.left != null)
-				queue.add(rn.left);
-
-			if (rn.right != null)
-				queue.add(rn.right);
-		}
-
-	}
 ```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q1- Inorder**
-**Q2- LevelOrder Traversal**
-**Q3- Construct Binary Tree using Inorder and PreOrder**
+**Q2- Construct Binary Tree using Inorder and PreOrder**
 
 Inorder sequence: D B E A F C
 Preorder sequence: A B D E C F
+
 ```java
 private Node construct(int[] pre, int[] in, int plo, int phi, int ilo, int ihi) {
 
@@ -135,447 +120,145 @@ Space Complexity: O(n)
 
 **Q4- Check if given Preorder, Inorder and Postorder traversals are of same tree**
 
-**Q5- Vertical Order traversal of Binary Tree**
-Given a binary tree, return the vertical order traversal of its nodes values.
+**Q2- LevelOrder Traversal**
 
 ```java
-class Solution {
-    List<Location> locations;
-    public List<List<Integer>> verticalTraversal(TreeNode root) {
-        // Each location is a node's x position, y position, and value
-        locations = new ArrayList();
-        dfs(root, 0, 0);
-        Collections.sort(locations);
 
-        List<List<Integer>> ans = new ArrayList();
-        ans.add(new ArrayList<Integer>());
-
-        int prev = locations.get(0).x;
-
-        for (Location loc: locations) {
-            // If the x value changed, it's part of a new report.
-            if (loc.x != prev) {
-                prev = loc.x;
-                ans.add(new ArrayList<Integer>());
-            }
-
-            // We always add the node's value to the latest report.
-            ans.get(ans.size() - 1).add(loc.val);
-        }
-
-        return ans;
-    }
-
-    public void dfs(TreeNode node, int x, int y) {
-        if (node != null) {
-            locations.add(new Location(x, y, node.val));
-            dfs(node.left, x-1, y+1);
-            dfs(node.right, x+1, y+1);
-        }
-    }
-}
-
-class Location implements Comparable<Location>{
-    int x, y, val;
-    Location(int x, int y, int val) {
-        this.x = x;
-        this.y = y;
-        this.val = val;
-    }
-
-    @Override
-    public int compareTo(Location that) {
-        if (this.x != that.x)
-            return Integer.compare(this.x, that.x);
-        else if (this.y != that.y)
-            return Integer.compare(this.y, that.y);
-        else
-            return Integer.compare(this.val, that.val);
-    }
-}
-```
-
-**Q1- LevelOrder Linewise**
-```java
-private void levelorderLineWise(Node node) {
-
-		LinkedList<Node> primaryq = new LinkedList<>();
-		LinkedList<Node> helperq = new LinkedList<>();
-
-		primaryq.addLast(node);
-
-		while (!primaryq.isEmpty()) {
-
-			Node pp = primaryq.removeFirst();
-			System.out.print(pp.data + " ");
-
-			if (pp.left != null)
-				helperq.addLast(pp.left);
-
-			if (pp.right != null)
-				helperq.addLast(pp.right);
-
-			if (primaryq.size() == 0) {
-				System.out.println();
-				primaryq = helperq;
-				helperq = new LinkedList<>();
-			}
-
-		}
-	}
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q2- LeverOrder Linewise ZigZag**
-```java
-public void levelorderZigZag() {
+ 
+ // LevelOrder
+ 
+ public void LevelOrder() {
 
 		LinkedList<Node> queue = new LinkedList<>();
-		LinkedList<Node> stack = new LinkedList<>();
-
-		queue.add(this.root);
-		int count = 0;
+		queue.addLast(this.root);
 
 		while (!queue.isEmpty()) {
 
-			Node pp = queue.removeFirst();
-			System.out.print(pp.data + " ");
+			Node rn = queue.removeFirst();
+			System.out.println(rn.data);
 
-			if (count % 2 == 0) {
+			if (rn.left != null)
+				queue.add(rn.left);
 
-				if (pp.left != null)
-					stack.addFirst(pp.left);
-				if (pp.right != null)
-					stack.addFirst(pp.right);
-			}
-
-			else {
-
-				if (pp.right != null)
-					stack.addFirst(pp.right);
-				if (pp.left != null)
-					stack.addFirst(pp.left);
-
-			}
-
-			if (queue.size() == 0) {
-
-				count++;
-				queue = stack;
-				stack = new LinkedList<>();
-			}
+			if (rn.right != null)
+				queue.add(rn.right);
 		}
 
 	}
 ```
-Time Complexity: O(n)
-Space Complexity: O(n)
+**Q5- Vertical Order traversal of Binary Tree**
 
-**Q3- Height of Binary Tree**
-```java
-private int height(Node node) {
-
-		if (node == null) { // base case
-			return -1;
-		}
-
-		int lh = height(node.left);
-		int rh = height(node.right);
-
-		return Math.max(lh, rh) + 1;
-	}
-
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q4- Find a element in Binary Tree**
-```java
-private boolean find(Node node, int item) {
-
-		if (node == null) {
-			return false;
-		}
-
-		if (node.data == item)
-			return true;
-
-		boolean lresult = find(node.left, item);
-
-		if (lresult) {
-			return true;
-		}
-
-		boolean rresult = find(node.right, item);
-
-		if (rresult) {
-			return true;
-		}
-
-		return false;
-	}
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q5- Sum of nodes of Binary Tree**
-```java
-private int sumofnodes(Node node) {
-
-		if (node == null)
-			return 0;
-
-		int lsum = sumofnodes(node.left);
-		int rsum = sumofnodes(node.right);
-
-		return lsum + rsum + node.data;
-
-	}
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q6- Structurally Identical**
-```java
-private boolean structurallyIdentical(Node tnode, Node onode) {
-
-		if (tnode == null && onode == null) {
-			return true;
-		}
-		if (tnode == null || onode == null) {
-			return false;
-		}
-
-		boolean l = structurallyIdentical(tnode.left, onode.left);
-		boolean r = structurallyIdentical(tnode.right, onode.right);
-
-		return l && r;
-	}
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
+**Approach 1:**
 
 
-**Q8- Given a BT, check if it is balanced or not?**
-```java
-private class BalancePair {
+The idea is to traverse the tree once and get the minimum and maximum horizontal distance with respect to root. For the tree shown above, minimum distance is -2 (for node with value 2) and maximum distance is 2 (For node with value 9).
 
-		int height;
-		boolean isBalanced;
-
-	}
-
-	public boolean isBalanced() {
-
-		return this.isBalanced(this.root).isBalanced;
-	}
-
-	private BalancePair isBalanced(Node node) {
-
-		if (node == null) {
-
-			BalancePair bp = new BalancePair();
-			bp.height = -1;
-			bp.isBalanced = true;
-			return bp;
-		}
-
-		BalancePair lbp = isBalanced(node.left);
-		BalancePair rbp = isBalanced(node.right);
-
-		int lh = lbp.height;
-		int rh = rbp.height;
-
-		BalancePair mp = new BalancePair();
-
-		mp.height = Math.max(lh, rh) + 1;
-
-		if (Math.abs(lh - rh) <= 1 && lbp.isBalanced && rbp.isBalanced) {
-
-			mp.isBalanced = true;
-
-		} else {
-
-			mp.isBalanced = false;
-		}
-		return mp;
-	}
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-
-**Q9- Merge two binary trees**
-
-```java
-class Solution {
-    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
-        if(t1 == null && t2 == null) return null;
-        
-        if(t2 == null) return t1;
-        if(t1 == null) return t2;
-        
-        TreeNode left = mergeTrees(t1.left, t2.left);
-        TreeNode right = mergeTrees(t1.right, t2.right);
-        
-        TreeNode result = new TreeNode(t1.val + t2.val);
-        
-        result.left = left;
-        result.right = right;
-        return result;
-    }
-}
-```
-
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q10- Invert Binary Tree**
-
-```java
-	public TreeNode invertTree(TreeNode root) {
-        if(root == null){
-            return null;   
-        }
-        TreeNode left = invertTree(root.left);
-        TreeNode right = invertTree(root.right);
-        
-        root.right = left;
-        root.left = right;
-        
-        return root;
-    }
-
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-
-**Q11- Star problem of the day**
-Given a binary tree
-```java
-struct Node {
-  int val;
-  Node *left;
-  Node *right;
-  Node *next;
-}
-
-```
-**Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.**
-
-**Initially, all next pointers are set to NULL.**
-
-_Approach 1_:
-```java
-public Node connect(Node root) {
-        
-        if (root == null) {
-            return root;
-        }
-        
-        // Initialize a queue data structure which contains
-        // just the root of the tree
-        Queue<Node> Q = new LinkedList<Node>(); 
-        Q.add(root);
-        
-        // Outer while loop which iterates over 
-        // each level
-        while (Q.size() > 0) {
-            
-            // Note the size of the queue
-            int size = Q.size();
-            
-            // Iterate over all the nodes on the current level
-            for(int i = 0; i < size; i++) {
-                
-                // Pop a node from the front of the queue
-                Node node = Q.poll();
-                
-                // This check is important. We don't want to
-                // establish any wrong connections. The queue will
-                // contain nodes from 2 levels at most at any
-                // point in time. This check ensures we only 
-                // don't establish next pointers beyond the end
-                // of a level
-                if (i < size - 1) {
-                    node.next = Q.peek();
-                }
-                
-                // Add the children, if any, to the back of
-                // the queue
-                if (node.left != null) {
-                    Q.add(node.left);
-                }
-                if (node.right != null) {
-                    Q.add(node.right);
-                }
-            }
-        }
-        
-        // Since the tree has now been modified, return the root node
-        return root;
-    }
-
-```
-
-_Approach 2:_
+Once we have maximum and minimum distances from root, we iterate for each vertical line at distance minimum to maximum from root, and for each vertical line traverse the tree and print the nodes which lie on that vertical line.
+Given a binary tree, return the vertical order traversal of its nodes values.
 
 ```java
 
- Node prev, leftmost;
-    
-    public void processChild(Node childNode) {
-        
-        if (childNode != null) {
-            if (this.prev != null) {
-                this.prev.next = childNode;
-                    
-            } else {
-                
-                this.leftmost = childNode;
-            }    
-                
-            this.prev = childNode; 
-        }
-    }
-        
-    public Node connect(Node root) {
-        
-        if (root == null) {
-            return root;
-        }
-        
-        this.leftmost = root;
-        
+//PseudoCode
+
+// min --> Minimum horizontal distance from root
+// max --> Maximum horizontal distance from root
+// hd  --> Horizontal distance of current node from root 
+
+findMinMax(tree, min, max, hd)
+     if tree is NULL then return;
+ 
+     if hd is less than min then
+           min = hd;
+     else if hd is greater than max then
+          *max = hd;
+ 
+     findMinMax(tree->left, min, max, hd-1);
+     findMinMax(tree->right, min, max, hd+1);
+
+ 
+printVerticalLine(tree, line_no, hd)
+     if tree is NULL then return;
+ 
+     if hd is equal to line_no, then
+           print(tree->data);
+     printVerticalLine(tree->left, line_no, hd-1);
+     printVerticalLine(tree->right, line_no, hd+1); 
      
-        Node curr = leftmost;
-        
-      
-        while (this.leftmost != null) {
-        
-            this.prev = null;
-            curr = this.leftmost;
-            
-            this.leftmost = null;
-        
-            while (curr != null) {
-         
-                this.processChild(curr.left);
-                this.processChild(curr.right);
-                
-                curr = curr.next;
-            }
-        }
-                
-        return root ;
-    }
+
+void verticalOrder(Node node)  { 
+        findMinMax(node, val, val, 0); 
+        for (int line_no = val.min; line_no <= val.max; line_no++)  
+        { 
+            printVerticalLine(node, line_no, 0); 
+            System.out.println(""); 
+        } 
+    } 
+
 ```
 
-Time Complexity: O(n)
-Space Complexity: O(1)
+*Time Complexity:*
 
+Time complexity of above algorithm is O(w*n) where w is width of Binary Tree and n is number of nodes in Binary Tree. 
+
+In worst case, the value of w can be O(n) (consider a complete tree for example) and time complexity can become O(n^2).
+
+**Approach 2:**
+
+We need to check the Horizontal Distances from the root for all nodes. If two nodes have the same Horizontal Distance (HD), then they are on the same vertical line. The idea of HD is simple. HD for root is 0, a right edge (edge connecting to right subtree) is considered as +1 horizontal distance and a left edge is considered as -1 horizontal distance. 
+
+We can do preorder traversal of the given Binary Tree. While traversing the tree, we can recursively calculate HDs. We initially pass the horizontal distance as 0 for root. 
+
+For left subtree, we pass the Horizontal Distance as Horizontal distance of root minus 1. 
+
+For right subtree, we pass the Horizontal Distance as Horizontal Distance of root plus 1. For every HD value, we maintain a list of nodes in a hash map. Whenever we see a node in traversal, we go to the hash map entry and add the node to the hash map using HD as a key in a map.
+
+```java
+static void getVerticalOrder(Node root, int hd, 
+                                TreeMap<Integer,Vector<Integer>> m) 
+    { 
+        // Base case 
+        if(root == null) 
+            return; 
+          
+        //get the vector list at 'hd' 
+        Vector<Integer> get =  m.get(hd); 
+          
+        // Store current node in map 'm' 
+        if(get == null) 
+        { 
+            get = new Vector<>(); 
+            get.add(root.key); 
+        } 
+        else
+            get.add(root.key); 
+          
+        m.put(hd, get); 
+          
+        // Store nodes in left subtree 
+        getVerticalOrder(root.left, hd-1, m); 
+          
+        // Store nodes in right subtree 
+        getVerticalOrder(root.right, hd+1, m); 
+    } 
+      
+    // The main function to print vertical order of a binary tree 
+    // with the given root 
+    static void printVerticalOrder(Node root) 
+    { 
+        // Create a map and store vertical order in map using 
+        // function getVerticalOrder() 
+        TreeMap<Integer,Vector<Integer>> m = new TreeMap<>(); 
+        int hd =0; 
+        getVerticalOrder(root,hd,m); 
+          
+        // Traverse the map and print nodes at every horigontal 
+        // distance (hd) 
+        for (Entry<Integer, Vector<Integer>> entry : m.entrySet()) 
+        { 
+            System.out.println(entry.getValue()); 
+        } 
+    } 
+```
 
 **Codechef - Joker vs Batman**
 
