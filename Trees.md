@@ -93,6 +93,48 @@ void inorder()
 Time Complexity: O(n)
 Space Complexity: O(n)
 
+**Q1- Inorder**
+**Q2- LevelOrder Traversal**
+**Q3- Construct Binary Tree using Inorder and PreOrder**
+
+Inorder sequence: D B E A F C
+Preorder sequence: A B D E C F
+```java
+private Node construct(int[] pre, int[] in, int plo, int phi, int ilo, int ihi) {
+
+		if (plo > phi) { // base case
+			return null;
+		}
+		// make a new node
+		Node nn = new Node();
+		nn.data = pre[plo]; // first node of preorder array will be root node
+		// increment size
+		this.size++;
+		int s = -1;
+		// search the node in inorder array
+		for (int i = ilo; i <= ihi; i++) {
+
+			if (pre[plo] == in[i]) {
+				s = i;
+				break;
+			}
+		}
+
+		int a = s - ilo;
+		// node left
+		nn.left = construct(pre, in, plo + 1, plo + a, ilo, s - 1);
+		// node right
+		nn.right = construct(pre, in, plo + a + 1, phi, s + 1, ihi);
+
+		return nn;
+
+	}
+```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+**Q4- Check if given Preorder, Inorder and Postorder traversals are of same tree**
+
 **Q1- LevelOrder Linewise**
 ```java
 private void levelorderLineWise(Node node) {
@@ -249,43 +291,6 @@ private boolean structurallyIdentical(Node tnode, Node onode) {
 		boolean r = structurallyIdentical(tnode.right, onode.right);
 
 		return l && r;
-	}
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q7- Construct Binary Tree using Inorder and PreOrder**
-Inorder sequence: D B E A F C
-Preorder sequence: A B D E C F
-```java
-private Node construct(int[] pre, int[] in, int plo, int phi, int ilo, int ihi) {
-
-		if (plo > phi) { // base case
-			return null;
-		}
-		// make a new node
-		Node nn = new Node();
-		nn.data = pre[plo]; // first node of preorder array will be root node
-		// increment size
-		this.size++;
-		int s = -1;
-		// search the node in inorder array
-		for (int i = ilo; i <= ihi; i++) {
-
-			if (pre[plo] == in[i]) {
-				s = i;
-				break;
-			}
-		}
-
-		int a = s - ilo;
-		// node left
-		nn.left = construct(pre, in, plo + 1, plo + a, ilo, s - 1);
-		// node right
-		nn.right = construct(pre, in, plo + a + 1, phi, s + 1, ihi);
-
-		return nn;
-
 	}
 ```
 Time Complexity: O(n)
