@@ -1,3 +1,35 @@
+**Q1- LevelOrder Linewise**
+```java
+private void levelorderLineWise(Node node) {
+
+		LinkedList<Node> primaryq = new LinkedList<>();
+		LinkedList<Node> helperq = new LinkedList<>();
+
+		primaryq.addLast(node);
+
+		while (!primaryq.isEmpty()) {
+
+			Node pp = primaryq.removeFirst();
+			System.out.print(pp.data + " ");
+
+			if (pp.left != null)
+				helperq.addLast(pp.left);
+
+			if (pp.right != null)
+				helperq.addLast(pp.right);
+
+			if (primaryq.size() == 0) {
+				System.out.println();
+				primaryq = helperq;
+				helperq = new LinkedList<>();
+			}
+
+		}
+	}
+```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
 **Q2- LeverOrder Linewise ZigZag**
 ```java
 public void levelorderZigZag() {
