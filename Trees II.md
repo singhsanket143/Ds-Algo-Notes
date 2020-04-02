@@ -1,81 +1,6 @@
-**Q1- LevelOrder Linewise**
-```java
-private void levelorderLineWise(Node node) {
+## Theory type Questions
 
-		LinkedList<Node> primaryq = new LinkedList<>();
-		LinkedList<Node> helperq = new LinkedList<>();
-
-		primaryq.addLast(node);
-
-		while (!primaryq.isEmpty()) {
-
-			Node pp = primaryq.removeFirst();
-			System.out.print(pp.data + " ");
-
-			if (pp.left != null)
-				helperq.addLast(pp.left);
-
-			if (pp.right != null)
-				helperq.addLast(pp.right);
-
-			if (primaryq.size() == 0) {
-				System.out.println();
-				primaryq = helperq;
-				helperq = new LinkedList<>();
-			}
-
-		}
-	}
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q2- LeverOrder Linewise ZigZag**
-```java
-public void levelorderZigZag() {
-
-		LinkedList<Node> queue = new LinkedList<>();
-		LinkedList<Node> stack = new LinkedList<>();
-
-		queue.add(this.root);
-		int count = 0;
-
-		while (!queue.isEmpty()) {
-
-			Node pp = queue.removeFirst();
-			System.out.print(pp.data + " ");
-
-			if (count % 2 == 0) {
-
-				if (pp.left != null)
-					stack.addFirst(pp.left);
-				if (pp.right != null)
-					stack.addFirst(pp.right);
-			}
-
-			else {
-
-				if (pp.right != null)
-					stack.addFirst(pp.right);
-				if (pp.left != null)
-					stack.addFirst(pp.left);
-
-			}
-
-			if (queue.size() == 0) {
-
-				count++;
-				queue = stack;
-				stack = new LinkedList<>();
-			}
-		}
-
-	}
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q3- Height of Binary Tree**
+**Q- Height of Binary Tree**
 ```java
 private int height(Node node) {
 
@@ -93,7 +18,7 @@ private int height(Node node) {
 Time Complexity: O(n)
 Space Complexity: O(n)
 
-**Q4- Find a element in Binary Tree**
+**Q- Find a element in Binary Tree**
 ```java
 private boolean find(Node node, int item) {
 
@@ -122,7 +47,7 @@ private boolean find(Node node, int item) {
 Time Complexity: O(n)
 Space Complexity: O(n)
 
-**Q5- Sum of nodes of Binary Tree**
+**Q- Sum of nodes of Binary Tree**
 ```java
 private int sumofnodes(Node node) {
 
@@ -139,28 +64,69 @@ private int sumofnodes(Node node) {
 Time Complexity: O(n)
 Space Complexity: O(n)
 
-**Q6- Structurally Identical**
+## Assignment Problems
+
+**Q1- Diameter of Binary Tree**
+
+Given a binary tree, you need to compute the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+
+_Approach 1:_
 ```java
-private boolean structurallyIdentical(Node tnode, Node onode) {
-
-		if (tnode == null && onode == null) {
-			return true;
-		}
-		if (tnode == null || onode == null) {
-			return false;
-		}
-
-		boolean l = structurallyIdentical(tnode.left, onode.left);
-		boolean r = structurallyIdentical(tnode.right, onode.right);
-
-		return l && r;
-	}
+public int diameterOfBinaryTree(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        
+        int left = diameterOfBinaryTree(root.left);
+        int right = diameterOfBinaryTree(root.right);
+        
+        int self = height(root.left) + height(root.right) + 2;
+        
+        return Math.max(left, Math.max(right, self));
+        
+    }
+    
+    public int height(TreeNode root){
+        if(root == null){
+            return -1;
+        }
+        
+        int left = height(root.left);
+        int right = height(root.right);
+        
+        return Math.max(left, right) + 1;
+    }
 ```
-Time Complexity: O(n)
-Space Complexity: O(n)
+Approach 2: 
+```java
+public class Diapair{
+        int diameter;
+        int height;
+    }
+    public Diapair diameter(TreeNode root){
+         if(root == null){
+            Diapair base = new Diapair();
+            base.height = -1;
+            base.diameter = 0;
+             return base;
+        }
+    
+        Diapair left = diameter(root.left);
+        Diapair right = diameter(root.right);
+        
+        Diapair self = new Diapair();
+        self.height = Math.max(left.height, right.height) + 1;
+        
+        self.diameter = Math.max(left.diameter, Math.max(right.diameter, left.height + right.height + 2)) ;
+        return self;
+        
+    }
+    public int diameterOfBinaryTree(TreeNode root) {
+       return diameter(root).diameter;
+    }
+```
 
-
-**Q8- Given a BT, check if it is balanced or not?**
+**Q2- Given a BT, check if it is balanced or not?**
 ```java
 private class BalancePair {
 
@@ -208,55 +174,46 @@ private class BalancePair {
 Time Complexity: O(n)
 Space Complexity: O(n)
 
+**Q3- Top View of Binary Tree**
 
-**Q9- Merge two binary trees**
+**Q4- Right View of Binary Tree**
 
+Same as before. 
 ```java
-class Solution {
-    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
-        if(t1 == null && t2 == null) return null;
-        
-        if(t2 == null) return t1;
-        if(t1 == null) return t2;
-        
-        TreeNode left = mergeTrees(t1.left, t2.left);
-        TreeNode right = mergeTrees(t1.right, t2.right);
-        
-        TreeNode result = new TreeNode(t1.val + t2.val);
-        
-        result.left = left;
-        result.right = right;
-        return result;
-    }
-}
-```
-
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q10- Invert Binary Tree**
-
-```java
-	public TreeNode invertTree(TreeNode root) {
+public List<Integer> rightSideView(TreeNode root) {
+        ArrayList<Integer> list = new ArrayList<>();
         if(root == null){
-            return null;   
+            return list;
         }
-        TreeNode left = invertTree(root.left);
-        TreeNode right = invertTree(root.right);
-        
-        root.right = left;
-        root.left = right;
-        
-        return root;
+        Queue<TreeNode> primary = new LinkedList<>();
+        Queue<TreeNode> helper = new LinkedList<>();
+        primary.add(root);
+        list.add(root.val);
+        while(!primary.isEmpty()){
+            
+            TreeNode node = primary.remove();
+            if(node.right != null){
+                helper.add(node.right);
+            }
+            if(node.left != null){
+                helper.add(node.left);
+            }
+            if(primary.isEmpty()){
+                if(!helper.isEmpty()){
+                list.add(helper.element().val);
+                primary = helper;
+                helper = new LinkedList<>();
+                }
+            }
+        }
+        return list;
     }
-
 ```
-Time Complexity: O(n)
-Space Complexity: O(n)
 
+**Q5**
 
-**Q11- Star problem of the day**
-Given a binary tree
+_Given a binary tree_
+
 ```java
 struct Node {
   int val;
@@ -264,8 +221,8 @@ struct Node {
   Node *right;
   Node *next;
 }
-
 ```
+
 **Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.**
 
 **Initially, all next pointers are set to NULL.**
@@ -378,134 +335,10 @@ _Approach 2:_
 
 Time Complexity: O(n)
 Space Complexity: O(1)
-**Q1- Diameter of Binary Tree**
 
-Given a binary tree, you need to compute the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
 
-_Approach 1:_
-```java
-public int diameterOfBinaryTree(TreeNode root) {
-        if(root == null){
-            return 0;
-        }
-        
-        int left = diameterOfBinaryTree(root.left);
-        int right = diameterOfBinaryTree(root.right);
-        
-        int self = height(root.left) + height(root.right) + 2;
-        
-        return Math.max(left, Math.max(right, self));
-        
-    }
-    
-    public int height(TreeNode root){
-        if(root == null){
-            return -1;
-        }
-        
-        int left = height(root.left);
-        int right = height(root.right);
-        
-        return Math.max(left, right) + 1;
-    }
-```
-Approach 2: 
-```java
-public class Diapair{
-        int diameter;
-        int height;
-    }
-    public Diapair diameter(TreeNode root){
-         if(root == null){
-            Diapair base = new Diapair();
-            base.height = -1;
-            base.diameter = 0;
-             return base;
-        }
-    
-        Diapair left = diameter(root.left);
-        Diapair right = diameter(root.right);
-        
-        Diapair self = new Diapair();
-        self.height = Math.max(left.height, right.height) + 1;
-        
-        self.diameter = Math.max(left.diameter, Math.max(right.diameter, left.height + right.height + 2)) ;
-        return self;
-        
-    }
-    public int diameterOfBinaryTree(TreeNode root) {
-       return diameter(root).diameter;
-    }
-```
 
-**Q2- Left View of Binary Tree**
-```java
-static void leftViewUtil( node root ) 
-{ 
-    if (root == null) 
-        return;
-    q.add(root); 
-
-    q.add(null); 
-  
-    while (q.size() > 0)  
-    { 
-        node temp = q.peek(); 
-        if (temp != null) 
-        { 
-            System.out.print(temp.data + " ");
-            while (q.peek() != null) 
-            { 
-                if (temp.left != null) 
-                    q.add(temp.left); 
-  
-                if (temp.right != null) 
-                    q.add(temp.right); 
-                q.remove(); 
-                temp = q.peek(); 
-            } 
-            q.add(null); 
-        }  
-        q.remove(); 
-    } 
-} 
-
-```
-**Q3- Right View of Binary Tree**
-
-Same as before. 
-```java
-public List<Integer> rightSideView(TreeNode root) {
-        ArrayList<Integer> list = new ArrayList<>();
-        if(root == null){
-            return list;
-        }
-        Queue<TreeNode> primary = new LinkedList<>();
-        Queue<TreeNode> helper = new LinkedList<>();
-        primary.add(root);
-        list.add(root.val);
-        while(!primary.isEmpty()){
-            
-            TreeNode node = primary.remove();
-            if(node.right != null){
-                helper.add(node.right);
-            }
-            if(node.left != null){
-                helper.add(node.left);
-            }
-            if(primary.isEmpty()){
-                if(!helper.isEmpty()){
-                list.add(helper.element().val);
-                primary = helper;
-                helper = new LinkedList<>();
-                }
-            }
-        }
-        return list;
-    }
-```
-
-**Q4- Lowest Common Ancestor**
+**Q- Lowest Common Ancestor**
 
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
 
@@ -561,7 +394,7 @@ private TreeNode ans;
     }
 ```
 
-**Q5- Path Sum**
+**Q- Path Sum**
 
 ![Screenshot 2020-01-15 at 4 53 30 PM](https://user-images.githubusercontent.com/35702912/72430250-dd537b00-37b7-11ea-9a08-15b92b24279d.png)
 
@@ -585,7 +418,7 @@ public boolean hasPathSum(TreeNode root, int sum) {
     }
 ```
 
-**Q6- Binary Tree Maximum Path Sum**
+**Q- Binary Tree Maximum Path Sum**
 Given a non-empty binary tree, find the maximum path sum.
 
 For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.
@@ -658,6 +491,107 @@ public String rserialize(TreeNode root, String str) {
   }
 ```
 
+**Q9- Merge two binary trees**
+
+```java
+class Solution {
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+        if(t1 == null && t2 == null) return null;
+        
+        if(t2 == null) return t1;
+        if(t1 == null) return t2;
+        
+        TreeNode left = mergeTrees(t1.left, t2.left);
+        TreeNode right = mergeTrees(t1.right, t2.right);
+        
+        TreeNode result = new TreeNode(t1.val + t2.val);
+        
+        result.left = left;
+        result.right = right;
+        return result;
+    }
+}
+```
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+**Q10- Invert Binary Tree**
+
+```java
+	public TreeNode invertTree(TreeNode root) {
+        if(root == null){
+            return null;   
+        }
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+        
+        root.right = left;
+        root.left = right;
+        
+        return root;
+    }
+
+```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+
+**Q6- Structurally Identical**
+
+```java
+private boolean structurallyIdentical(Node tnode, Node onode) {
+
+		if (tnode == null && onode == null) {
+			return true;
+		}
+		if (tnode == null || onode == null) {
+			return false;
+		}
+
+		boolean l = structurallyIdentical(tnode.left, onode.left);
+		boolean r = structurallyIdentical(tnode.right, onode.right);
+
+		return l && r;
+	}
+```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+
+**Q- Left View of Binary Tree**
+```java
+static void leftViewUtil( node root ) 
+{ 
+    if (root == null) 
+        return;
+    q.add(root); 
+
+    q.add(null); 
+  
+    while (q.size() > 0)  
+    { 
+        node temp = q.peek(); 
+        if (temp != null) 
+        { 
+            System.out.print(temp.data + " ");
+            while (q.peek() != null) 
+            { 
+                if (temp.left != null) 
+                    q.add(temp.left); 
+  
+                if (temp.right != null) 
+                    q.add(temp.right); 
+                q.remove(); 
+                temp = q.peek(); 
+            } 
+            q.add(null); 
+        }  
+        q.remove(); 
+    } 
+} 
+
+```
 **Homework Problem**
 
 https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/
