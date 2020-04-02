@@ -57,6 +57,7 @@ A leaf node will have a height of 0.
 - Inorder     LNR
 - Postorder   LRN
 
+## Assignment Problems
 
 **Q1- Inorder**
 
@@ -302,3 +303,82 @@ Space Complexity: O(n)
 https://www.codechef.com/problems/CDIT04
 
 - Trees
+
+## Homework Problems
+
+**Q- LevelOrder Linewise**
+```java
+private void levelorderLineWise(Node node) {
+
+		LinkedList<Node> primaryq = new LinkedList<>();
+		LinkedList<Node> helperq = new LinkedList<>();
+
+		primaryq.addLast(node);
+
+		while (!primaryq.isEmpty()) {
+
+			Node pp = primaryq.removeFirst();
+			System.out.print(pp.data + " ");
+
+			if (pp.left != null)
+				helperq.addLast(pp.left);
+
+			if (pp.right != null)
+				helperq.addLast(pp.right);
+
+			if (primaryq.size() == 0) {
+				System.out.println();
+				primaryq = helperq;
+				helperq = new LinkedList<>();
+			}
+
+		}
+	}
+```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+**Q1- LeverOrder Linewise ZigZag**
+```java
+public void levelorderZigZag() {
+
+		LinkedList<Node> queue = new LinkedList<>();
+		LinkedList<Node> stack = new LinkedList<>();
+
+		queue.add(this.root);
+		int count = 0;
+
+		while (!queue.isEmpty()) {
+
+			Node pp = queue.removeFirst();
+			System.out.print(pp.data + " ");
+
+			if (count % 2 == 0) {
+
+				if (pp.left != null)
+					stack.addFirst(pp.left);
+				if (pp.right != null)
+					stack.addFirst(pp.right);
+			}
+
+			else {
+
+				if (pp.right != null)
+					stack.addFirst(pp.right);
+				if (pp.left != null)
+					stack.addFirst(pp.left);
+
+			}
+
+			if (queue.size() == 0) {
+
+				count++;
+				queue = stack;
+				stack = new LinkedList<>();
+			}
+		}
+
+	}
+```
+Time Complexity: O(n)
+Space Complexity: O(n)
