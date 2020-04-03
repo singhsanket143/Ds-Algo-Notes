@@ -227,6 +227,9 @@ struct Node {
 
 **Initially, all next pointers are set to NULL.**
 
+
+https://leetcode.com/problems/populating-next-right-pointers-in-each-node/solution/
+
 _Approach 1_:
 ```java
 public Node connect(Node root) {
