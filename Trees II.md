@@ -176,6 +176,9 @@ Space Complexity: O(n)
 
 **Q3- Top View of Binary Tree**
 
+https://www.geeksforgeeks.org/print-nodes-in-top-view-of-binary-tree-set-2/
+Given a binary tree, print the top view of it. The output nodes should be printed from left to right.
+
 **Q4- Right View of Binary Tree**
 
 Same as before. 
