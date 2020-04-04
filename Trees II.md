@@ -1,6 +1,7 @@
 ## Theory type Questions
 
 **Q- Height of Binary Tree**
+
 ```java
 private int height(Node node) {
 
@@ -16,9 +17,11 @@ private int height(Node node) {
 
 ```
 Time Complexity: O(n)
+
 Space Complexity: O(n)
 
 **Q- Find a element in Binary Tree**
+
 ```java
 private boolean find(Node node, int item) {
 
@@ -44,10 +47,13 @@ private boolean find(Node node, int item) {
 		return false;
 	}
 ```
+
 Time Complexity: O(n)
+
 Space Complexity: O(n)
 
 **Q- Sum of nodes of Binary Tree**
+
 ```java
 private int sumofnodes(Node node) {
 
@@ -61,7 +67,9 @@ private int sumofnodes(Node node) {
 
 	}
 ```
+
 Time Complexity: O(n)
+
 Space Complexity: O(n)
 
 ## Assignment Problems
@@ -71,6 +79,7 @@ Space Complexity: O(n)
 Given a binary tree, you need to compute the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
 
 _Approach 1:_
+
 ```java
 public int diameterOfBinaryTree(TreeNode root) {
         if(root == null){
@@ -97,7 +106,9 @@ public int diameterOfBinaryTree(TreeNode root) {
         return Math.max(left, right) + 1;
     }
 ```
+
 Approach 2: 
+
 ```java
 public class Diapair{
         int diameter;
@@ -127,6 +138,7 @@ public class Diapair{
 ```
 
 **Q2- Given a BT, check if it is balanced or not?**
+
 ```java
 private class BalancePair {
 
@@ -171,7 +183,9 @@ private class BalancePair {
 		return mp;
 	}
 ```
+
 Time Complexity: O(n)
+
 Space Complexity: O(n)
 
 **Q3- Top View of Binary Tree**
@@ -181,7 +195,6 @@ Given a binary tree, print the top view of it. The output nodes should be printe
 
 **Q4- Right View of Binary Tree**
 
-Same as before. 
 ```java
 public List<Integer> rightSideView(TreeNode root) {
         ArrayList<Integer> list = new ArrayList<>();
@@ -234,6 +247,7 @@ struct Node {
 https://leetcode.com/problems/populating-next-right-pointers-in-each-node/solution/
 
 _Approach 1_:
+
 ```java
 public Node connect(Node root) {
         
@@ -340,210 +354,13 @@ _Approach 2:_
 ```
 
 Time Complexity: O(n)
+
 Space Complexity: O(1)
 
 
+**Homework Problems**
 
-**Q- Lowest Common Ancestor**
-
-Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
-
-According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
-
-_Approach 1:_
-
-Find the path of the node p1.
-Find the path of the node p2.
-Traversal both of the paths till the time path is same. The moment we come across different value in path, the node before it the lowest common ancestor. 
-
-_Approach 2:_
-
-Using backtracking
-```java
-private TreeNode ans;
-
-    public Solution() {
-        // Variable to store LCA node.
-        this.ans = null;
-    }
-
-    private boolean recurseTree(TreeNode currentNode, TreeNode p, TreeNode q) {
-
-        // If reached the end of a branch, return false.
-        if (currentNode == null) {
-            return false;
-        }
-
-        // Left Recursion. If left recursion returns true, set left = 1 else 0
-        int left = this.recurseTree(currentNode.left, p, q) ? 1 : 0;
-
-        // Right Recursion
-        int right = this.recurseTree(currentNode.right, p, q) ? 1 : 0;
-
-        // If the current node is one of p or q
-        int mid = (currentNode == p || currentNode == q) ? 1 : 0;
-
-
-        // If any two of the flags left, right or mid become True
-        if (mid + left + right >= 2) {
-            this.ans = currentNode;
-        }
-
-        // Return true if any one of the three bool values is True.
-        return (mid + left + right > 0);
-    }
-
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // Traverse the tree
-        this.recurseTree(root, p, q);
-        return this.ans;
-    }
-```
-
-**Q- Path Sum**
-
-![Screenshot 2020-01-15 at 4 53 30 PM](https://user-images.githubusercontent.com/35702912/72430250-dd537b00-37b7-11ea-9a08-15b92b24279d.png)
-
-Path Sum = 22
-```java
-
-public boolean hasPathSum(TreeNode root, int sum) {
-        if(root == null){
-            return false;
-        }
-       sum = sum - root.val;
-       if(root.left == null && root.right == null){
-           if(sum == 0){
-               return true;
-           }else{
-               return false;
-           }
-       }
-            
-    return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
-    }
-```
-
-**Q- Binary Tree Maximum Path Sum**
-Given a non-empty binary tree, find the maximum path sum.
-
-For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.
-```cpp
-class Solution {
-    
-    int globalMax = INT_MIN;
-    int maxPathNode2Node(TreeNode* root) {
-        // Base case
-        if(root == NULL) return 0;
-        // Recursive work
-        int ls = maxPathNode2Node(root->left); // LST
-        int rs = maxPathNode2Node(root->right); // RST
-        // Self work
-        int cand1 = root->val;
-        int cand2 = ls + root->val;
-        int cand3 = rs + root->val;
-        int cand4 = ls + rs + root->val;
-        globalMax = max(cand1, max(cand2, max(cand3, max(cand4, globalMax))));
-        return max(ls, max(rs, 0)) + root->val;// My contribution to my parent
-    }
-}
-```
-
-
-**Star Problem of the day**
-
-_Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment._
-
-_Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure._ 
-
-```java
-//Serialize
-public String rserialize(TreeNode root, String str) {
-    // Recursive serialization.
-    if (root == null) {
-      str += "null,";
-    } else {
-      str += str.valueOf(root.val) + ",";
-      str = rserialize(root.left, str);
-      str = rserialize(root.right, str);
-    }
-    return str;
-  }
-
-  // Encodes a tree to a single string.
-  public String serialize(TreeNode root) {
-    return rserialize(root, "");
-  }
-
-// Deserialize
-    if (l.get(0).equals("null")) {
-      l.remove(0);
-      return null;
-    }
-
-    TreeNode root = new TreeNode(Integer.valueOf(l.get(0)));
-    l.remove(0);
-    root.left = rdeserialize(l);
-    root.right = rdeserialize(l);
-
-    return root;
-  }
-
-  // Decodes your encoded data to tree.
-  public TreeNode deserialize(String data) {
-    String[] data_array = data.split(",");
-    List<String> data_list = new LinkedList<String>(Arrays.asList(data_array));
-    return rdeserialize(data_list);
-  }
-```
-
-**Q9- Merge two binary trees**
-
-```java
-class Solution {
-    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
-        if(t1 == null && t2 == null) return null;
-        
-        if(t2 == null) return t1;
-        if(t1 == null) return t2;
-        
-        TreeNode left = mergeTrees(t1.left, t2.left);
-        TreeNode right = mergeTrees(t1.right, t2.right);
-        
-        TreeNode result = new TreeNode(t1.val + t2.val);
-        
-        result.left = left;
-        result.right = right;
-        return result;
-    }
-}
-```
-
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-**Q10- Invert Binary Tree**
-
-```java
-	public TreeNode invertTree(TreeNode root) {
-        if(root == null){
-            return null;   
-        }
-        TreeNode left = invertTree(root.left);
-        TreeNode right = invertTree(root.right);
-        
-        root.right = left;
-        root.left = right;
-        
-        return root;
-    }
-
-```
-Time Complexity: O(n)
-Space Complexity: O(n)
-
-
-**Q6- Structurally Identical**
+**Q- Structurally Identical**
 
 ```java
 private boolean structurallyIdentical(Node tnode, Node onode) {
@@ -561,11 +378,14 @@ private boolean structurallyIdentical(Node tnode, Node onode) {
 		return l && r;
 	}
 ```
+
 Time Complexity: O(n)
+
 Space Complexity: O(n)
 
 
-**Q- Left View of Binary Tree**
+**Q3- Left View of Binary Tree**
+
 ```java
 static void leftViewUtil( node root ) 
 { 
@@ -598,7 +418,8 @@ static void leftViewUtil( node root )
 } 
 
 ```
-**Homework Problem**
+
+## Extra Problem
 
 https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/
 
@@ -607,3 +428,4 @@ Given a binary tree, you need to find the length of Longest Consecutive Path in 
 Especially, this path can be either increasing or decreasing. For example, [1,2,3,4] and [4,3,2,1] are both considered valid, but the path [1,2,4,3] is not valid. On the other hand, the path can be in the child-Parent-child order, where not necessarily be parent-child order.
 
 ![Screenshot 2020-01-15 at 5 30 02 PM](https://user-images.githubusercontent.com/35702912/72432301-bc415900-37bc-11ea-9f18-e913f103871a.png)
+
