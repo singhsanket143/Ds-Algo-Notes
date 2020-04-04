@@ -1,4 +1,5 @@
 **Binary Search Tree**
+
 - Extension of Binary Tree
 - All nodes in left subtree will be smaller than root.
 - All nodes in right subtree will be greater than root.
@@ -8,6 +9,7 @@
 
 - Keep a count on every node by modifying the class of the node. 
 - Same elements can either go in left or right subtree.
+
 - Questions Similar to BT:
 	- Size
 	- Height
@@ -15,12 +17,14 @@
 	- Balanced
 	- Diameter
 	- Traversal
+	
 - Questions Changed 
 	- Finding an element in BST
 	
 **Add a node in BST**
 
 _Algorithm_
+
 1. Start from root.
 2. Compare the inserting element with root, if less than root, then recurse for left, else recurse for right.
 3. After reaching end, just insert that node at left(if less than current) else right.
@@ -50,6 +54,7 @@ public void add(int item) {
 		}
 	}
 ```
+
 **Delete a node in BST**
 
 Three possibilities:
@@ -140,34 +145,13 @@ Node* deleteFromBST(Node* root, int key) {
 
 ```
 
-**Q1- Print in Range**
+**Q1- Check if a given BT is BST**
 
-Print all the keys of tree in range k1 to k2. i.e. print all x such that k1<=x<=k2 and x is a key of given BST. Print all the keys in increasing order.
+Assume a BST is defined as follows:
 
-```java
-public void printInRange(int lower, int upper) {
-
-		printInRange(this.root, lower, upper);
-
-	}
-	private void printInRange(Node node, int lower, int upper) {
-		if (node == null) {
-			return;
-		}
-		if (node.data > upper) {
-			printInRange(node.left, lower, upper);
-		}
-		else if (node.data < lower) {
-			printInRange(node.right, lower, upper);
-		}
-		else {
-			printInRange(node.left, lower, upper);
-			System.out.println(node.data);
-			printInRange(node.right, lower, upper);
-		}
-	}
-```
-**Q2- Check if a given BT is BST**
+- The left subtree of a node contains only nodes with keys less than the node's key.
+- The right subtree of a node contains only nodes with keys greater than the node's key.
+- Both the left and right subtrees must also be binary search trees.
 
 _Will this method work????_
 -  For each node, check if the left node of it is smaller than the node and right node of it is greater than the node.
@@ -236,9 +220,14 @@ _Approach2:_ 3 conditions:
 	}
 ```
 
-**Q3- Find the size of largest Binary Search Tree in BT**
 
+**Q2- Find the size of largest Binary Search Tree in BT**
+
+Given a binary tree. Find the size of largest subtree which is a Binary Search Tree (BST), where largest means subtree with the largest number of nodes in it.
+
+Note: A subtree must include all of its descendants.
 Three possibilities: 
+
 ```cpp
 class TreeDetail{
 public:
@@ -281,8 +270,14 @@ TreeDetail largestBSTinBinaryTree(node*root){
 	return val;
 }
 
-
 ```
+
+
+**Q3- Kth Smallest Element In Tree**
+
+
+
+
 **Q4- Given a BST, somebody swapped 2 elements, Find out which pair was swapped?**
 
 _Trivial Approach_
@@ -386,9 +381,48 @@ void correctBST( Node root )
 
 ```
 Time Complexity - O(n)
+
 Space Complexity - O(n)
 
+**Q5- 2-Sum Binary Tree**
+
+## Extra Problem
+
+**Q- Given a complete binary tree with N nodes and each node have an distinct integer ai attached with it, find the minimum number of swaps you can make to convert the binary tree into binary search tree. In one swap, you can select any two nodes and swap their values.
+You will be given the array representation of the binary tree. Root of the tree will be at a<sub>1</sub>. Left child of root will be at a<sub>2</sub> and right child of root will be at a<sub>3</sub>. Left child of node at array position k will be at a<sub>2k</sub> and right child of node at array position k will be at a<sub>2k+1</sub>.**
+
+https://www.hackerearth.com/practice/data-structures/trees/binary-search-tree/practice-problems/algorithm/little-monk-and-swaps/editorial/
+
+
+
+**Q- Print in Range**
+
+Print all the keys of tree in range k1 to k2. i.e. print all x such that k1<=x<=k2 and x is a key of given BST. Print all the keys in increasing order.
+
+```java
+public void printInRange(int lower, int upper) {
+
+		printInRange(this.root, lower, upper);
+
+	}
+	private void printInRange(Node node, int lower, int upper) {
+		if (node == null) {
+			return;
+		}
+		if (node.data > upper) {
+			printInRange(node.left, lower, upper);
+		}
+		else if (node.data < lower) {
+			printInRange(node.right, lower, upper);
+		}
+		else {
+			printInRange(node.left, lower, upper);
+			System.out.println(node.data);
+			printInRange(node.right, lower, upper);
+		}
+	}
 **Q5- Build BST from unsorted array**
+
 Keep on adding elements by traversing the array.
 
 ```java
@@ -546,9 +580,4 @@ _Min Heap_
 
 All the nodes in the Min Heap satisfies the given condition, that is, values in the left subtree of a node should be less than the values in the right subtree of the node. 
 
-**Homwwork Problem*
 
-**Q- Given a complete binary tree with N nodes and each node have an distinct integer ai attached with it, find the minimum number of swaps you can make to convert the binary tree into binary search tree. In one swap, you can select any two nodes and swap their values.
-You will be given the array representation of the binary tree. Root of the tree will be at a<sub>1</sub>. Left child of root will be at a<sub>2</sub> and right child of root will be at a<sub>3</sub>. Left child of node at array position k will be at a<sub>2k</sub> and right child of node at array position k will be at a<sub>2k+1</sub>.**
-
-https://www.hackerearth.com/practice/data-structures/trees/binary-search-tree/practice-problems/algorithm/little-monk-and-swaps/editorial/
