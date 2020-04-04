@@ -340,3 +340,155 @@ Among all possible binary trees considered, return the smallest possible sum of 
 ![Screenshot 2020-01-19 at 1 58 26 AM](https://user-images.githubusercontent.com/35702912/72670080-4c063200-3a5f-11ea-9714-f2fd63f6cb66.png) 
 
 
+**Q- Lowest Common Ancestor**
+
+Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+
+_Approach 1:_
+
+Find the path of the node p1.
+Find the path of the node p2.
+Traversal both of the paths till the time path is same. The moment we come across different value in path, the node before it the lowest common ancestor. 
+
+_Approach 2:_
+
+Using backtracking
+```java
+private TreeNode ans;
+
+    public Solution() {
+        // Variable to store LCA node.
+        this.ans = null;
+    }
+
+    private boolean recurseTree(TreeNode currentNode, TreeNode p, TreeNode q) {
+
+        // If reached the end of a branch, return false.
+        if (currentNode == null) {
+            return false;
+        }
+
+        // Left Recursion. If left recursion returns true, set left = 1 else 0
+        int left = this.recurseTree(currentNode.left, p, q) ? 1 : 0;
+
+        // Right Recursion
+        int right = this.recurseTree(currentNode.right, p, q) ? 1 : 0;
+
+        // If the current node is one of p or q
+        int mid = (currentNode == p || currentNode == q) ? 1 : 0;
+
+
+        // If any two of the flags left, right or mid become True
+        if (mid + left + right >= 2) {
+            this.ans = currentNode;
+        }
+
+        // Return true if any one of the three bool values is True.
+        return (mid + left + right > 0);
+    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // Traverse the tree
+        this.recurseTree(root, p, q);
+        return this.ans;
+    }
+```
+
+**Q- Path Sum**
+
+![Screenshot 2020-01-15 at 4 53 30 PM](https://user-images.githubusercontent.com/35702912/72430250-dd537b00-37b7-11ea-9a08-15b92b24279d.png)
+
+Path Sum = 22
+```java
+
+public boolean hasPathSum(TreeNode root, int sum) {
+        if(root == null){
+            return false;
+        }
+       sum = sum - root.val;
+       if(root.left == null && root.right == null){
+           if(sum == 0){
+               return true;
+           }else{
+               return false;
+           }
+       }
+            
+    return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
+    }
+```
+
+**Q9- Merge two binary trees**
+
+```java
+class Solution {
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+        if(t1 == null && t2 == null) return null;
+        
+        if(t2 == null) return t1;
+        if(t1 == null) return t2;
+        
+        TreeNode left = mergeTrees(t1.left, t2.left);
+        TreeNode right = mergeTrees(t1.right, t2.right);
+        
+        TreeNode result = new TreeNode(t1.val + t2.val);
+        
+        result.left = left;
+        result.right = right;
+        return result;
+    }
+}
+```
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+**Q10- Invert Binary Tree**
+
+```java
+	public TreeNode invertTree(TreeNode root) {
+        if(root == null){
+            return null;   
+        }
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+        
+        root.right = left;
+        root.left = right;
+        
+        return root;
+    }
+
+```
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+
+
+
+**Q- Binary Tree Maximum Path Sum**
+Given a non-empty binary tree, find the maximum path sum.
+
+For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.
+```cpp
+class Solution {
+    
+    int globalMax = INT_MIN;
+    int maxPathNode2Node(TreeNode* root) {
+        // Base case
+        if(root == NULL) return 0;
+        // Recursive work
+        int ls = maxPathNode2Node(root->left); // LST
+        int rs = maxPathNode2Node(root->right); // RST
+        // Self work
+        int cand1 = root->val;
+        int cand2 = ls + root->val;
+        int cand3 = rs + root->val;
+        int cand4 = ls + rs + root->val;
+        globalMax = max(cand1, max(cand2, max(cand3, max(cand4, globalMax))));
+        return max(ls, max(rs, 0)) + root->val;// My contribution to my parent
+    }
+}
+```
