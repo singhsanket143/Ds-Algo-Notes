@@ -357,8 +357,17 @@ Time Complexity: O(n)
 
 Space Complexity: O(1)
 
+## Extra Problem
 
-**Homework Problems**
+https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/
+
+Given a binary tree, you need to find the length of Longest Consecutive Path in Binary Tree.
+
+Especially, this path can be either increasing or decreasing. For example, [1,2,3,4] and [4,3,2,1] are both considered valid, but the path [1,2,4,3] is not valid. On the other hand, the path can be in the child-Parent-child order, where not necessarily be parent-child order.
+
+![Screenshot 2020-01-15 at 5 30 02 PM](https://user-images.githubusercontent.com/35702912/72432301-bc415900-37bc-11ea-9f18-e913f103871a.png)
+
+## Homework Problems
 
 **Q- Structurally Identical**
 
@@ -419,13 +428,5 @@ static void leftViewUtil( node root )
 
 ```
 
-## Extra Problem
 
-https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/
-
-Given a binary tree, you need to find the length of Longest Consecutive Path in Binary Tree.
-
-Especially, this path can be either increasing or decreasing. For example, [1,2,3,4] and [4,3,2,1] are both considered valid, but the path [1,2,4,3] is not valid. On the other hand, the path can be in the child-Parent-child order, where not necessarily be parent-child order.
-
-![Screenshot 2020-01-15 at 5 30 02 PM](https://user-images.githubusercontent.com/35702912/72432301-bc415900-37bc-11ea-9f18-e913f103871a.png)
 
