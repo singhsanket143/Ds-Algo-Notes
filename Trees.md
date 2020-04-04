@@ -112,9 +112,58 @@ void inorder()
 
 
 ```
-**Q2- Construct Binary Tree using Inorder and PreOrder**
+
+**Q2**
+
+_Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment._
+
+_Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure._ 
+
+```java
+//Serialize
+public String rserialize(TreeNode root, String str) {
+    // Recursive serialization.
+    if (root == null) {
+      str += "null,";
+    } else {
+      str += str.valueOf(root.val) + ",";
+      str = rserialize(root.left, str);
+      str = rserialize(root.right, str);
+    }
+    return str;
+  }
+
+  // Encodes a tree to a single string.
+  public String serialize(TreeNode root) {
+    return rserialize(root, "");
+  }
+
+// Deserialize
+    if (l.get(0).equals("null")) {
+      l.remove(0);
+      return null;
+    }
+
+    TreeNode root = new TreeNode(Integer.valueOf(l.get(0)));
+    l.remove(0);
+    root.left = rdeserialize(l);
+    root.right = rdeserialize(l);
+
+    return root;
+  }
+
+  // Decodes your encoded data to tree.
+  public TreeNode deserialize(String data) {
+    String[] data_array = data.split(",");
+    List<String> data_list = new LinkedList<String>(Arrays.asList(data_array));
+    return rdeserialize(data_list);
+  }
+```
+
+**Q3- Construct Binary Tree using Inorder and PreOrder**
 
 Inorder sequence: D B E A F C
+
 Preorder sequence: A B D E C F
 
 ```java
@@ -150,11 +199,13 @@ private Node construct(int[] pre, int[] in, int plo, int phi, int ilo, int ihi) 
 Time Complexity: O(n)
 Space Complexity: O(n)
 
-**Q3- Check if given Preorder, Inorder and Postorder traversals are of same tree**
+
+**Q4- Check if given Preorder, Inorder and Postorder traversals are of same tree**
 
 
 *Another type of Traversal*
-**Q4- LevelOrder Traversal**
+
+**Q5- LevelOrder Traversal**
 
 ```java
 
@@ -180,7 +231,7 @@ Space Complexity: O(n)
 
 	}
 ```
-**Q5- Vertical Order traversal of Binary Tree**
+**Q6- Vertical Order traversal of Binary Tree**
 
 **Approach 1:**
 
@@ -298,15 +349,19 @@ Time Complexity: O(n)
 
 Space Complexity: O(n)
 
+## Extra Problem 
+
+
 **Codechef - Joker vs Batman**
 
 https://www.codechef.com/problems/CDIT04
 
-- Trees
 
 ## Homework Problems
 
 **Q- LevelOrder Linewise**
+
+
 ```java
 private void levelorderLineWise(Node node) {
 
@@ -335,10 +390,14 @@ private void levelorderLineWise(Node node) {
 		}
 	}
 ```
+
 Time Complexity: O(n)
+
 Space Complexity: O(n)
 
 **Q1- LeverOrder Linewise ZigZag**
+
+
 ```java
 public void levelorderZigZag() {
 
@@ -380,5 +439,7 @@ public void levelorderZigZag() {
 
 	}
 ```
+
 Time Complexity: O(n)
+
 Space Complexity: O(n)
