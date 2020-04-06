@@ -1,6 +1,139 @@
 
 ### BST AND BT MIXED
 
+**Q- Print in Range**
+
+Print all the keys of tree in range k1 to k2. i.e. print all x such that k1<=x<=k2 and x is a key of given BST. Print all the keys in increasing order.
+
+```java
+public void printInRange(int lower, int upper) {
+
+		printInRange(this.root, lower, upper);
+
+	}
+	private void printInRange(Node node, int lower, int upper) {
+		if (node == null) {
+			return;
+		}
+		if (node.data > upper) {
+			printInRange(node.left, lower, upper);
+		}
+		else if (node.data < lower) {
+			printInRange(node.right, lower, upper);
+		}
+		else {
+			printInRange(node.left, lower, upper);
+			System.out.println(node.data);
+			printInRange(node.right, lower, upper);
+		}
+	}
+	
+```
+**Q5- Build BST from unsorted array**
+
+Keep on adding elements by traversing the array.
+
+```java
+//insert
+Node insert(node, value) {
+    if node is null
+        // Create a leaf.
+        // It might be the root...
+        return new Node(value)
+
+    // It's occupied, see which way to
+    // go based on it's value
+
+    // right? ...
+    if value > node.value
+        node.right = insert(node.right, value)
+
+    // or left?
+    else if value < node.value
+        node.left = insert(node.left, value)
+
+    // Code is not handling dups.
+    return node
+}
+
+//construct
+
+Node arrayToBinary(array, root){
+    for e in array
+        root = insert(root, e)
+    return root
+}
+
+```
+
+**Q8- Increasing Order Search Tree: Given a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only 1 right child.**
+
+```cpp
+class Custom {
+public:
+    TreeNode *head;
+    TreeNode *tail;
+    Custom(TreeNode *head, TreeNode *tail) {
+        this->head = head;
+        this->tail = tail;
+    }
+};
+
+class Solution {
+public:
+    Custom *helper(TreeNode* root) {
+        if(root == NULL) return NULL;
+        Custom* lf = helper(root->left);
+        if(lf!=NULL) {
+            root->left = NULL;
+            lf->tail->right = root;
+        } 
+        Custom* rh = helper(root->right);
+        if(rh!=NULL) {
+            root->right = rh->head;
+        }
+        return new Custom((lf!=NULL)?lf->head:root, (rh!=NULL)?rh->tail:root);
+    }
+    
+    
+    TreeNode* increasingBST(TreeNode* root) {
+        Custom* c = helper(root);
+        return c->head;
+    }
+};
+```
+
+```java
+TreeNode cur;
+    public TreeNode increasingBST(TreeNode root) {
+        TreeNode ans = new TreeNode(0);
+        cur = ans;
+        inorder(root);
+        return ans.right;
+    }
+
+    public void inorder(TreeNode node) {
+        if (node == null) return;
+        inorder(node.left);
+        node.left = null;
+        cur.right = node;
+        cur = node;
+        inorder(node.right);
+    }
+```
+
+**Q (Optional)- Convert a BST into min heap with a constraint that all values in left. Subtree are less than the values in right subtree**
+
+Given a binary search tree which is also a complete binary tree. The problem is to convert the given BST into a Min Heap with the condition that all the values in the left subtree of a node should be less than all the values in the right subtree of the node. This condition is applied on all the nodes in the so converted Min Heap.
+
+![Screenshot 2020-01-17 at 5 48 04 PM](https://user-images.githubusercontent.com/35702912/72612030-9bf6d300-3951-11ea-8039-5e659a115a69.png)
+
+_Min Heap_
+
+All the nodes in the Min Heap satisfies the given condition, that is, values in the left subtree of a node should be less than the values in the right subtree of the node. 
+
+
+
 **Q1- Longest Consecutive Subsequence in a Binary Tree*
 
 Given a binary tree, you need to find the length of Longest Consecutive Path in Binary Tree.
