@@ -20,6 +20,10 @@
 	
 - Questions Changed 
 	- Finding an element in BST
+	- Max
+	
+- Every BST is a BT? Yes
+- Every BT is a BST? No 
 	
 **Add a node in BST**
 
@@ -145,7 +149,30 @@ Node* deleteFromBST(Node* root, int key) {
 
 ```
 
-**Q1- Check if a given BT is BST**
+**Q1- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
+
+```java
+private Node construct(int[] in, int lo, int hi) {
+
+		if (lo > hi) {
+			return null;
+		}
+
+		// mid element will be root node
+		int mid = (lo + hi) / 2;
+		// make a new node
+		Node nn = new Node();
+		nn.data = in[mid];
+		
+
+		nn.left = construct(in, lo, mid - 1);
+		nn.right = construct(in, mid + 1, hi);
+
+		return nn;
+	}
+```
+
+**Q2- Check if a given BT is BST**
 
 Assume a BST is defined as follows:
 
@@ -161,74 +188,33 @@ Failing in cases like
 
 _Approach1:_ Write inorder traversal
 
-_Approach2:_ 3 conditions:
-- left subtree is a BST
-- right subtree is a BST
-- root is greater than the max value in left subtree
-- root is less than the lowest value in right subtree
+_Approach2:_ 3 
 
-```java
-	public class Mover {
-		boolean isbst;
-	}
-
-	private Mover IsBST(Node node) {
-
-		if (node == null) {
-			Mover m = new Mover();
-			m.isbst = true;
-			return m;
-		}
-
-		Mover l = IsBST(node.left);
-		Mover r = IsBST(node.right);
-
-		Mover ans = new Mover();
-		if (node.left != null && node.right != null) {
-			if (node.left.data < node.data && node.right.data > node.data && l.isbst && r.isbst) {
-				ans.isbst = true;
-			} else {
-				ans.isbst = false;
-			}
-		}
-
-		if (node.left != null && node.right == null) {
-			if (node.left.data < node.data && l.isbst && r.isbst) {
-				ans.isbst = true;
-			} else {
-				ans.isbst = false;
-			}
-		}
-
-		if (node.left == null && node.right == null) {
-			if (l.isbst && r.isbst) {
-				ans.isbst = true;
-			} else {
-				ans.isbst = false;
-			}
-		}
-
-		if (node.left == null && node.right != null) {
-			if (node.right.data > node.data && l.isbst && r.isbst) {
-				ans.isbst = true;
-			} else {
-				ans.isbst = false;
-			}
-		}
-
-		return ans;
-	}
-```
+- Range of the element of the root node: [-inf, +inf]
+- Range of the root of left subtree [-inf, root.data)
+- Range of the root of left subtree [root.data + 1, inf]
 
 
-**Q2- Find the size of largest Binary Search Tree in BT**
+If the current value in any node, is not obeying that range, we can say that the tree is not BST. 
+
+_Approach2:_ 4
+
+Using Custom Object. 
+
+public class Node{
+	boolean isBST;
+	int min;
+	int max;
+}
+ 
+**Q3- Find the size of largest Binary Search Tree in BT**
 
 Given a binary tree. Find the size of largest subtree which is a Binary Search Tree (BST), where largest means subtree with the largest number of nodes in it.
 
 Note: A subtree must include all of its descendants.
 Three possibilities: 
 
-```cpp
+```java 
 class TreeDetail{
 public:
 	int size;
@@ -255,6 +241,7 @@ TreeDetail largestBSTinBinaryTree(node*root){
 	TreeDetail rightDetail = largestBSTinBinaryTree(root->right);
 
 	if(leftDetail.bst == false or rightDetail.bst==false or root->data < leftDetail.max or root->data > rightDetail.min){
+		val = new TreeDetail();
 		val.bst = false;
 		val.size = max(leftDetail.size,rightDetail.size);
 		return val;
@@ -271,12 +258,6 @@ TreeDetail largestBSTinBinaryTree(node*root){
 }
 
 ```
-
-
-**Q3- Kth Smallest Element In Tree**
-
-
-
 
 **Q4- Given a BST, somebody swapped 2 elements, Find out which pair was swapped?**
 
@@ -353,111 +334,12 @@ void correctBST( Node root )
             // If this node is smaller than 
             // the previous node, it's  
             // violating the BST rule. 
-            if (prev != null && root.data < 
-                                prev.data) 
-            { 
-                // If this is first violation, 
-                // mark these two nodes as 
-                // 'first' and 'middle' 
-                if (first == null) 
-                { 
-                    first = prev; 
-                    middle = root; 
-                } 
-  
-                // If this is second violation, 
-                // mark this node as last 
-                else
-                    last = root; 
-            } 
-  
-            // Mark this node as previous 
-            prev = root; 
-  
-            // Recur for the right subtree 
-            correctBSTUtil( root.right); 
-        } 
-    } 
+?
 
 ```
-Time Complexity - O(n)
 
-Space Complexity - O(n)
-
-**Q5- 2-Sum Binary Tree**
-
-## Extra Problem
-
-**Q- Given a complete binary tree with N nodes and each node have an distinct integer ai attached with it, find the minimum number of swaps you can make to convert the binary tree into binary search tree. In one swap, you can select any two nodes and swap their values.
-You will be given the array representation of the binary tree. Root of the tree will be at a<sub>1</sub>. Left child of root will be at a<sub>2</sub> and right child of root will be at a<sub>3</sub>. Left child of node at array position k will be at a<sub>2k</sub> and right child of node at array position k will be at a<sub>2k+1</sub>.**
-
-https://www.hackerearth.com/practice/data-structures/trees/binary-search-tree/practice-problems/algorithm/little-monk-and-swaps/editorial/
-
-
-
-**Q- Print in Range**
-
-Print all the keys of tree in range k1 to k2. i.e. print all x such that k1<=x<=k2 and x is a key of given BST. Print all the keys in increasing order.
-
-```java
-public void printInRange(int lower, int upper) {
-
-		printInRange(this.root, lower, upper);
-
-	}
-	private void printInRange(Node node, int lower, int upper) {
-		if (node == null) {
-			return;
-		}
-		if (node.data > upper) {
-			printInRange(node.left, lower, upper);
-		}
-		else if (node.data < lower) {
-			printInRange(node.right, lower, upper);
-		}
-		else {
-			printInRange(node.left, lower, upper);
-			System.out.println(node.data);
-			printInRange(node.right, lower, upper);
-		}
-	}
-**Q5- Build BST from unsorted array**
-
-Keep on adding elements by traversing the array.
-
-```java
-//insert
-Node insert(node, value) {
-    if node is null
-        // Create a leaf.
-        // It might be the root...
-        return new Node(value)
-
-    // It's occupied, see which way to
-    // go based on it's value
-
-    // right? ...
-    if value > node.value
-        node.right = insert(node.right, value)
-
-    // or left?
-    else if value < node.value
-        node.left = insert(node.left, value)
-
-    // Code is not handling dups.
-    return node
-}
-
-//construct
-
-Node arrayToBinary(array, root){
-    for e in array
-        root = insert(root, e)
-    return root
-}
-
-```
-**Q6- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
+**Q5- Given a BST, Given the root and another pointer to another node, What is the next element in the inorder traversal after this pointer's node?**
+**Inorder Successor of BST**
 
 1) If right subtree of node is not NULL, then succ lies in right subtree. Do following.
 Go to right subtree and return the node with minimum key value in right subtree.
@@ -491,93 +373,36 @@ struct node * inOrderSuccessor(struct node *root, struct node *n)
     return succ; 
 } 
 ```
-**Q7- Given a sorted array, construct a possible bst from that (unique bst) (try to make a balanced bst)**
 
 ```java
-private Node construct(int[] in, int lo, int hi) {
+public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
 
-		if (lo > hi) {
-			return null;
-		}
+        TreeNode candidate = null;
+        TreeNode cur = root;
 
-		// mid element will be root node
-		int mid = (lo + hi) / 2;
-		// make a new node
-		Node nn = new Node();
-		nn.data = in[mid];
-		
-
-		nn.left = construct(in, lo, mid - 1);
-		nn.right = construct(in, mid + 1, hi);
-
-		return nn;
-	}
-```
-
-**Q8- Increasing Order Search Tree: Given a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only 1 right child.**
-
-```cpp
-class Custom {
-public:
-    TreeNode *head;
-    TreeNode *tail;
-    Custom(TreeNode *head, TreeNode *tail) {
-        this->head = head;
-        this->tail = tail;
-    }
-};
-
-class Solution {
-public:
-    Custom *helper(TreeNode* root) {
-        if(root == NULL) return NULL;
-        Custom* lf = helper(root->left);
-        if(lf!=NULL) {
-            root->left = NULL;
-            lf->tail->right = root;
-        } 
-        Custom* rh = helper(root->right);
-        if(rh!=NULL) {
-            root->right = rh->head;
+        while (cur != null) {
+            if (cur.val > p.val) {
+                candidate = cur;
+                cur = cur.left;
+            } else {
+                // cur.val <= p.val
+                cur = cur.right;
+            }
         }
-        return new Custom((lf!=NULL)?lf->head:root, (rh!=NULL)?rh->tail:root);
-    }
-    
-    
-    TreeNode* increasingBST(TreeNode* root) {
-        Custom* c = helper(root);
-        return c->head;
-    }
-};
-```
 
-```java
-TreeNode cur;
-    public TreeNode increasingBST(TreeNode root) {
-        TreeNode ans = new TreeNode(0);
-        cur = ans;
-        inorder(root);
-        return ans.right;
-    }
-
-    public void inorder(TreeNode node) {
-        if (node == null) return;
-        inorder(node.left);
-        node.left = null;
-        cur.right = node;
-        cur = node;
-        inorder(node.right);
+        return candidate;
     }
 ```
 
-**Q (Optional)- Convert a BST into min heap with a constraint that all values in left. Subtree are less than the values in right subtree**
+Time Complexity: O(n)
+Space Complexity: O(n)
 
-Given a binary search tree which is also a complete binary tree. The problem is to convert the given BST into a Min Heap with the condition that all the values in the left subtree of a node should be less than all the values in the right subtree of the node. This condition is applied on all the nodes in the so converted Min Heap.
+## Extra Problem
 
-![Screenshot 2020-01-17 at 5 48 04 PM](https://user-images.githubusercontent.com/35702912/72612030-9bf6d300-3951-11ea-8039-5e659a115a69.png)
+**Q- Given a complete binary tree with N nodes and each node have an distinct integer ai attached with it, find the minimum number of swaps you can make to convert the binary tree into binary search tree. In one swap, you can select any two nodes and swap their values.
+You will be given the array representation of the binary tree. Root of the tree will be at a<sub>1</sub>. Left child of root will be at a<sub>2</sub> and right child of root will be at a<sub>3</sub>. Left child of node at array position k will be at a<sub>2k</sub> and right child of node at array position k will be at a<sub>2k+1</sub>.**
 
-_Min Heap_
+https://www.hackerearth.com/practice/data-structures/trees/binary-search-tree/practice-problems/algorithm/little-monk-and-swaps/editorial/
 
-All the nodes in the Min Heap satisfies the given condition, that is, values in the left subtree of a node should be less than the values in the right subtree of the node. 
 
 
