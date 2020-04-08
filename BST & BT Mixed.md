@@ -1,7 +1,42 @@
 
 ### BST AND BT MIXED
 
+**Find Path from root to any node**
 
+```java
+
+public static boolean hasPath(Node root, ArrayList<Integer> arr, int x)  
+    {  
+        // if root is NULL  
+        // there is no path  
+        if (root==null)  
+            return false;  
+        
+        // push the node's value in 'arr'  
+        arr.add(root.data);      
+        
+        // if it is the required node  
+        // return true  
+        if (root.data == x)      
+            return true;  
+        
+        // else check whether the required node lies  
+        // in the left subtree or right subtree of   
+        // the current node  
+        if (hasPath(root.left, arr, x) ||  
+            hasPath(root.right, arr, x))  
+            return true;  
+        
+        // required node does not lie either in the   
+        // left or right subtree of the current node  
+        // Thus, remove current node's value from   
+        // 'arr'and then return false      
+        arr.remove(arr.size()-1);  
+        return false;              
+    }  
+
+
+```
 **Q1- Lowest Common Ancestor**
 
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
@@ -17,6 +52,7 @@ Traversal both of the paths till the time path is same. The moment we come acros
 _Approach 2:_
 
 Using backtracking
+
 ```java
 private TreeNode ans;
 
@@ -52,15 +88,20 @@ private TreeNode ans;
     }
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // Traverse the tree
+        
+	// Traverse the tree
         this.recurseTree(root, p, q);
         return this.ans;
     }
 ```
+**Lowest Common Ancestor of a Binary Search Tree**
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 
 **Q2- Given a BT, and two nodes, tell the distance between the two nodes.**
 
 Approach 1: Using LCA
+
 ```
   Dist(n1, n2) = Dist(root, n1) + Dist(root, n2) - 2*Dist(root, lca) 
   'n1' and 'n2' are the two given keys
@@ -81,14 +122,15 @@ Time Complexity: O(n)
 Space Complexity: O(n)
 
 
-
 **Q2- Invert Binary Tree**
 
 ```java
 	public TreeNode invertTree(TreeNode root) {
-        if(root == null){
+        
+	if(root == null){
             return null;   
         }
+	
         TreeNode left = invertTree(root.left);
         TreeNode right = invertTree(root.right);
         
@@ -305,8 +347,6 @@ public List<Integer> closestKValues(TreeNode root, double target, int k) {
 Time Complexity: O(n)
 
 Space Complexity: O(n)
-
-
 
 **Q9- Path Sum**
 
