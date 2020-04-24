@@ -164,3 +164,9 @@ So, minimum count of numbers is 3 (i.e. 1,1,2).
 Note:
 
 1 ≤ N ≤ 10^5
+
+**Must Try: **
+- UVA 00357
+- https://codeforces.com/problemset/problem/1114/D
+- https://www.codechef.com/INOIPRAC/problems/INOI1301
+- https://www.codechef.com/ZCOPRAC/problems/ZCO14002
