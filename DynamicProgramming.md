@@ -9,6 +9,7 @@ Q- What is iverlapping subproblem?
 Ans: If the number of unique states of a problem is less than the total number of states then the problem is said to have overlapping subproblem
 
 -> Discuss element of choice
+-> TC - No of uniq states * time it takes to solve one state
 
 **Q: Discuss Fibonacci problem.**
 
