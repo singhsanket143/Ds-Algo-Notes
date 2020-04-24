@@ -1,13 +1,3 @@
-- Disadvantages of Array
-                -  Store the height of all students.
-                - Fixed Length
-- Structure of Node
-                - Head node
-- Comparision of Array and Linkedlist
-                - Contiguous Memory Allocation
-                - Time Complexities
-                - Searching - O(n)
-- Explain a the previous example again
 
 # Linked List
 
@@ -56,196 +46,203 @@ Just iterate from head till n iterations
 
 **Q1 - Find the value of nth node from last**
 
+*Approach 1*
+(Use length of linked list)
+1) Calculate the length of Linked List. Let the length be len.
+2) Print the (len – n + 1)th node from the beginning of the Linked List.
+
+*Can we do it in single iteration?*
+
+Double pointer concept : First pointer is used to store the address of the variable and second pointer used to store the address of the first pointer. If we wish to change the value of a variable by a function, we pass pointer to it. And if we wish to change value of a pointer (i. e., it should start pointing to something else), we pass pointer to a pointer.
 One approach is to find length of LL as L, then . go to L - n + 1 th node
 
-Can we do it in single iteration?
-Take two pointers, move one pointer with n distance and then increment both by 1
-We need to get something from last, if we look from behind, explain using displacement theory
 
 **Q- Reverse the LinkedList**
 
-  - Discuss all four approaches
-    
-  _Pointer Iteratively_
-    
-```java
-    
-    public ListNode reverseList(ListNode head) {
-   
-        ListNode temp = head;
-        ListNode prev = null;
-        
-        while(temp != null){
-            ListNode fast = temp.next;
-            temp.next = prev;
-            prev = temp;
-            temp = fast;
-        } 
-        return prev;
-    }
+**Iteratively**
+
+ ```java
+ 
+Initialize three pointers prev as NULL, curr as head and next as NULL.
+Iterate trough the linked list. In loop, do following.
+
+// Before changing next of current,
+// store next node
+next = curr->next
+
+// Now change next of current
+// This is where actual reversing happens
+curr->next = prev
+
+// Move prev and curr one step forward
+prev = curr
+curr = next
+
 ```
-   _Data Iteratively_
-    
-```java
-   public Node reverseList(ListNode head) {
 
-		if (this.size == 0) {
-			throw new Exception("LL is empty");
-		}
+**Recursively**
 
-		for (int i = 0; i < this.size / 2; i++) { // O(n/2)
+![Screenshot 2020-04-24 at 7 12 00 PM](https://user-images.githubusercontent.com/35702912/80218963-846d6b80-865f-11ea-9744-92bb588334d0.png)
 
-			Node n1 = getNodeAt(i); // O(n)
-			Node n2 = getNodeAt(this.size - i - 1);
+```cpp
 
-			int temp = n1.data; // swap
-			n1.data = n2.data;
-			n2.data = temp;
-
-		}
-
-	}
+Node* reverse(Node* head) 
+    { 
+        if (head == NULL || head->next == NULL) 
+            return head; 
+  
+        /* reverse the rest list and put  
+          the first element at the end */
+        Node* rest = reverse(head->next); 
+        head->next->next = head; 
+  
+        /* tricky step -- see the diagram */
+        head->next = NULL; 
+  
+        /* fix the head pointer */
+        return rest; 
+    } 
 ```
-    
-  _Pointer Recursively_
-   
-```java
-    public void Reverse_PR() throws Exception {
 
-		if (this.size == 0) {
-			throw new Exception("LL is empty");
-		}
-
-		RPH(this.head, this.head.next);
-
-		Node temp = this.head; // swap tail and head
-		this.head = this.tail;
-		this.tail = temp;
-		this.tail.next = null;
-
-	}
-
-	private void RPH(Node prev, Node curr) {
-
-		if (curr == null) { // base case
-			return;
-		}
-
-		RPH(prev.next, curr.next);
-		curr.next = prev;
-
-	}
-    
-```
-   _Data Recursively_
-```java
-    public void Reverse_RD() throws Exception {
-
-		if (this.size == 0) {
-			throw new Exception("LL is empty");
-		}
-
-		Heapmover left = new Heapmover();
-		left.node = this.head;
-
-		RDH(left, this.head, 0);
-
-	}
-
-	public void RDH(Heapmover left, Node right, int count) {
-
-		if (right == null) {
-			return;
-		}
-
-		RDH(left, right.next, count + 1);
-
-		if (count >= this.size / 2) {
-
-			int temp = left.node.data; // swapping of data
-			left.node.data = right.data;
-			right.data = temp;
-		}
-
-		left.node = left.node.next;
-
-	}
-    
-```
 **Q2- K Reverse**
+
+https://leetcode.com/problems/reverse-nodes-in-k-group/solution/
+
+**Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.**
+
+**k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.
+**
+
 ```java
-public void kreverse(int k, Node head) throws Exception {
-
-		LinkedList prev = null;
-		LinkedList curr = null;
-
-		while (this.size != 0) {
-
-			curr = new LinkedList();
-			for (int i = 1; i <= k; i++) {
-				curr.addFirst(this.removeFirst());
-			}
-			if (prev == null) {
-				prev = curr;
-			} else {
-				prev.tail.next = curr.head;
-				prev.tail = curr.tail;
-				prev.size = prev.size + curr.size;
-			}
-		}
-		this.head = prev.head;
-		this.tail = prev.tail;
-		this.size = prev.size;
-	}
+class Solution {
+    
+    public ListNode reverseLinkedList(ListNode head, int k) {
+        
+        // Reverse k nodes of the given linked list.
+        // This function assumes that the list contains 
+        // atleast k nodes.
+        ListNode new_head = null;
+        ListNode ptr = head;
+        
+        while (k > 0) {
+            
+            // Keep track of the next node to process in the
+            // original list
+            ListNode next_node = ptr.next;
+            
+            // Insert the node pointed to by "ptr"
+            // at the beginning of the reversed list
+            ptr.next = new_head;
+            new_head = ptr;
+            
+            // Move on to the next node
+            ptr = next_node;
+            
+            // Decrement the count of nodes to be reversed by 1
+            k--;
+        }
+            
+            
+        // Return the head of the reversed list
+        return new_head;
+    
+    }
+            
+    public ListNode reverseKGroup(ListNode head, int k) {
+        
+        int count = 0;
+        ListNode ptr = head;
+        
+        // First, see if there are atleast k nodes
+        // left in the linked list.
+        while (count < k && ptr != null) {
+            ptr = ptr.next;
+            count++;
+        }
+            
+        
+        // If we have k nodes, then we reverse them
+        if (count == k) {
+            
+            // Reverse the first k nodes of the list and
+            // get the reversed list's head.
+            ListNode reversedHead = this.reverseLinkedList(head, k);
+            
+            // Now recurse on the remaining linked list. Since
+            // our recursion returns the head of the overall processed
+            // list, we use that and the "original" head of the "k" nodes
+            // to re-wire the connections.
+            head.next = this.reverseKGroup(ptr, k);
+            return reversedHead;
+        }
+            
+        return head;
+    }
+}
 ```
-
 
 
 
 **Q3 - Given a singly linked list  _L_:  _L_0→_L_1→…→_L__n_-1→_L_n,  
 reorder it to:  _L_0→_L__n_→_L_1→_L__n_-1→_L_2→_L__n_-2→… 
 You may not  modify the values in the list's nodes, only nodes itself may be changed.**
-```java
-class Solution {  
-    public class Heapmover {
-		ListNode node;
-	}
-    public void reorderList(ListNode head) {   
-        Heapmover left = new Heapmover();
-		left.node = head;
-        int count = 0;
-        ListNode temp = head;
-        while(temp != null){
-            temp = temp.next;
-            count++;
-        }
-		this.fold(left, head, 0, count);   
-    }
-	public void fold(Heapmover left, ListNode right, int counter, int size) {
-		if (right == null) {
-			return;
-		}
-		fold(left, right.next, counter + 1, size);
-		if (counter > size / 2) {
-			ListNode temp = left.node.next;
-			left.node.next = right;
-			right.next = temp;
-			left.node = temp;
-		}
-		if (counter == size / 2) {	
-			right.next = null;
-		}
-	}
-}
-```
-- Approach 2 -> 
+
+https://leetcode.com/problems/reorder-list/solution/
+
+
+- Approach -> 
 1) Find middle of LL
 2) Reverse the half after middle
 3) Start reordering one by one
 
+```java
+class Solution {
+  public void reorderList(ListNode head) {
+    if (head == null) return;
+
+    // find the middle of linked list [Problem 876]
+    // in 1->2->3->4->5->6 find 4 
+    ListNode slow = head, fast = head;
+    while (fast != null && fast.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+
+    // reverse the second part of the list [Problem 206]
+    // convert 1->2->3->4->5->6 into 1->2->3->4 and 6->5->4
+    // reverse the second half in-place
+    ListNode prev = null, curr = slow, tmp;
+    while (curr != null) {
+      tmp = curr.next;
+
+      curr.next = prev;
+      prev = curr;
+      curr = tmp;
+    }
+
+    // merge two sorted linked lists [Problem 21]
+    // merge 1->2->3->4 and 6->5->4 into 1->6->2->5->3->4
+    ListNode first = head, second = prev;
+    while (second.next != null) {
+      tmp = first.next;
+      first.next = second;
+      first = tmp;
+
+      tmp = second.next;
+      second.next = first;
+      second = tmp;
+    }
+  }
+}
+```
+
 **Q4- Copy List**
 
 https://leetcode.com/problems/copy-list-with-random-pointer/
+
+**A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.**
+
+**Return a deep copy of the list.**
 
 ## Homework Problems
 
